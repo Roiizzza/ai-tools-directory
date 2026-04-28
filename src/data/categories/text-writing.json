@@ -1,0 +1,160 @@
+{
+  "category": {
+    "name": "Text & Schreiben",
+    "slug": "text-writing",
+    "emoji": "✍️",
+    "description": "KI-Assistenten für Texterstellung, Zusammenfassungen und kreatives Schreiben."
+  },
+  "tools": [
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "tagline": "Der vielseitigste KI-Assistent auf dem Markt",
+      "description": "OpenAIs Flaggschiff nutzt GPT-5.4 mit 1-Millionen-Token-Kontextfenster. Integriert Text, Bilder, Voice-Mode, Code-Ausführung und Custom GPTs in einer Oberfläche.",
+      "logo_url": "https://logo.clearbit.com/openai.com",
+      "website": "https://chat.openai.com",
+      "strengths": [
+        "Breiteste Funktionspalette aller Assistenten (Text, Bild, Voice, Code)",
+        "1M-Token-Kontextfenster verarbeitet sehr lange Dokumente",
+        "Riesiges GPT-Store-Ökosystem mit tausenden Spezialisierungen",
+        "Voice-Mode für natürliche Sprachgespräche ausgereift"
+      ],
+      "weaknesses": [
+        "Nicht immer die beste Qualität in Spezialdomänen (Coding, Recherche)",
+        "Datenschutz: Training auf Nutzerdaten ist Standard (opt-out möglich)",
+        "Kosten summieren sich bei mehreren Abos schnell"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 20,
+        "currency": "USD",
+        "price_note": "Plus $20/Mo, Pro $200/Mo, Team $30/Mo"
+      },
+      "tags": ["Chat", "Schreiben", "Code", "Bilder", "Voice", "API"],
+      "is_open_source": false,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "tagline": "Stark bei langem Kontext, Reasoning und präzisem Schreiben",
+      "description": "Anthropics Assistent mit Sonnet 4.6 und Opus 4.6. Herausragend bei langen Dokumenten (200K Token), tiefem Reasoning und nuanciertem Schreiben ohne typischen KI-Stil. Claude Code als CLI-Tool verfügbar.",
+      "logo_url": "https://logo.clearbit.com/anthropic.com",
+      "website": "https://claude.ai",
+      "strengths": [
+        "Bestes Reasoning und Nuancen-Verständnis unter den Top-Assistenten",
+        "200K-Token-Kontext für sehr lange Dokumente und Codebasen",
+        "Schreibstil klingt am wenigsten nach KI — ideal für Drafts",
+        "Claude Code für Entwickler: codebase-weites Reasoning im Terminal"
+      ],
+      "weaknesses": [
+        "Kein nativer Image-Generator, kein Voice-Mode",
+        "Kein eigenes Suchindex (kein Live-Web-Zugriff ohne Tools)",
+        "Weniger App-Integrationen als ChatGPT"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 20,
+        "currency": "USD",
+        "price_note": "Pro $20/Mo, Max $100/Mo"
+      },
+      "tags": ["Chat", "Schreiben", "Reasoning", "Code", "Dokumente", "API"],
+      "is_open_source": false,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini",
+      "tagline": "Beste Google-Workspace-Integration unter allen Assistenten",
+      "description": "Googles Gemini 3.1 Pro ist tief in Gmail, Docs, Sheets und Drive integriert. Starke Multimodalität und Echtzeit-Websuche. Für Google-Workspace-Nutzer derzeit kaum zu schlagen.",
+      "logo_url": "https://logo.clearbit.com/google.com",
+      "website": "https://gemini.google.com",
+      "strengths": [
+        "Native Integration in Gmail, Docs, Drive, Sheets — kein Kopieren nötig",
+        "Echtzeit-Websuche mit zitierten Quellen",
+        "Starke Multimodalität: Bild, Video, Audio in einem",
+        "Kostenloses Tier sehr großzügig"
+      ],
+      "weaknesses": [
+        "Schreibqualität bei kreativen Texten hinter Claude und ChatGPT",
+        "Datenschutz: Google-Daten fließen in das Training ein",
+        "Stark abhängig vom Google-Ökosystem — außerhalb schwächer"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 22,
+        "currency": "USD",
+        "price_note": "Advanced $22/Mo (Gemini 3.1 Ultra)"
+      },
+      "tags": ["Chat", "Google", "Workspace", "Suche", "Multimodal"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "mistral-le-chat",
+      "name": "Le Chat",
+      "tagline": "Stärkstes kostenloses Tier unter den großen KI-Assistenten",
+      "description": "Mistrals öffentlicher Assistent auf Basis der Mistral-Large-Modelle. Das kostenlose Tier bietet mehr Leistung als die meisten Konkurrenten und ist DSGVO-konform in Europa gehostet.",
+      "logo_url": "https://logo.clearbit.com/mistral.ai",
+      "website": "https://chat.mistral.ai",
+      "strengths": [
+        "Kostenloses Tier mit sehr hoher Modellqualität (Mistral Large)",
+        "DSGVO-konform, europäischer Anbieter — kein Training auf Nutzerdaten",
+        "Schnelle Antwortzeiten, kaum Rate-Limits im Free-Tier",
+        "Stark bei Mehrsprachigkeit und europäischen Sprachen"
+      ],
+      "weaknesses": [
+        "Kein nativer Web-Zugriff im kostenlosen Plan",
+        "Kleineres Ökosystem (keine Plugins/Store wie ChatGPT)",
+        "Bilder, Voice, Code-Interpreter nur im bezahlten Plan"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 14,
+        "currency": "USD",
+        "price_note": "Pro $14/Mo"
+      },
+      "tags": ["Chat", "Europa", "DSGVO", "Mehrsprachig", "Kostenlos"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "grok",
+      "name": "Grok 3",
+      "tagline": "X-integrierter Assistent mit weniger Einschränkungen",
+      "description": "xAIs Grok 3 auf Basis Colossus-Cluster. Native X/Twitter-Integration für Echtzeit-News und Trends. Weniger inhaltsrestriktiv als Konkurrenten, was manche Nutzungsfälle erleichtert.",
+      "logo_url": "https://logo.clearbit.com/x.ai",
+      "website": "https://grok.com",
+      "strengths": [
+        "Echtzeit-Zugriff auf X/Twitter-Daten und aktuelle Trends",
+        "Weniger Inhaltsfilter bei kontroversen Themen",
+        "Schnelle Antworten dank massivem Colossus-Rechencluster",
+        "DeepSearch-Modus für längere Recherchen"
+      ],
+      "weaknesses": [
+        "Erfordert X Premium-Abo für vollen Zugriff",
+        "Qualitätsschwankungen bei komplexem Reasoning",
+        "Enger Datenschutz nur bei X-Plattform"
+      ],
+      "pricing": {
+        "model": "paid",
+        "free_tier": false,
+        "starting_price": 8,
+        "currency": "USD",
+        "price_note": "Erfordert X Premium ($8/Mo)"
+      },
+      "tags": ["Chat", "X", "Twitter", "News", "Recherche"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    }
+  ]
+}

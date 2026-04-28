@@ -1,0 +1,158 @@
+{
+  "category": {
+    "name": "Daten & Analytik",
+    "slug": "data-analytics",
+    "emoji": "📊",
+    "description": "KI-Tools zur Datenanalyse, Visualisierung und Wissensorganisation."
+  },
+  "tools": [
+    {
+      "id": "julius-ai",
+      "name": "Julius AI",
+      "tagline": "Datenanalyse per natürlicher Sprache — CSV und Excel einfach",
+      "description": "Julius AI ermöglicht Datenanalyse ohne SQL oder Python. CSV/Excel hochladen, Fragen in natürlicher Sprache stellen, Visualisierungen erhalten. Ideal für Analysten ohne Programmierkenntnisse.",
+      "logo_url": "https://logo.clearbit.com/julius.ai",
+      "website": "https://julius.ai",
+      "strengths": [
+        "CSV/Excel-Upload und Analyse per Chat-Fragen",
+        "Automatische Visualisierungen und Diagramme",
+        "Kein SQL oder Python nötig — für Business-Analysten",
+        "Erklärt seine Analyseschritte transparent"
+      ],
+      "weaknesses": [
+        "Bei sehr großen Datasets (>1M Zeilen) Performance-Einbrüche",
+        "Keine direkte Datenbankverbindung (kein Live-Zugriff)",
+        "Komplexe statistische Methoden weniger zuverlässig"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 25,
+        "currency": "USD",
+        "price_note": "Pro $25/Mo"
+      },
+      "tags": ["Daten", "CSV", "Excel", "Analyse", "Visualisierung", "No-Code"],
+      "is_open_source": false,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "notebooklm",
+      "name": "NotebookLM",
+      "tagline": "Kostenlos, 100 Notebooks, eigene Quellen — Audio-Übersicht inklusive",
+      "description": "Googles NotebookLM verarbeitet eigene Dokumente (PDFs, Websites, YouTube) und ermöglicht intelligentes Q&A über die eigenen Quellen. Audio Overview generiert Podcast-ähnliche Zusammenfassungen.",
+      "logo_url": "https://logo.clearbit.com/notebooklm.google.com",
+      "website": "https://notebooklm.google.com",
+      "strengths": [
+        "Komplett kostenlos — bis 100 Notebooks, 50 Quellen pro Notebook",
+        "Audio Overview: KI-generierter Podcast über deine Inhalte",
+        "Verarbeitet PDFs, YouTube, Websites, Google Docs",
+        "Antworten mit direkten Quellenreferenzen — kein Halluzinieren"
+      ],
+      "weaknesses": [
+        "Kein Web-Crawling — nur eigene hochgeladene Quellen",
+        "Kein Daten-Export in strukturiertes Format",
+        "Analyse-Tiefe bei sehr langen Dokumentensätzen limitiert"
+      ],
+      "pricing": {
+        "model": "free",
+        "free_tier": true,
+        "price_note": "Komplett kostenlos via Google"
+      },
+      "tags": ["Wissen", "Dokumente", "PDF", "Audio", "Recherche", "Google"],
+      "is_open_source": false,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "perplexity-research",
+      "name": "Perplexity",
+      "tagline": "KI-Suche mit Deep Research — werbefrei seit 2026",
+      "description": "Perplexity ist seit Februar 2026 komplett werbefrei (Subscription-Modell). Deep Research Modus analysiert hunderte Quellen für umfangreiche Berichte. Perplexity Computer für Multi-Agenten-Aufgaben.",
+      "logo_url": "https://logo.clearbit.com/perplexity.ai",
+      "website": "https://perplexity.ai",
+      "strengths": [
+        "Werbefrei seit Feb 2026 — keine gesponserten Ergebnisse",
+        "Deep Research: hunderte Quellen für strukturierte Berichte",
+        "Echtzeit-Web mit zitierten, verlinkten Quellen",
+        "Perplexity Computer für autonome Multi-Agenten-Recherche"
+      ],
+      "weaknesses": [
+        "Deep Research erfordert Pro-Plan",
+        "Quellen-Qualität variiert — Wikipedia-Bias bei Nischen-Themen",
+        "Teurer als einfache Suchmaschinen für Casual-Nutzung"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 20,
+        "currency": "USD",
+        "price_note": "Pro $20/Mo"
+      },
+      "tags": ["Suche", "Research", "Quellen", "Werbefrei", "Agenten"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "notion-ai",
+      "name": "Notion AI",
+      "tagline": "Beste KI-Integration in ein Workspace-Tool",
+      "description": "Notion AI ist die tiefste KI-Integration in einem Produktivitäts-Workspace. Zusammenfassungen, Drafts, Datenbank-Queries und Meeting-Notizen direkt im Notion-Workspace — ohne App-Wechsel.",
+      "logo_url": "https://logo.clearbit.com/notion.so",
+      "website": "https://notion.so",
+      "strengths": [
+        "Nahtlose KI direkt in Notion-Seiten, Datenbanken und Meetings",
+        "Q&A über den gesamten Workspace — findet relevante Infos",
+        "Kein Tool-Wechsel — KI wo die Arbeit stattfindet",
+        "Meeting-Transkription und automatische Zusammenfassung"
+      ],
+      "weaknesses": [
+        "Nur nützlich wenn bereits Notion genutzt wird",
+        "KI-Features kosten extra ($10/Mo on top von Notion-Plan)",
+        "Nicht geeignet für externe Datenquellen außerhalb Notion"
+      ],
+      "pricing": {
+        "model": "paid",
+        "free_tier": false,
+        "starting_price": 10,
+        "currency": "USD",
+        "price_note": "AI Add-on $10/Mo zusätzlich zum Notion-Plan"
+      },
+      "tags": ["Workspace", "Notizen", "Datenbank", "Meetings", "Produktivität"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "obviously-ai",
+      "name": "Obviously AI",
+      "tagline": "No-Code-Predictions auf Geschäftsdaten — kein Data Scientist nötig",
+      "description": "Obviously AI ermöglicht Predictive Analytics ohne Machine-Learning-Kenntnisse. CSV hochladen, Ziel-Variable wählen, Vorhersage-Modell in Minuten erhalten. Für Sales, Churn, Inventar-Prognosen.",
+      "logo_url": "https://logo.clearbit.com/obviously.ai",
+      "website": "https://obviously.ai",
+      "strengths": [
+        "Predictive Models in Minuten — kein Data Scientist nötig",
+        "Erklärt Vorhersagen in einfacher Sprache (SHAP-Features)",
+        "Direkte Integration in Salesforce, HubSpot, Google Sheets",
+        "Gut für Sales-Forecasting, Churn-Prediction, Inventar"
+      ],
+      "weaknesses": [
+        "Black-Box bei komplexen benutzerdefinierten Modellen",
+        "Teuer für kleine Teams und Startups",
+        "Limitierte Modell-Anpassung für erfahrene Data Scientists"
+      ],
+      "pricing": {
+        "model": "paid",
+        "free_tier": false,
+        "starting_price": 75,
+        "currency": "USD",
+        "price_note": "Starter $75/Mo"
+      },
+      "tags": ["Prediction", "ML", "No-Code", "Sales", "Churn", "Business"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    }
+  ]
+}

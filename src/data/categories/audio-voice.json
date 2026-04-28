@@ -1,0 +1,159 @@
+{
+  "category": {
+    "name": "Audio & Voice",
+    "slug": "audio-voice",
+    "emoji": "🎵",
+    "description": "KI-Tools für Sprachsynthese, Musikgenerierung und Audio-Bearbeitung."
+  },
+  "tools": [
+    {
+      "id": "elevenlabs",
+      "name": "ElevenLabs",
+      "tagline": "Marktführer bei KI-Stimmen — jetzt mit KI-Musik",
+      "description": "ElevenLabs ($11 Mrd. Bewertung, April 2026) ist der Standard für realistische KI-Stimmen. Klonen eigener Stimmen, 30+ Sprachen, Echtzeit-Konvertierung. Neues ElevenMusic-Produkt für kommerziell lizenzierte KI-Musik.",
+      "logo_url": "https://logo.clearbit.com/elevenlabs.io",
+      "website": "https://elevenlabs.io",
+      "strengths": [
+        "Realistischste KI-Stimmen — Branchenstandard für Audiobooks/Podcasts",
+        "Stimmen-Klonen mit 1-Minuten-Sample",
+        "ElevenMusic: kommerziell lizenzierte Musik ohne Copyright-Risiko",
+        "Echtzeit-Stimm-Konvertierung für Live-Anwendungen"
+      ],
+      "weaknesses": [
+        "Teuer bei hohem Volumen (Zeichenbasiertes Pricing)",
+        "Stimmen-Kloning wirft ethische Fragen — strenge ToS erforderlich",
+        "Musik-Feature noch in früher Phase gegenüber Suno"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 5,
+        "currency": "USD",
+        "price_note": "Starter $5/Mo, Creator $22/Mo, Pro $99/Mo"
+      },
+      "tags": ["Voice", "TTS", "Klonen", "Podcast", "Musik", "API"],
+      "is_open_source": false,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "suno",
+      "name": "Suno v5",
+      "tagline": "Qualitätsführer bei KI-Musik mit 300 Mio. $ ARR",
+      "description": "Suno v5 ist der Qualitätsführer bei KI-Musik-Generierung (ELO-Score 1293, April 2026). 300 Mio. $ ARR. Generiert vollständige Songs mit Gesang, Instrumentierung und Mixing in Sekunden.",
+      "logo_url": "https://logo.clearbit.com/suno.com",
+      "website": "https://suno.com",
+      "strengths": [
+        "Beste Gesamtqualität bei KI-Musik (ELO-Score 1293)",
+        "Vollständige Songs in Sekunden — Gesang, Mix, Mastering inklusive",
+        "Breite Genreabdeckung von Pop bis Metal",
+        "RIAA-Vergleich 2025 — rechtlich klarer als vor 2025"
+      ],
+      "weaknesses": [
+        "RIAA-Verfahren 2024 hinterlässt Unsicherheit für kommerzielle Nutzung",
+        "Für kommerzielle Projekte ElevenMusic bevorzugen",
+        "Wenig Kontrolle über Arrangement-Details",
+        "Teilen außerhalb der Plattform eingeschränkt (Free-Plan)"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 10,
+        "currency": "USD",
+        "price_note": "Pro $10/Mo, Premier $30/Mo"
+      },
+      "tags": ["Musik", "Songs", "Generierung", "Gesang", "Genre"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "udio",
+      "name": "Udio",
+      "tagline": "Spezialist für Jazz, Orchestral und Ambient-Musik",
+      "description": "Udio glänzt bei komplexen Genres wie Jazz, Orchestral und Ambient — Bereiche, wo Suno schwächelt. Stärkeres Verständnis von Musiktheorie und Arrangement. Einschränkungen beim Teilen außerhalb der Plattform beachten.",
+      "logo_url": "https://logo.clearbit.com/udio.com",
+      "website": "https://udio.com",
+      "strengths": [
+        "Bester Generator für Jazz, Orchestral, Klassik und Ambient",
+        "Tieferes Verständnis von Musiktheorie und Harmonie",
+        "Mehr Kontrolle über Tempo, Key und Arrangement",
+        "Höhere Audio-Qualität bei instrumentalen Tracks"
+      ],
+      "weaknesses": [
+        "Sharing außerhalb der Plattform eingeschränkt (Free-Plan)",
+        "RIAA-Verfahren-Hintergrund — kommerzielle Nutzung prüfen",
+        "Weniger Popularität und Community als Suno"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 10,
+        "currency": "USD",
+        "price_note": "Standard $10/Mo, Pro $30/Mo"
+      },
+      "tags": ["Musik", "Jazz", "Orchestral", "Ambient", "Instrumental"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "google-lyria",
+      "name": "Google Lyria 3",
+      "tagline": "Real-Time-Instrumental-Streaming via WebSocket — API-freundlich",
+      "description": "Google Lyria 3 ermöglicht einzigartiges Real-Time-Instrumental-Streaming über WebSocket — ideal für Spieleentwicklung und interaktive Anwendungen. API-first Design für Entwickler.",
+      "logo_url": "https://logo.clearbit.com/google.com",
+      "website": "https://deepmind.google/technologies/lyria",
+      "strengths": [
+        "Einzigartiges Real-Time-Streaming von Musik via WebSocket",
+        "Ideal für Spieleentwicklung und dynamische Audio-Szenarien",
+        "Starkes API-First-Design für Entwickler",
+        "Googles Infrastruktur: niedrige Latenz, hohe Verfügbarkeit"
+      ],
+      "weaknesses": [
+        "Kein eigenständiges Consumer-Produkt — nur für Entwickler",
+        "Begrenzte Genre-Kreativität verglichen mit Suno/Udio",
+        "Komplexe Einrichtung ohne Google-Cloud-Erfahrung"
+      ],
+      "pricing": {
+        "model": "paid",
+        "free_tier": false,
+        "price_note": "Via Google Cloud / Vertex AI"
+      },
+      "tags": ["Musik", "API", "Real-Time", "Streaming", "Spiele", "Google"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "adobe-podcast",
+      "name": "Adobe Podcast",
+      "tagline": "Beste Audio-Bereinigung — Pflicht für Podcast-Produzenten",
+      "description": "Adobe Podcast (Enhance Speech) entfernt Hintergrundgeräusche, Raumhall und Qualitätsmängel aus Audioaufnahmen mit einem Klick. Tief in Adobe-Creative-Cloud integriert.",
+      "logo_url": "https://logo.clearbit.com/adobe.com",
+      "website": "https://podcast.adobe.com",
+      "strengths": [
+        "Unübertroffene Audio-Bereinigung — Studio-Qualität aus schlechten Aufnahmen",
+        "Ein-Klick-Enhance ohne manuelle Einstellungen",
+        "Native Integration in Adobe Premiere, Audition und Creative Cloud",
+        "Kostenloses Enhance-Feature für Einzelaufnahmen"
+      ],
+      "weaknesses": [
+        "Nur Bearbeitung — keine Musikgenerierung oder TTS",
+        "Voller Funktionsumfang erfordert Adobe-Creative-Cloud-Abo",
+        "Stark auf Adobe-Ökosystem beschränkt"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 5,
+        "currency": "USD",
+        "price_note": "Enhance kostenlos, voll in CC enthalten"
+      },
+      "tags": ["Audio", "Podcast", "Bereinigung", "Adobe", "Editing"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "category": {
+    "name": "Suche & Recherche",
+    "slug": "search-research",
+    "emoji": "🔎",
+    "description": "KI-Suchmaschinen und Recherche-Tools für präzise, quellenbasierte Antworten."
+  },
+  "tools": [
+    {
+      "id": "perplexity",
+      "name": "Perplexity",
+      "tagline": "Die beste KI-Suchmaschine — werbefrei und quellenbasiert",
+      "description": "Perplexity ist seit Februar 2026 komplett werbefrei. Keine gesponserten Ergebnisse, nur relevante Antworten mit zitierten Quellen. Deep Research für mehrseitige Analyseberichte in Minuten.",
+      "logo_url": "https://logo.clearbit.com/perplexity.ai",
+      "website": "https://perplexity.ai",
+      "strengths": [
+        "Werbefrei seit Feb 2026 — keine kommerziellen Verzerrungen",
+        "Jede Aussage mit Quellenlink — nachprüfbar",
+        "Deep Research: strukturierte Berichte mit hunderten Quellen",
+        "Perplexity Computer für autonome Recherche-Agenten"
+      ],
+      "weaknesses": [
+        "Deep Research nur im Pro-Plan ($20/Mo)",
+        "Qualität bei sehr spezifischen Nischen-Themen schwächer",
+        "Kein Zugriff auf Paywall-Inhalte trotz Zitations-Anzeige"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 20,
+        "currency": "USD",
+        "price_note": "Pro $20/Mo"
+      },
+      "tags": ["Suche", "Recherche", "Quellen", "Deep Research", "Werbefrei"],
+      "is_open_source": false,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "elicit",
+      "name": "Elicit",
+      "tagline": "Spezialist für wissenschaftliche Paper-Recherche",
+      "description": "Elicit ist das beste Tool für akademische Recherche. Durchsucht 125+ Millionen Paper, fasst Abstracts zusammen, extrahiert Daten aus Studien und hilft bei Literaturreviews. Von Forschern und Studierenden genutzt.",
+      "logo_url": "https://logo.clearbit.com/elicit.org",
+      "website": "https://elicit.org",
+      "strengths": [
+        "125+ Millionen wissenschaftliche Paper indexiert",
+        "Automatische Datenextraktion aus Studien-PDFs",
+        "Literaturreviews in Stunden statt Wochen",
+        "Halluziniert keine Quellen — alles verifizierbar"
+      ],
+      "weaknesses": [
+        "Nur für akademische/wissenschaftliche Recherche geeignet",
+        "Beschränkt auf Forschungsliteratur — kein Web-Crawling",
+        "Fortgeschrittene Features erfordern bezahlten Plan"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 12,
+        "currency": "USD",
+        "price_note": "Plus $12/Mo, Enterprise individuell"
+      },
+      "tags": ["Wissenschaft", "Paper", "Forschung", "Akademisch", "Literatur"],
+      "is_open_source": false,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "consensus",
+      "name": "Consensus",
+      "tagline": "KI-Suche in peer-reviewed Studien — Fakten mit Evidenz",
+      "description": "Consensus durchsucht nur peer-reviewed Studien und gibt an, wie viele Papers eine Aussage unterstützen oder widerlegen. Ideal zur Faktenchecks und evidenzbasierten Entscheidungen.",
+      "logo_url": "https://logo.clearbit.com/consensus.app",
+      "website": "https://consensus.app",
+      "strengths": [
+        "Zeigt Konsens unter Forschern — wie viele Papers sagen was",
+        "Nur peer-reviewed Quellen — keine Meinungen oder Blogs",
+        "Ideal für Faktenchecks und evidenzbasierte Recherche",
+        "Einfache Ja/Nein-Konsens-Übersicht für Nicht-Wissenschaftler"
+      ],
+      "weaknesses": [
+        "Kein Web-Crawling — nur Forschungsliteratur",
+        "Nicht geeignet für aktuelle News oder Business-Recherche",
+        "Ältere Papers können veraltetes Wissen enthalten"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 9,
+        "currency": "USD",
+        "price_note": "Premium $9/Mo"
+      },
+      "tags": ["Wissenschaft", "Fakten", "Peer-Review", "Evidenz", "Gesundheit"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "notebooklm-research",
+      "name": "NotebookLM",
+      "tagline": "Eigene Quellen als persönliche Wissensdatenbank",
+      "description": "NotebookLM von Google verarbeitet eigene hochgeladene Quellen (PDFs, YouTube, Docs) — kein Web-Crawling. Alle Antworten referenzieren nur die eigenen Dokumente. Ideal für Projekte mit kuratiertem Quellenmaterial.",
+      "logo_url": "https://logo.clearbit.com/notebooklm.google.com",
+      "website": "https://notebooklm.google.com",
+      "strengths": [
+        "Antworten halluzinieren nie — nur aus eigenen Quellen",
+        "Direkte Quellenreferenz mit Zitatnachweis in der Antwort",
+        "Audio Overview: Podcast-Zusammenfassung eigener Inhalte",
+        "Komplett kostenlos — bis 100 Notebooks"
+      ],
+      "weaknesses": [
+        "Kein Web-Zugriff — nur eigene hochgeladene Quellen",
+        "Kein Vergleich mit Außenwissen möglich",
+        "Bei sehr vielen Quellen wird Kontext fragmentiert"
+      ],
+      "pricing": {
+        "model": "free",
+        "free_tier": true,
+        "price_note": "Komplett kostenlos"
+      },
+      "tags": ["Dokumente", "PDF", "Quellen", "Wissen", "Google", "Kostenlos"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "youcom",
+      "name": "You.com",
+      "tagline": "Datenschutzfreundliche KI-Suche mit anpassbaren Modi",
+      "description": "You.com kombiniert KI-Antworten mit Web-Suche und bietet verschiedene Modi: Smart (schnell), Research (tief), Agent (autonom). Datenschutzfreundlicher als Google, keine personalisierte Werbung.",
+      "logo_url": "https://logo.clearbit.com/you.com",
+      "website": "https://you.com",
+      "strengths": [
+        "Datenschutzfreundlich — kein personalisiertes Tracking",
+        "Verschiedene Modi: Smart, Research, Agent je nach Bedarf",
+        "Gutes kostenloses Tier für tägliche Suche",
+        "Code-Modus für Entwickler-spezifische Suchen"
+      ],
+      "weaknesses": [
+        "Qualität der Antworten hinter Perplexity Pro",
+        "Weniger Popularität führt zu kleinerer Feedback-Schleife",
+        "Research-Modus weniger tiefgehend als Perplexity Deep Research"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 15,
+        "currency": "USD",
+        "price_note": "Pro $15/Mo"
+      },
+      "tags": ["Suche", "Datenschutz", "Research", "Agent", "Code"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    }
+  ]
+}

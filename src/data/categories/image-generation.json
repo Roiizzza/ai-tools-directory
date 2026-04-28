@@ -1,0 +1,160 @@
+{
+  "category": {
+    "name": "Bildgenerierung",
+    "slug": "image-generation",
+    "emoji": "🎨",
+    "description": "KI-Tools zur Generierung und Bearbeitung von Bildern aus Textbeschreibungen."
+  },
+  "tools": [
+    {
+      "id": "midjourney",
+      "name": "Midjourney",
+      "tagline": "Kunstästhetik auf Profi-Niveau — jetzt mit eigener Web-App",
+      "description": "Midjourney V8.1 (April 2026) ist der unangefochtene Standard für künstlerische Bildgenerierung. Seit 2026 mit eigener Web-App — kein Discord mehr nötig. Konsistente Charaktere über Prompts hinweg.",
+      "logo_url": "https://logo.clearbit.com/midjourney.com",
+      "website": "https://midjourney.com",
+      "strengths": [
+        "Beste künstlerische Ästhetik und Konsistenz aller Generatoren",
+        "Eigene Web-App seit 2026 — kein Discord mehr nötig",
+        "Charakterkonsistenz über mehrere Bilder hinweg (--cref)",
+        "Breiteste Community mit millionenfachen Style-Referenzen"
+      ],
+      "weaknesses": [
+        "Kein kostenloser Plan mehr verfügbar",
+        "Schwach bei realistischen Fotos vs. Flux 2 Pro",
+        "API-Zugang nur für höhere Pläne"
+      ],
+      "pricing": {
+        "model": "paid",
+        "free_tier": false,
+        "starting_price": 10,
+        "currency": "USD",
+        "price_note": "Basic $10/Mo, Standard $30/Mo, Pro $60/Mo"
+      },
+      "tags": ["Bilder", "Kunst", "Illustration", "Fotorealistisch", "API"],
+      "is_open_source": false,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "flux2pro",
+      "name": "Flux 2 Pro",
+      "tagline": "Goldstandard für fotorealistische KI-Bilder — Open Weight",
+      "description": "Black Forest Labs' Flux 2 Pro ist das leistungsstärkste Open-Weight-Modell für Fotorealismus. Selbst-hostbar, in Hunderten Tools integriert, keine Zensur-Einschränkungen bei sachlichen Inhalten.",
+      "logo_url": "https://logo.clearbit.com/blackforestlabs.ai",
+      "website": "https://blackforestlabs.ai",
+      "strengths": [
+        "Bester Fotorealismus aller verfügbaren Modelle",
+        "Open-Weight: selbst-hostbar ohne Vendor-Lock-in",
+        "In Hunderten Tools integriert (ComfyUI, Replicate, fal.ai)",
+        "Schnell und effizient für die gebotene Qualität"
+      ],
+      "weaknesses": [
+        "Direktes API-Pricing — teurer bei hohem Volumen als Abos",
+        "Künstlerische/illustrative Stile hinter Midjourney",
+        "Selbst-Hosting erfordert technisches Know-how und GPU"
+      ],
+      "pricing": {
+        "model": "paid",
+        "free_tier": false,
+        "starting_price": 0.05,
+        "currency": "USD",
+        "price_note": "Ab $0.05/Bild via API"
+      },
+      "tags": ["Bilder", "Fotorealistisch", "Open Source", "API", "Self-Hosted"],
+      "is_open_source": true,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "gpt-image",
+      "name": "GPT Image 1.5",
+      "tagline": "OpenAIs Bildgenerator direkt in ChatGPT integriert",
+      "description": "Nachfolger von DALL-E 3 (eingestellt). GPT Image 1.5 ist tief in ChatGPT integriert und versteht komplexe Prompts dank GPT-5.4-Reasoning. Stärker bei Bild-Editing und Inpainting als Vorgänger.",
+      "logo_url": "https://logo.clearbit.com/openai.com",
+      "website": "https://chat.openai.com",
+      "strengths": [
+        "Versteht komplexe, lange Prompts dank GPT-5.4-Integration",
+        "Starkes Inpainting und Bild-Editing in ChatGPT",
+        "Keine separate App nötig — direkt im Chat-Interface",
+        "Gut bei Text in Bildern (besser als Vorgänger)"
+      ],
+      "weaknesses": [
+        "Nur über ChatGPT zugänglich — kein eigenständiges Tool",
+        "Künstlerische Qualität unter Midjourney und Flux",
+        "Rate-Limits auch im Plus-Plan spürbar"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 20,
+        "currency": "USD",
+        "price_note": "Enthalten in ChatGPT Plus/Pro"
+      },
+      "tags": ["Bilder", "OpenAI", "ChatGPT", "Inpainting", "Text-in-Bild"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "ideogram",
+      "name": "Ideogram V3",
+      "tagline": "Marktführer bei Text in Bildern — unschlagbar für Typografie",
+      "description": "Ideogram V3 löst das jahrelange Problem der KI: lesbarer Text in Bildern. Ideal für Poster, Logos, Social-Media-Grafiken mit Schrift. Auch allgemeine Bildqualität deutlich verbessert.",
+      "logo_url": "https://logo.clearbit.com/ideogram.ai",
+      "website": "https://ideogram.ai",
+      "strengths": [
+        "Bester Text-in-Bild aller Generatoren — Typografie fehlerfrei",
+        "Ideal für Poster, Logos, Banner, Social-Grafiken",
+        "Großzügiges kostenloses Tier mit täglichem Kontingent",
+        "Schnelle Generation auch im Free-Plan"
+      ],
+      "weaknesses": [
+        "Fotorealismus schwächer als Flux und Midjourney",
+        "Weniger Stilvielfalt bei künstlerischen Prompts",
+        "API für Dritte erst seit kurzem verfügbar"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 8,
+        "currency": "USD",
+        "price_note": "Basic $8/Mo, Plus $20/Mo"
+      },
+      "tags": ["Bilder", "Typografie", "Text-in-Bild", "Logos", "Social Media"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "recraft",
+      "name": "Recraft V3",
+      "tagline": "Beste Wahl für Illustration, Icons und Vektor-Design",
+      "description": "Recraft V3 dominiert bei Illustrationen, Icon-Sets und konsistenten Design-Systemen. Einziger Generator mit echtem SVG-Output. Ideal für Designer, die konsistente Stile über viele Assets brauchen.",
+      "logo_url": "https://logo.clearbit.com/recraft.ai",
+      "website": "https://recraft.ai",
+      "strengths": [
+        "Einziger KI-Generator mit echtem SVG-Vektor-Output",
+        "Unschlagbar für Icon-Sets und konsistente Illustrationsstile",
+        "Style-Lock-Funktion für konsistente visuelle Identität",
+        "Kostenloses Tier mit fairen Limits für Designer"
+      ],
+      "weaknesses": [
+        "Fotorealismus und natürliche Szenen schwächer als Flux",
+        "Stärkere Lernkurve bei Style-Konfiguration",
+        "Limitiertes API-Ökosystem verglichen mit Flux"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 12,
+        "currency": "USD",
+        "price_note": "Pro $12/Mo, Team $24/Mo"
+      },
+      "tags": ["Bilder", "SVG", "Icons", "Illustration", "Vektor", "Design"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    }
+  ]
+}

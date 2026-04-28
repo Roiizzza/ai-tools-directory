@@ -1,0 +1,158 @@
+{
+  "category": {
+    "name": "Coding",
+    "slug": "coding",
+    "emoji": "💻",
+    "description": "KI-Tools für Softwareentwicklung, Code-Completion und autonome Code-Agenten."
+  },
+  "tools": [
+    {
+      "id": "cursor",
+      "name": "Cursor 3",
+      "tagline": "Der dominante KI-native Code-Editor mit $2 Mrd. ARR",
+      "description": "Cursor 3 ist 2026 der Standard für KI-gestützte Entwicklung. Agents Window ermöglicht parallele Aufgaben in mehreren Kontexten. Versteht die gesamte Codebase und nicht nur die offene Datei.",
+      "logo_url": "https://logo.clearbit.com/cursor.com",
+      "website": "https://cursor.com",
+      "strengths": [
+        "Agents Window für parallele KI-Aufgaben in mehreren Tabs",
+        "Versteht die gesamte Codebase — nicht nur die aktuelle Datei",
+        "$2 Mrd. ARR zeigt breite Akzeptanz in der Industrie",
+        "Schnelle Indexierung großer Monorepos"
+      ],
+      "weaknesses": [
+        "Teurer als GitHub Copilot bei Einzel-Entwicklern",
+        "Kein eigenständiger Terminal — bleibt Editor-gebunden",
+        "Datenschutz: Code wird an Cursor-Server gesendet (konfigurierbar)"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 20,
+        "currency": "USD",
+        "price_note": "Pro $20/Mo, Business $40/Mo"
+      },
+      "tags": ["IDE", "Code", "Autocomplete", "Agents", "Codebase"],
+      "is_open_source": false,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "github-copilot",
+      "name": "GitHub Copilot",
+      "tagline": "Bestes Preis-Leistungs-Verhältnis für VS-Code-Nutzer",
+      "description": "GitHub Copilot ist tief in VS Code, JetBrains und dem GitHub-Workflow integriert. Copilot Workspace erlaubt Issue-zu-PR-Automatisierung. Bei $10/Mo das günstigste Vollpaket.",
+      "logo_url": "https://logo.clearbit.com/github.com",
+      "website": "https://github.com/features/copilot",
+      "strengths": [
+        "Native VS Code und JetBrains Integration — kein Editor-Wechsel",
+        "Copilot Workspace: Issue zu Pull Request automatisiert",
+        "Günstigster vollständiger KI-Coding-Assistent ($10/Mo)",
+        "GitHub-Kontext: versteht Issues, PRs und Repository-Historie"
+      ],
+      "weaknesses": [
+        "Codebase-Verständnis schwächer als Cursor bei großen Projekten",
+        "Agents-Funktionen weniger ausgereift als Cursor 3",
+        "Stark an GitHub/Microsoft-Ökosystem gebunden"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 10,
+        "currency": "USD",
+        "price_note": "Individual $10/Mo, Business $19/Mo"
+      },
+      "tags": ["IDE", "VS Code", "JetBrains", "Code", "GitHub", "PR"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "claude-code",
+      "name": "Claude Code",
+      "tagline": "Anthropics Terminal-Tool für codebase-weites Reasoning",
+      "description": "Claude Code ist ein CLI-Tool von Anthropic, das direkt im Terminal läuft. Stärke liegt im tiefen Verständnis ganzer Codebasen über lange Kontexte. Ideal für komplexe Refactorings und Architektur-Entscheidungen.",
+      "logo_url": "https://logo.clearbit.com/anthropic.com",
+      "website": "https://claude.ai/code",
+      "strengths": [
+        "Codebase-weites Reasoning über sehr lange Kontexte (200K Token)",
+        "Terminal-nativ — integriert sich in bestehende Workflows",
+        "Stark bei Refactoring, Architektur und komplexen Abhängigkeiten",
+        "Funktioniert mit jedem Editor und jeder IDE"
+      ],
+      "weaknesses": [
+        "Kein GUI — reine Terminal-Nutzung ist Einstiegsbarriere",
+        "Teurer bei intensiver Nutzung (Token-basiertes Pricing)",
+        "Autocomplete im Editor nicht verfügbar — kein Copilot-Ersatz"
+      ],
+      "pricing": {
+        "model": "paid",
+        "free_tier": false,
+        "starting_price": 20,
+        "currency": "USD",
+        "price_note": "Erfordert Claude Pro/Max ($20-$100/Mo)"
+      },
+      "tags": ["CLI", "Terminal", "Code", "Codebase", "Refactoring", "API"],
+      "is_open_source": false,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "gemini-code-assist",
+      "name": "Gemini Code Assist",
+      "tagline": "Googles KI-Coding-Assistent mit kostenlosem Einzelnutzer-Plan",
+      "description": "Gemini Code Assist (ehemals Duet AI) bietet 2026 ein kostenloses Tier für Einzelpersonen. Tief in Google Cloud, BigQuery und Workspace integriert. Starke Ergänzung für Google-Cloud-Entwickler.",
+      "logo_url": "https://logo.clearbit.com/google.com",
+      "website": "https://cloud.google.com/gemini/docs/codeassist",
+      "strengths": [
+        "Kostenloses Tier für Einzelpersonen mit großzügigen Limits",
+        "Beste Integration in Google Cloud und BigQuery",
+        "Unterstützt VS Code und JetBrains",
+        "Gemini 3.1 Modell für starke Code-Qualität"
+      ],
+      "weaknesses": [
+        "Außerhalb von Google Cloud deutlich weniger nützlich",
+        "Schwächeres Codebase-Verständnis als Cursor",
+        "Komplexe Einrichtung für Nicht-Google-Cloud-Projekte"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 19,
+        "currency": "USD",
+        "price_note": "Standard $19/Mo, Enterprise individuell"
+      },
+      "tags": ["IDE", "VS Code", "Google Cloud", "BigQuery", "Code"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "cline",
+      "name": "Cline",
+      "tagline": "Open-Source KI-Coding-Agent für vollständige Kontrolle",
+      "description": "Cline (früher Claude Dev) ist ein Open-Source VS-Code-Extension-Agent. Nutzt eigene API-Keys (Anthropic, OpenAI, etc.), kein Vendor-Lock-in. Ideal für Entwickler, die volle Kontrolle über Modell und Kosten wollen.",
+      "logo_url": "https://logo.clearbit.com/github.com",
+      "website": "https://github.com/cline/cline",
+      "strengths": [
+        "Vollständig Open Source — keine Datenweitergabe an Anbieter",
+        "Eigene API-Keys: frei wählbares Modell, volle Kostenkontrolle",
+        "Autonomous Coding: führt Dateien, Terminal und Browser aus",
+        "Aktive Community mit schnellen Feature-Updates"
+      ],
+      "weaknesses": [
+        "Kosten durch API-Nutzung können bei intensiver Nutzung hoch sein",
+        "Keine eigene Modell-Optimierung wie Cursor",
+        "Setup aufwändiger als fertige Lösungen"
+      ],
+      "pricing": {
+        "model": "free",
+        "free_tier": true,
+        "price_note": "Kostenlos — eigene API-Keys erforderlich"
+      },
+      "tags": ["Open Source", "VS Code", "Agent", "Autonomy", "API-Key"],
+      "is_open_source": true,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    }
+  ]
+}

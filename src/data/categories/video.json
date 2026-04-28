@@ -1,0 +1,158 @@
+{
+  "category": {
+    "name": "Video",
+    "slug": "video",
+    "emoji": "🎬",
+    "description": "KI-Tools zur Videogenerierung, Avatar-Erstellung und Video-Bearbeitung."
+  },
+  "tools": [
+    {
+      "id": "kling2",
+      "name": "Kling 2.0",
+      "tagline": "Bestes Qualitäts-Preis-Verhältnis bei KI-Video — Made in China",
+      "description": "Kuaishous Kling 2.0 ist 2026 das Standard-Tool für KI-Videogenerierung. Starke Charakterkonsistenz über Clips hinweg, realistisches Bewegungsverhalten. Günstiger als westliche Konkurrenten bei vergleichbarer Qualität.",
+      "logo_url": "https://logo.clearbit.com/klingai.com",
+      "website": "https://klingai.com",
+      "strengths": [
+        "Beste Charakterkonsistenz über mehrere Szenen hinweg",
+        "Günstiger als Runway Gen-4 bei ähnlicher Qualität",
+        "5-Sekunden und 10-Sekunden-Clips mit realistischer Physik",
+        "Schnelle Generation — unter 2 Minuten pro Clip"
+      ],
+      "weaknesses": [
+        "Chinesischer Anbieter — Datenschutzbedenken für EU-Unternehmen",
+        "Weniger Kinoästhetik als Runway Gen-4",
+        "Inhaltsfilter können westliche kreative Freiheiten einschränken"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 10,
+        "currency": "USD",
+        "price_note": "Standard $10/Mo, Pro $35/Mo"
+      },
+      "tags": ["Video", "Generierung", "Charaktere", "Social Media", "Clips"],
+      "is_open_source": false,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "runway-gen4",
+      "name": "Runway Gen-4",
+      "tagline": "Hochwertigste Kinoästhetik — der Standard in der Film-Industrie",
+      "description": "Runway Gen-4 ist die Wahl für professionelle Film- und Werbeproduktionen. Unübertroffene Cinematic Quality, kompatibel mit professionellen Post-Production-Workflows. Teurer pro Sekunde, aber rechtlich sauber für kommerzielle Nutzung.",
+      "logo_url": "https://logo.clearbit.com/runwayml.com",
+      "website": "https://runwayml.com",
+      "strengths": [
+        "Cinematic Quality — bevorzugt von Werbeagenturen und Filmstudios",
+        "Klare kommerzielle Lizenzierung für professionelle Produktionen",
+        "Beste Kontrolle über Kamerabewegungen und Komposition",
+        "Video-Editing und Inpainting in derselben Plattform"
+      ],
+      "weaknesses": [
+        "Teuerster Anbieter pro generierter Sekunde",
+        "Generierungszeit länger als Kling und Veo",
+        "Kostenloser Plan zu limitiert für produktive Nutzung"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 15,
+        "currency": "USD",
+        "price_note": "Standard $15/Mo, Pro $35/Mo, Unlimited $95/Mo"
+      },
+      "tags": ["Video", "Film", "Kino", "Werbung", "Professional", "Editing"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "veo3",
+      "name": "Veo 3",
+      "tagline": "Googles starker Aufsteiger — direkt in Google-Tools integriert",
+      "description": "Google Veo 3.1 ist seit Q1 2026 ein ernsthafter Konkurrent. Integriert in Google Workspace und YouTube Studio. Starke Qualität bei Alltagsszenen, langsames Wachstum im Film-Segment.",
+      "logo_url": "https://logo.clearbit.com/google.com",
+      "website": "https://deepmind.google/technologies/veo",
+      "strengths": [
+        "Native YouTube Studio Integration für Creator",
+        "Starke Alltagsszenen mit natürlicher Beleuchtung",
+        "Google-Infrastruktur: schnelle Generation, hohe Verfügbarkeit",
+        "Kostenlos nutzbar über Google AI Studio"
+      ],
+      "weaknesses": [
+        "Noch keine eigenständige Nutzeroberfläche — API/Studio nötig",
+        "Charakterkonsistenz hinter Kling 2.0",
+        "Cinematic Quality noch unter Runway Gen-4"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "price_note": "Via Google AI Studio und Vertex AI"
+      },
+      "tags": ["Video", "Google", "YouTube", "API", "Creator"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "heygen",
+      "name": "HeyGen Avatar 5",
+      "tagline": "Führend für KI-Avatare — 15-Sekunden-Sample reicht",
+      "description": "HeyGen Avatar 5 erstellt aus 15 Sekunden Video-Sample einen überzeugenden KI-Avatar. Marktführer für Unternehmenskommunikation, E-Learning und Produktvideos ohne Kamera-Setup.",
+      "logo_url": "https://logo.clearbit.com/heygen.com",
+      "website": "https://heygen.com",
+      "strengths": [
+        "15-Sekunden-Sample reicht für überzeugenden persönlichen Avatar",
+        "Marktführer für Unternehmens- und E-Learning-Videos",
+        "Über 40 Sprachen mit lippensynchronem Dubbing",
+        "Kein Kamera-Setup oder Studio nötig"
+      ],
+      "weaknesses": [
+        "Uncanny Valley bei komplexen Emotionen noch sichtbar",
+        "Für spontane kreative Videos ungeeignet — Setup-Zeit nötig",
+        "Teuer bei hohem Video-Volumen"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 24,
+        "currency": "USD",
+        "price_note": "Creator $24/Mo, Team $69/Mo"
+      },
+      "tags": ["Avatar", "Video", "E-Learning", "Dubbing", "Business"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "pika2",
+      "name": "Pika 2.0",
+      "tagline": "Schnell und einfach für kurze Social-Media-Clips",
+      "description": "Pika 2.0 ist die einfachste Einstiegslösung für KI-Video. Optimiert für kurze Social-Media-Clips (5-10 Sekunden). Schnelle Generation, einfache UI, gut für Content Creator ohne technischen Hintergrund.",
+      "logo_url": "https://logo.clearbit.com/pika.art",
+      "website": "https://pika.art",
+      "strengths": [
+        "Einfachste UI aller Videogeneratoren — keine Lernkurve",
+        "Schnellste Generation für Social-Media-Clips",
+        "Gute Template-Bibliothek für häufige Clip-Formate",
+        "Faire kostenlose Kontingente für Creator"
+      ],
+      "weaknesses": [
+        "Qualität und Länge hinter Kling und Runway",
+        "Nicht geeignet für professionelle Produktionen",
+        "Charakterkonsistenz über mehrere Clips schwach"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 8,
+        "currency": "USD",
+        "price_note": "Basic $8/Mo, Standard $28/Mo"
+      },
+      "tags": ["Video", "Social Media", "Clips", "Creator", "Einfach"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    }
+  ]
+}

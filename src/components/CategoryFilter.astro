@@ -1,0 +1,23 @@
+---
+interface Props {
+  categories: Array<{ name: string; slug: string; emoji: string }>;
+  active?: string;
+}
+const { categories, active = 'all' } = Astro.props;
+---
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide" id="category-filter">
+  <button
+    data-slug="all"
+    class={`flex-none px-4 py-2 rounded-full text-sm font-medium border transition-colors ${active === 'all' ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-zinc-900 border-zinc-700 text-zinc-400 hover:border-indigo-500 hover:text-white'}`}
+  >
+    Alle
+  </button>
+  {categories.map(cat => (
+    <button
+      data-slug={cat.slug}
+      class={`flex-none px-4 py-2 rounded-full text-sm font-medium border transition-colors whitespace-nowrap ${active === cat.slug ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-zinc-900 border-zinc-700 text-zinc-400 hover:border-indigo-500 hover:text-white'}`}
+    >
+      {cat.emoji} {cat.name}
+    </button>
+  ))}
+</div>

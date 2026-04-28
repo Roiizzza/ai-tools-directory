@@ -1,0 +1,148 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import SearchBar from '../components/SearchBar.astro';
+import CategoryFilter from '../components/CategoryFilter.astro';
+import ToolCard from '../components/ToolCard.astro';
+
+const modules = import.meta.glob('../data/categories/*.json', { eager: true });
+const categoryFiles = Object.values(modules) as any[];
+
+const categories = categoryFiles.map((f: any) => f.category);
+
+interface Tool {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  logo_url?: string;
+  website: string;
+  strengths: string[];
+  weaknesses: string[];
+  pricing: { model: string; free_tier?: boolean; starting_price?: number; currency?: string; price_note?: string };
+  tags: string[];
+  is_open_source?: boolean;
+  editor_pick?: boolean;
+  last_updated?: string;
+}
+
+const allTools: Array<{ tool: Tool; categorySlug: string }> = categoryFiles.flatMap((f: any) =>
+  f.tools.map((tool: Tool) => ({ tool, categorySlug: f.category.slug }))
+);
+
+const totalTools = allTools.length;
+---
+
+<Layout title="AI Tools Directory — Die besten KI-Tools, ehrlich bewertet">
+  <Header />
+
+  <main class="max-w-7xl mx-auto px-4 py-10">
+    <!-- Hero -->
+    <section class="text-center mb-12">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4 leading-tight">
+        Die besten KI-Tools —<br />
+        <span class="text-indigo-400">ehrlich bewertet.</span>
+      </h1>
+      <p class="text-zinc-400 text-lg max-w-2xl mx-auto mb-2">
+        {totalTools} Tools in {categories.length} Kategorien. Mit echten Stärken UND Schwächen.
+        Kein Affiliate-Marketing, keine aufgeblasenen Beschreibungen.
+      </p>
+      <p class="text-zinc-600 text-sm">Stand: April 2026</p>
+    </section>
+
+    <!-- Search -->
+    <div class="mb-8">
+      <SearchBar />
+    </div>
+
+    <!-- Category Filter -->
+    <div class="mb-8">
+      <CategoryFilter categories={categories} />
+    </div>
+
+    <!-- Results count -->
+    <p class="text-zinc-500 text-sm mb-6" id="results-count">{totalTools} Tools gefunden</p>
+
+    <!-- Tool Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="tool-grid">
+      {allTools.map(({ tool, categorySlug }) => (
+        <div
+          class="tool-item"
+          data-name={tool.name.toLowerCase()}
+          data-tagline={tool.tagline.toLowerCase()}
+          data-tags={tool.tags.join(' ').toLowerCase()}
+          data-category={categorySlug}
+        >
+          <ToolCard tool={tool} categorySlug={categorySlug} />
+        </div>
+      ))}
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden text-center py-20">
+      <p class="text-4xl mb-4">🔍</p>
+      <p class="text-zinc-400 text-lg">Keine Tools gefunden.</p>
+      <p class="text-zinc-600 text-sm mt-2">Versuche einen anderen Suchbegriff oder wähle eine andere Kategorie.</p>
+    </div>
+  </main>
+
+  <footer class="border-t border-zinc-800 mt-16 py-8 text-center text-zinc-600 text-sm">
+    <p>AI Tools Directory · Stand April 2026 · Kein Affiliate-Tracking · <a href="https://github.com" class="hover:text-zinc-400 transition-colors">GitHub</a></p>
+  </footer>
+</Layout>
+
+<script>
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const filterButtons = document.querySelectorAll('#category-filter button');
+  const toolItems = document.querySelectorAll('.tool-item') as NodeListOf<HTMLElement>;
+  const resultsCount = document.getElementById('results-count')!;
+  const emptyState = document.getElementById('empty-state')!;
+
+  let activeCategory = 'all';
+  let searchQuery = '';
+
+  function filterTools() {
+    let visible = 0;
+    toolItems.forEach(item => {
+      const name = item.dataset.name ?? '';
+      const tagline = item.dataset.tagline ?? '';
+      const tags = item.dataset.tags ?? '';
+      const category = item.dataset.category ?? '';
+
+      const matchesSearch = !searchQuery ||
+        name.includes(searchQuery) ||
+        tagline.includes(searchQuery) ||
+        tags.includes(searchQuery);
+
+      const matchesCategory = activeCategory === 'all' || category === activeCategory;
+
+      if (matchesSearch && matchesCategory) {
+        item.classList.remove('hidden');
+        visible++;
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+
+    resultsCount.textContent = `${visible} Tool${visible !== 1 ? 's' : ''} gefunden`;
+    emptyState.classList.toggle('hidden', visible > 0);
+  }
+
+  searchInput.addEventListener('input', (e) => {
+    searchQuery = (e.target as HTMLInputElement).value.toLowerCase().trim();
+    filterTools();
+  });
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCategory = (btn as HTMLElement).dataset.slug ?? 'all';
+      filterButtons.forEach(b => {
+        b.classList.remove('bg-indigo-600', 'border-indigo-500', 'text-white');
+        b.classList.add('bg-zinc-900', 'border-zinc-700', 'text-zinc-400');
+      });
+      btn.classList.add('bg-indigo-600', 'border-indigo-500', 'text-white');
+      btn.classList.remove('bg-zinc-900', 'border-zinc-700', 'text-zinc-400');
+      filterTools();
+    });
+  });
+</script>

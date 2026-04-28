@@ -1,0 +1,160 @@
+{
+  "category": {
+    "name": "Agents & Automation",
+    "slug": "agents-automation",
+    "emoji": "🤖",
+    "description": "KI-Agenten und Automatisierungstools, die eigenständig komplexe Aufgaben ausführen."
+  },
+  "tools": [
+    {
+      "id": "n8n",
+      "name": "n8n",
+      "tagline": "DSGVO-konform, self-hosted, 422+ Integrationen — beliebt in Europa",
+      "description": "n8n ist das führende Open-Source-Automatisierungstool in Europa. Selbst-hosting auf eigenem Server, vollständige Datenkontrolle, 422+ App-Integrationen. Starke KI-Agent-Features seit 2025.",
+      "logo_url": "https://logo.clearbit.com/n8n.io",
+      "website": "https://n8n.io",
+      "strengths": [
+        "Self-hosted: vollständige Datenkontrolle, DSGVO-konform",
+        "422+ App-Integrationen inklusive komplexer Enterprise-Tools",
+        "KI-Agent-Knoten für autonome Workflows seit 2025",
+        "Kostenlos bei Self-Hosting — kein Pro-Abo nötig"
+      ],
+      "weaknesses": [
+        "Setup erfordert Server-Know-how (Docker/VPS)",
+        "Steilere Lernkurve als Make oder Zapier",
+        "Cloud-Version teurer als Konkurrenten"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 24,
+        "currency": "USD",
+        "price_note": "Self-hosted kostenlos, Cloud ab $24/Mo"
+      },
+      "tags": ["Automation", "Self-Hosted", "DSGVO", "Open Source", "Workflow", "API"],
+      "is_open_source": true,
+      "editor_pick": true,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "make",
+      "name": "Make",
+      "tagline": "Visuelles No-Code-Automation-Tool mit starker EU-Präsenz",
+      "description": "Make (früher Integromat) ist das visuellste No-Code-Automatisierungstool. Drag-and-Drop-Szenario-Builder, tausende Integrationen, europäische Server. Mittelweg zwischen Zapier-Einfachheit und n8n-Flexibilität.",
+      "logo_url": "https://logo.clearbit.com/make.com",
+      "website": "https://make.com",
+      "strengths": [
+        "Visualster Workflow-Builder — komplexe Szenarien auf einen Blick",
+        "Günstiger als Zapier bei gleicher Funktionstiefe",
+        "Europäische Server-Option für DSGVO-sensible Daten",
+        "Starkes kostenloses Tier für Einsteiger"
+      ],
+      "weaknesses": [
+        "AI-Agent-Features noch weniger ausgereift als n8n",
+        "Bei sehr großem Datenvolumen werden Kosten schnell hoch",
+        "Kein Self-Hosting möglich"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 9,
+        "currency": "USD",
+        "price_note": "Core $9/Mo, Pro $16/Mo, Teams $29/Mo"
+      },
+      "tags": ["Automation", "No-Code", "Visual", "Integrationen", "Workflow"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "zapier",
+      "name": "Zapier",
+      "tagline": "Einfachste App-zu-App-Verbindungen — Industriestandard",
+      "description": "Zapier ist der einfachste Weg, zwei Apps miteinander zu verbinden. 6000+ Integrationen, minimale Setup-Zeit. Bester Einstieg für Nicht-Techniker. Bei komplexen Multi-Step-Workflows schnell teuer.",
+      "logo_url": "https://logo.clearbit.com/zapier.com",
+      "website": "https://zapier.com",
+      "strengths": [
+        "6000+ App-Integrationen — größtes Integrations-Ökosystem",
+        "Schnellstes Setup für einfache App-zu-App-Verbindungen",
+        "Kein technisches Wissen nötig — ideal für Teams",
+        "Zuverlässigkeit und Support auf Enterprise-Niveau"
+      ],
+      "weaknesses": [
+        "Teuerster Anbieter bei komplexen, datenintensiven Workflows",
+        "Kein Self-Hosting, keine EU-Server",
+        "KI-Agent-Features noch in früher Phase verglichen mit n8n"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 20,
+        "currency": "USD",
+        "price_note": "Starter $20/Mo, Professional $49/Mo"
+      },
+      "tags": ["Automation", "No-Code", "Integrationen", "Simple", "Business"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "manus",
+      "name": "Manus",
+      "tagline": "Agentic AI die echte Aufgaben ausführt — Slides, Websites, Apps",
+      "description": "Manus ist ein vollautonomer KI-Agent, der eigenständig Aufgaben im Web erledigt: Slides erstellen, Websites bauen, Formulare ausfüllen. Kein manuelles Schritt-für-Schritt — Manus arbeitet selbstständig.",
+      "logo_url": "https://logo.clearbit.com/manus.im",
+      "website": "https://manus.im",
+      "strengths": [
+        "Vollautonomer Agent — arbeitet selbstständig ohne Eingriff",
+        "Erstellt echte Artefakte: Slides, Websites, Tabellen, Berichte",
+        "Führt Browser-Aktionen aus (Formulare, Recherche, Buchungen)",
+        "Keine Programmierkenntnisse nötig für komplexe Aufgaben"
+      ],
+      "weaknesses": [
+        "Noch häufige Fehler bei komplexen mehrstufigen Aufgaben",
+        "Teuer im Verhältnis zu manueller Erledigung",
+        "Datenschutz: Agent hat Zugriff auf Browser und Accounts"
+      ],
+      "pricing": {
+        "model": "paid",
+        "free_tier": false,
+        "starting_price": 39,
+        "currency": "USD",
+        "price_note": "Pro $39/Mo"
+      },
+      "tags": ["Agent", "Autonomy", "Browser", "Slides", "Websites", "Tasks"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    },
+    {
+      "id": "lindy",
+      "name": "Lindy",
+      "tagline": "Beste für komplexe Workflow-Automatisierung mit Custom Agents",
+      "description": "Lindy ermöglicht die Erstellung eigener KI-Mitarbeiter (Lindies), die E-Mails beantworten, Meetings vorbereiten, CRM pflegen und komplexe Workflows selbstständig ausführen.",
+      "logo_url": "https://logo.clearbit.com/lindy.ai",
+      "website": "https://lindy.ai",
+      "strengths": [
+        "Custom Agents ('Lindies') für wiederkehrende Business-Aufgaben",
+        "Stark bei E-Mail-Automatisierung und CRM-Integration",
+        "Intuitiveres Setup als n8n für Non-Techniker",
+        "Echtzeit-Reaktion auf Events (neue E-Mail, neuer Lead, etc.)"
+      ],
+      "weaknesses": [
+        "Teurer als n8n bei hohem Automatisierungsvolumen",
+        "Weniger Integrationen als Zapier (noch wachsend)",
+        "Keine Self-Hosting-Option"
+      ],
+      "pricing": {
+        "model": "freemium",
+        "free_tier": true,
+        "starting_price": 49,
+        "currency": "USD",
+        "price_note": "Starter $49/Mo, Growth $99/Mo"
+      },
+      "tags": ["Agent", "E-Mail", "CRM", "Workflow", "Business", "Automation"],
+      "is_open_source": false,
+      "editor_pick": false,
+      "last_updated": "2026-04"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import ToolCard from '../../components/ToolCard.astro';
+
+export async function getStaticPaths() {
+  const modules = import.meta.glob('../../data/categories/*.json', { eager: true });
+  return Object.values(modules).map((f: any) => ({
+    params: { slug: f.category.slug },
+    props: { data: f },
+  }));
+}
+
+const { data } = Astro.props as { data: any };
+const { category, tools } = data;
+---
+
+<Layout title={`${category.emoji} ${category.name} — AI Tools Directory`} description={category.description}>
+  <Header />
+
+  <main class="max-w-7xl mx-auto px-4 py-10">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-zinc-500 mb-8">
+      <a href="/" class="hover:text-white transition-colors">Alle Kategorien</a>
+      <span class="mx-2">›</span>
+      <span class="text-white">{category.emoji} {category.name}</span>
+    </nav>
+
+    <!-- Category Header -->
+    <div class="mb-10">
+      <h1 class="text-3xl sm:text-4xl font-bold text-white mb-3">
+        {category.emoji} {category.name}
+      </h1>
+      <p class="text-zinc-400 text-lg">{category.description}</p>
+      <p class="text-zinc-600 text-sm mt-2">{tools.length} Tools · Stand April 2026</p>
+    </div>
+
+    <!-- Tool Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {tools.map((tool: any) => (
+        <ToolCard tool={tool} categorySlug={category.slug} />
+      ))}
+    </div>
+  </main>
+
+  <footer class="border-t border-zinc-800 mt-16 py-8 text-center text-zinc-600 text-sm">
+    <p>AI Tools Directory · Stand April 2026 · Kein Affiliate-Tracking</p>
+  </footer>
+</Layout>

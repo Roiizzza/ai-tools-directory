@@ -1,0 +1,32 @@
+---
+interface Props {
+  pricing: {
+    model: string;
+    free_tier?: boolean;
+    starting_price?: number;
+    currency?: string;
+    price_note?: string;
+  };
+}
+const { pricing } = Astro.props;
+
+let label = '';
+let cls = '';
+
+if (pricing.model === 'free') {
+  label = 'Kostenlos';
+  cls = 'bg-emerald-900/50 text-emerald-400 border-emerald-800';
+} else if (pricing.model === 'freemium') {
+  label = pricing.starting_price ? `Freemium · ab $${pricing.starting_price}` : 'Freemium';
+  cls = 'bg-blue-900/50 text-blue-400 border-blue-800';
+} else if (pricing.model === 'paid') {
+  label = pricing.starting_price ? `Ab $${pricing.starting_price}/Mo` : 'Bezahlt';
+  cls = 'bg-amber-900/50 text-amber-400 border-amber-800';
+} else {
+  label = 'Enterprise';
+  cls = 'bg-zinc-800 text-zinc-400 border-zinc-700';
+}
+---
+<span class={`text-xs font-medium px-2 py-0.5 rounded-full border ${cls}`} title={pricing.price_note}>
+  {label}
+</span>
