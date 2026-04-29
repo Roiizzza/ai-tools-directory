@@ -1,0 +1,438 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import skills from '../data/claude-skills.json';
+
+const categories = ['Alle', ...Array.from(new Set(skills.map(s => s.category)))];
+const builtinCount = skills.filter(s => s.type === 'builtin').length;
+const marketplaceCount = skills.filter(s => s.type === 'marketplace').length;
+const customCount = skills.filter(s => s.type === 'custom').length;
+---
+
+<Layout
+  title="Claude Code Skills — Verzeichnis aller Slash-Commands"
+  description="Alle Claude Code Skills: eingebaut, Marketplace und eigene Custom Commands mit Installationsanleitung."
+>
+  <Header />
+
+  <main class="max-w-7xl mx-auto px-4 py-10">
+    <!-- Hero -->
+    <section class="text-center mb-12">
+      <div class="text-5xl mb-4">⚡</div>
+      <h1 class="text-3xl sm:text-4xl font-bold text-white mb-3 leading-tight">
+        Claude Code Skills
+      </h1>
+      <p class="text-zinc-400 text-base max-w-2xl mx-auto mb-4">
+        Slash-Commands die Claude Code erweitern — eingebaut, aus dem Marketplace oder selbst erstellt.
+        Mit Installationsanleitung für jeden Skill.
+      </p>
+      <div class="flex items-center justify-center gap-5 text-sm flex-wrap">
+        <span class="flex items-center gap-1.5 text-blue-400">
+          <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+          {builtinCount} Built-in
+        </span>
+        <span class="flex items-center gap-1.5 text-purple-400">
+          <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+          {marketplaceCount} Marketplace
+        </span>
+        <span class="flex items-center gap-1.5 text-emerald-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          {customCount} Custom Templates
+        </span>
+      </div>
+    </section>
+
+    <!-- Install Guide Banner -->
+    <div class="rounded-xl border border-indigo-800/50 bg-indigo-950/30 p-4 mb-8 flex flex-col sm:flex-row sm:items-center gap-3">
+      <div class="text-2xl flex-none">📖</div>
+      <div class="flex-1">
+        <p class="text-sm text-indigo-300 font-medium mb-1">Custom Skills installieren</p>
+        <p class="text-xs text-zinc-400">
+          Erstelle <code class="bg-zinc-800 px-1 py-0.5 rounded text-zinc-300">~/.claude/commands/skill-name.md</code> für globale Skills oder
+          <code class="bg-zinc-800 px-1 py-0.5 rounded text-zinc-300">.claude/commands/skill-name.md</code> für projektspezifische.
+          Danach mit <code class="bg-zinc-800 px-1 py-0.5 rounded text-zinc-300">/skill-name</code> aufrufen.
+        </p>
+      </div>
+      <a
+        href="https://docs.anthropic.com/en/docs/claude-code/slash-commands"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs text-indigo-400 hover:text-indigo-300 transition-colors flex-none"
+      >
+        Docs →
+      </a>
+    </div>
+
+    <!-- Filters -->
+    <div class="flex flex-wrap gap-3 mb-6 items-center">
+      <!-- Type filter -->
+      <div class="flex gap-2" id="type-filter">
+        {[
+          { key: 'alle', label: 'Alle Typen' },
+          { key: 'builtin', label: '🔵 Built-in' },
+          { key: 'marketplace', label: '🟣 Marketplace' },
+          { key: 'custom', label: '🟢 Custom' },
+        ].map(t => (
+          <button
+            data-type={t.key}
+            class={`text-xs px-3 py-1.5 rounded-full border transition-colors ${t.key === 'alle' ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-zinc-900 border-zinc-700 text-zinc-400 hover:border-indigo-500 hover:text-white'}`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+      <div class="w-px h-5 bg-zinc-700 hidden sm:block"></div>
+      <!-- Category filter -->
+      <div class="flex flex-wrap gap-2" id="cat-filter">
+        {categories.map(cat => (
+          <button
+            data-cat={cat}
+            class={`text-xs px-3 py-1.5 rounded-full border transition-colors ${cat === 'Alle' ? 'bg-zinc-700 border-zinc-600 text-white' : 'bg-zinc-900 border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-white'}`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <p class="text-zinc-500 text-sm mb-6" id="results-count">{skills.length} Skills</p>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="skills-grid">
+      {skills.map(skill => (
+        <div
+          class="skill-card flex flex-col rounded-xl border border-zinc-800 bg-[#1a1a1a] p-5 hover:border-indigo-500/40 transition-all duration-200"
+          data-type={skill.type}
+          data-category={skill.category}
+          data-id={skill.id}
+        >
+          <!-- Type badge + Category -->
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs text-zinc-500">{skill.category}</span>
+            {skill.type === 'builtin' && (
+              <span class="text-xs px-2 py-0.5 rounded-full bg-blue-900/40 border border-blue-800/60 text-blue-400">Built-in</span>
+            )}
+            {skill.type === 'marketplace' && (
+              <span class="text-xs px-2 py-0.5 rounded-full bg-purple-900/40 border border-purple-800/60 text-purple-400">Marketplace</span>
+            )}
+            {skill.type === 'custom' && (
+              <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-900/40 border border-emerald-800/60 text-emerald-400">Custom</span>
+            )}
+          </div>
+
+          <!-- Usage command -->
+          <div class="mb-3">
+            <code class="text-sm font-mono font-bold text-indigo-300 bg-indigo-950/40 px-2 py-1 rounded border border-indigo-900/50">
+              {skill.usage}
+            </code>
+          </div>
+
+          <!-- Name + Tagline -->
+          <h3 class="font-bold text-white text-base mb-1">{skill.name}</h3>
+          <p class="text-xs text-zinc-400 mb-3 leading-snug">{skill.tagline}</p>
+
+          <!-- Description -->
+          <p class="text-sm text-zinc-300 leading-relaxed mb-3 line-clamp-3">{skill.description}</p>
+
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            {skill.tags.map(tag => (
+              <span class="text-xs px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-500 border border-zinc-700">{tag}</span>
+            ))}
+          </div>
+
+          <!-- Footer -->
+          <div class="mt-auto pt-3 border-t border-zinc-800 flex items-center justify-between gap-2">
+            {skill.type === 'builtin' && (
+              <span class="text-xs text-blue-400/70">Bereits in Claude Code enthalten</span>
+            )}
+            {skill.type === 'marketplace' && (
+              <span class="text-xs text-purple-400/70">Claude Code Marketplace</span>
+            )}
+            {skill.type === 'custom' && (
+              <button
+                class="install-btn text-xs text-emerald-400 hover:text-emerald-300 transition-colors"
+                data-id={skill.id}
+              >
+                📋 Anleitung anzeigen
+              </button>
+            )}
+            {skill.link && (
+              <a
+                href={skill.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs text-zinc-400 hover:text-white transition-colors ml-auto"
+              >
+                Link →
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div id="empty-state" class="hidden text-center py-20">
+      <p class="text-4xl mb-4">🔍</p>
+      <p class="text-zinc-400">Keine Skills gefunden.</p>
+    </div>
+  </main>
+
+  <!-- Install Modal -->
+  <div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="relative w-full max-w-2xl rounded-2xl border border-zinc-700 bg-[#1a1a1a] p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <button id="modal-close" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl transition-colors">✕</button>
+      <h2 class="text-lg font-bold text-white mb-1" id="modal-title"></h2>
+      <p class="text-xs text-zinc-500 mb-4" id="modal-path"></p>
+
+      <div class="mb-4">
+        <p class="text-xs text-zinc-400 mb-2 font-medium uppercase tracking-wide">Schritt 1 — Datei erstellen</p>
+        <div class="flex items-center gap-2 bg-zinc-900 rounded-lg p-3 border border-zinc-700">
+          <code class="text-xs text-emerald-300 font-mono flex-1" id="modal-file-path"></code>
+          <button id="copy-path" class="text-xs text-zinc-400 hover:text-white transition-colors px-2 py-1 bg-zinc-800 rounded border border-zinc-700">Kopieren</button>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-xs text-zinc-400 mb-2 font-medium uppercase tracking-wide">Schritt 2 — Inhalt einfügen</p>
+        <div class="relative">
+          <pre class="text-xs text-zinc-300 font-mono bg-zinc-900 rounded-lg p-4 border border-zinc-700 overflow-x-auto whitespace-pre-wrap leading-relaxed" id="modal-content"></pre>
+          <button id="copy-content" class="absolute top-2 right-2 text-xs text-zinc-400 hover:text-white transition-colors px-2 py-1 bg-zinc-800 rounded border border-zinc-700">Kopieren</button>
+        </div>
+      </div>
+
+      <div class="mt-4 p-3 rounded-lg bg-indigo-950/40 border border-indigo-900/50">
+        <p class="text-xs text-indigo-300">
+          <span class="font-medium">Schritt 3 — Nutzen:</span>
+          Tippe <code class="bg-zinc-800 px-1 rounded" id="modal-usage"></code> in Claude Code
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-t border-zinc-800 mt-16 py-8 text-center text-zinc-600 text-sm">
+    <p>AI Tools Directory · Stand April 2026 · Kein Affiliate-Tracking</p>
+  </footer>
+</Layout>
+
+<script>
+  // Filter logic
+  const typeButtons = document.querySelectorAll('#type-filter button');
+  const catButtons = document.querySelectorAll('#cat-filter button');
+  const cards = document.querySelectorAll('.skill-card') as NodeListOf<HTMLElement>;
+  const resultsCount = document.getElementById('results-count')!;
+  const emptyState = document.getElementById('empty-state')!;
+
+  let activeType = 'alle';
+  let activeCat = 'Alle';
+
+  function filter() {
+    let visible = 0;
+    cards.forEach(card => {
+      const type = card.dataset.type ?? '';
+      const cat = card.dataset.category ?? '';
+      const matchType = activeType === 'alle' || type === activeType;
+      const matchCat = activeCat === 'Alle' || cat === activeCat;
+      if (matchType && matchCat) { card.classList.remove('hidden'); visible++; }
+      else card.classList.add('hidden');
+    });
+    resultsCount.textContent = `${visible} Skills`;
+    emptyState.classList.toggle('hidden', visible > 0);
+  }
+
+  typeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeType = (btn as HTMLElement).dataset.type ?? 'alle';
+      typeButtons.forEach(b => {
+        b.classList.remove('bg-indigo-600', 'border-indigo-500', 'text-white');
+        b.classList.add('bg-zinc-900', 'border-zinc-700', 'text-zinc-400');
+      });
+      btn.classList.add('bg-indigo-600', 'border-indigo-500', 'text-white');
+      btn.classList.remove('bg-zinc-900', 'border-zinc-700', 'text-zinc-400');
+      filter();
+    });
+  });
+
+  catButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCat = (btn as HTMLElement).dataset.cat ?? 'Alle';
+      catButtons.forEach(b => {
+        b.classList.remove('bg-zinc-700', 'border-zinc-600', 'text-white');
+        b.classList.add('bg-zinc-900', 'border-zinc-700', 'text-zinc-400');
+      });
+      btn.classList.add('bg-zinc-700', 'border-zinc-600', 'text-white');
+      btn.classList.remove('bg-zinc-900', 'border-zinc-700', 'text-zinc-400');
+      filter();
+    });
+  });
+
+  // Modal logic
+  const modal = document.getElementById('modal')!;
+  const modalClose = document.getElementById('modal-close')!;
+  const modalTitle = document.getElementById('modal-title')!;
+  const modalPath = document.getElementById('modal-path')!;
+  const modalFilePath = document.getElementById('modal-file-path')!;
+  const modalContent = document.getElementById('modal-content')!;
+  const modalUsage = document.getElementById('modal-usage')!;
+  const copyPath = document.getElementById('copy-path')!;
+  const copyContent = document.getElementById('copy-content')!;
+
+  // Skills data embedded for modal
+  const skillsData: Record<string, any> = {
+    'custom-commit': {
+      name: 'smart-commit',
+      usage: '/smart-commit',
+      filePath: '~/.claude/commands/smart-commit.md',
+      content: `Analysiere alle staged Git-Changes mit \`git diff --staged\`.
+Lese die letzten 5 Commits mit \`git log --oneline -5\` um den Stil des Repos zu verstehen.
+Erstelle eine Commit-Message die:
+- Das Conventional Commits Format nutzt (feat/fix/chore/docs/refactor/test)
+- Max. 72 Zeichen in der ersten Zeile
+- Erklärt WARUM die Änderung gemacht wurde, nicht WAS
+Committe dann mit \`git commit -m "..."\` ohne weitere Rückfragen.`
+    },
+    'custom-test-gen': {
+      name: 'test-gen',
+      usage: '/test-gen',
+      filePath: '~/.claude/commands/test-gen.md',
+      content: `Analysiere die aktuell geöffnete oder zuletzt bearbeitete Datei.
+Erkenne das Test-Framework des Projekts (package.json, requirements.txt).
+Generiere vollständige Tests:
+- Happy Path
+- Edge Cases (null, leer, Grenzwerte)
+- Error Cases
+- Mocks für externe Dependencies
+Platziere die Tests in der korrekten Test-Datei.`
+    },
+    'custom-docs': {
+      name: 'write-docs',
+      usage: '/write-docs',
+      filePath: '~/.claude/commands/write-docs.md',
+      content: `Lese die aktuelle Datei.
+Finde alle Funktionen, Methoden und Klassen die keine oder unvollständige Dokumentation haben.
+Füge für jede hinzu:
+- Kurze Beschreibung was die Funktion TUT (nicht wie)
+- @param mit Typ und Beschreibung
+- @returns mit Typ und Beschreibung
+- @throws wenn Exceptions möglich
+Nutze JSDoc für JS/TS, Google-Style Docstrings für Python.
+Keine offensichtlichen Kommentare.`
+    },
+    'custom-pr-desc': {
+      name: 'pr-desc',
+      usage: '/pr-desc',
+      filePath: '~/.claude/commands/pr-desc.md',
+      content: `Führe aus: \`git log main..HEAD --oneline\` und \`git diff main...HEAD --stat\`
+Analysiere alle Änderungen.
+Erstelle eine PR-Beschreibung mit:
+## Was wurde geändert
+- Bullet Points der wichtigsten Änderungen
+## Warum
+- Kontext und Motivation
+## Test-Plan
+- Konkrete Schritte zum Testen
+Kopiere die fertige Beschreibung für GitHub.`
+    },
+    'custom-debug': {
+      name: 'debug',
+      usage: '/debug [Fehlermeldung]',
+      filePath: '~/.claude/commands/debug.md',
+      content: `Analysiere den Fehler den der User beschreibt:
+1. Lese alle relevanten Dateien (Stack Trace auswerten)
+2. Suche nach dem exakten Fehlerort mit grep
+3. Prüfe ob es ein bekanntes Problem ist (Dependencies, Config)
+4. Stelle eine Hypothese zur Root Cause auf
+5. Implementiere den Fix
+6. Erkläre kurz WARUM der Fix funktioniert
+Keine unnötigen Fragen — handle so viel wie möglich selbst.`
+    },
+    'custom-refactor': {
+      name: 'refactor',
+      usage: '/refactor',
+      filePath: '~/.claude/commands/refactor.md',
+      content: `Lese die aktuelle Datei vollständig.
+Refactore nach diesen Prinzipien:
+1. Entferne toten Code und ungenutzte Imports
+2. Extrahiere doppelten Code in Hilfsfunktionen
+3. Verbessere Variablen-/Funktionsnamen auf Klarheit
+4. Vereinfache verschachtelte if/else mit Early Returns
+5. Keine neuen Features — nur Struktur verbessern
+Zeige zuerst kurz was du ändern wirst.`
+    },
+    'custom-explain': {
+      name: 'explain',
+      usage: '/explain',
+      filePath: '~/.claude/commands/explain.md',
+      content: `Lese die aktuelle Datei oder den vom User markierten Bereich.
+Erkläre:
+1. Was der Code insgesamt macht (1-2 Sätze)
+2. Die wichtigsten Funktionen/Klassen einzeln
+3. Welche Design Patterns genutzt werden
+4. Was rein- und rauskommt (Inputs/Outputs)
+5. Was nicht offensichtlich ist (Tricks, Workarounds)
+Sprache: Deutsch. Für erfahrene Entwickler die diesen Code-Teil nicht kennen.`
+    },
+    'custom-deps': {
+      name: 'deps-audit',
+      usage: '/deps-audit',
+      filePath: '~/.claude/commands/deps-audit.md',
+      content: `Führe aus:
+- npm audit (oder yarn audit / bun audit)
+- npm outdated
+Analysiere die Ergebnisse:
+1. Kritische Sicherheitslücken (sofort fixen)
+2. High/Medium Vulnerabilities
+3. Stark veraltete Pakete (Major Versions)
+4. Unnötige Pakete die entfernt werden können
+Erstelle eine priorisierte Liste mit konkreten Update-Commands.`
+    },
+    'custom-perf': {
+      name: 'perf-review',
+      usage: '/perf-review',
+      filePath: '~/.claude/commands/perf-review.md',
+      content: `Lese die aktuelle Datei oder das gesamte Projekt.
+Suche nach:
+1. N+1 Datenbankabfragen (Loops mit DB-Calls)
+2. Unnötige Re-Renders (React: fehlende memo/useMemo/useCallback)
+3. Fehlende Indexes in Datenbankabfragen
+4. Synchrone Operationen die async sein sollten
+5. Große Imports die lazy geladen werden könnten
+Jedes Problem mit Schweregrad (Kritisch/Mittel/Niedrig) und konkretem Fix.`
+    },
+  };
+
+  document.querySelectorAll('.install-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = (btn as HTMLElement).dataset.id ?? '';
+      const data = skillsData[id];
+      if (!data) return;
+      modalTitle.textContent = `/${data.name}`;
+      modalPath.textContent = `Custom Skill — ${data.filePath}`;
+      modalFilePath.textContent = data.filePath;
+      modalContent.textContent = data.content;
+      modalUsage.textContent = data.usage;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    });
+  });
+
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  function copyToClipboard(text: string, btn: HTMLElement) {
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.textContent;
+      btn.textContent = '✓ Kopiert';
+      setTimeout(() => { btn.textContent = original; }, 2000);
+    });
+  }
+
+  copyPath.addEventListener('click', () => copyToClipboard(modalFilePath.textContent ?? '', copyPath));
+  copyContent.addEventListener('click', () => copyToClipboard(modalContent.textContent ?? '', copyContent));
+</script>
