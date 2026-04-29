@@ -50,9 +50,19 @@ const totalTools = allTools.length;
       <p class="text-zinc-600 text-sm">Stand: April 2026</p>
     </section>
 
-    <!-- Search -->
-    <div class="mb-8">
+    <!-- Search + Free Filter -->
+    <div class="mb-4">
       <SearchBar />
+      <div class="flex items-center gap-2 mt-3 max-w-2xl mx-auto px-1">
+        <input
+          type="checkbox"
+          id="free-filter"
+          class="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-indigo-500 cursor-pointer accent-indigo-500"
+        />
+        <label for="free-filter" class="text-sm text-zinc-400 cursor-pointer select-none hover:text-white transition-colors">
+          Nur kostenlose Tools anzeigen
+        </label>
+      </div>
     </div>
 
     <!-- Category Filter -->
@@ -71,7 +81,10 @@ const totalTools = allTools.length;
           data-name={tool.name.toLowerCase()}
           data-tagline={tool.tagline.toLowerCase()}
           data-tags={tool.tags.join(' ').toLowerCase()}
+          data-description={tool.description.toLowerCase()}
           data-category={categorySlug}
+          data-free={tool.pricing.free_tier ? 'true' : 'false'}
+          data-editor-pick={tool.editor_pick ? 'true' : 'false'}
         >
           <ToolCard tool={tool} categorySlug={categorySlug} />
         </div>
@@ -93,35 +106,137 @@ const totalTools = allTools.length;
 
 <script>
   const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const freeFilter = document.getElementById('free-filter') as HTMLInputElement;
   const filterButtons = document.querySelectorAll('#category-filter button');
-  const toolItems = document.querySelectorAll('.tool-item') as NodeListOf<HTMLElement>;
+  const toolGrid = document.getElementById('tool-grid')!;
   const resultsCount = document.getElementById('results-count')!;
   const emptyState = document.getElementById('empty-state')!;
 
   let activeCategory = 'all';
   let searchQuery = '';
+  let onlyFree = false;
+
+  // Synonym map: user term → additional keywords to match against
+  const ALIASES: Record<string, string[]> = {
+    'powerpoint': ['slides', 'präsentation', 'presentation', 'folien', 'manus'],
+    'präsentation': ['slides', 'folien', 'manus'],
+    'folien': ['slides', 'präsentation', 'manus'],
+    'word': ['schreiben', 'dokument', 'text', 'writing', 'notizen'],
+    'dokument': ['schreiben', 'pdf', 'text', 'notizen'],
+    'brief': ['schreiben', 'text', 'email'],
+    'excel': ['csv', 'daten', 'tabelle', 'analyse', 'visualisierung', 'julius'],
+    'tabelle': ['csv', 'excel', 'daten', 'analyse'],
+    'spreadsheet': ['csv', 'excel', 'daten', 'tabelle'],
+    'diagramm': ['visualisierung', 'daten', 'analyse', 'chart'],
+    'chart': ['visualisierung', 'daten', 'analyse'],
+    'bild': ['bilder', 'illustration', 'foto', 'image'],
+    'bilder': ['bilder', 'illustration', 'foto'],
+    'foto': ['bilder', 'fotorealistisch', 'image'],
+    'grafik': ['bilder', 'illustration', 'design', 'vektor'],
+    'logo': ['logos', 'design', 'vektor', 'ideogram', 'recraft'],
+    'illustration': ['bilder', 'kunst', 'illustration'],
+    'poster': ['bilder', 'design', 'illustration'],
+    'video': ['video', 'film', 'animation'],
+    'film': ['video', 'animation'],
+    'animation': ['video', 'animation'],
+    'musik': ['audio', 'musik', 'voice', 'stimme', 'song'],
+    'song': ['audio', 'musik', 'voice'],
+    'podcast': ['podcast', 'audio', 'voice', 'stimme', 'adobe'],
+    'sprache': ['voice', 'stimme', 'audio'],
+    'stimme': ['voice', 'stimme', 'tts'],
+    'voiceover': ['voice', 'tts', 'stimme'],
+    'übersetzen': ['mehrsprachig', 'schreiben', 'text'],
+    'translation': ['mehrsprachig', 'schreiben'],
+    'code': ['code', 'coding', 'programmieren', 'ide'],
+    'programmieren': ['code', 'ide', 'codebase', 'coding'],
+    'entwicklung': ['code', 'ide', 'api'],
+    'website': ['websites', 'web'],
+    'suche': ['suche', 'recherche', 'research'],
+    'recherche': ['recherche', 'research', 'wissenschaft'],
+    'forschung': ['forschung', 'wissenschaft', 'paper'],
+    'chatbot': ['chat', 'schreiben', 'text'],
+    'automatisierung': ['automation', 'workflow', 'no-code'],
+    'workflow': ['workflow', 'automation'],
+    'integration': ['integrationen', 'automation', 'workflow'],
+    'daten': ['daten', 'csv', 'analyse'],
+    'analyse': ['analyse', 'daten', 'csv', 'ml'],
+    'statistik': ['daten', 'analyse', 'csv'],
+    'pdf': ['pdf', 'dokumente', 'quellen'],
+    'nocode': ['no-code', 'automation', 'visual'],
+    'agent': ['agent', 'autonomy', 'automation'],
+    'schreiben': ['schreiben', 'text', 'writing'],
+    'text': ['text', 'schreiben', 'writing'],
+    'email': ['schreiben', 'text', 'email'],
+    'seo': ['schreiben', 'text', 'seo'],
+    'zusammenfassung': ['dokumente', 'pdf', 'schreiben', 'research'],
+    'research': ['research', 'recherche', 'wissenschaft'],
+    'notizen': ['notizen', 'workspace', 'dokumente'],
+    'meeting': ['meetings', 'workspace', 'notizen'],
+  };
+
+  function expandQuery(q: string): string[] {
+    const terms = [q];
+    for (const [key, expansions] of Object.entries(ALIASES)) {
+      if (q.includes(key)) terms.push(...expansions);
+    }
+    return [...new Set(terms)];
+  }
+
+  function scoreItem(item: HTMLElement, terms: string[]): number {
+    const name = item.dataset.name ?? '';
+    const tagline = item.dataset.tagline ?? '';
+    const tags = item.dataset.tags ?? '';
+    const desc = item.dataset.description ?? '';
+    const isEditorPick = item.dataset.editorPick === 'true';
+    let score = 0;
+    if (isEditorPick) score += 2;
+    for (const t of terms) {
+      if (!t) continue;
+      if (name === t) score += 10;
+      else if (name.includes(t)) score += 6;
+      const tagList = tags.split(' ');
+      for (const tag of tagList) {
+        if (tag === t) score += 5;
+        else if (tag.includes(t) || t.includes(tag)) score += 3;
+      }
+      if (tagline.includes(t)) score += 2;
+      if (desc.includes(t)) score += 1;
+    }
+    return score;
+  }
 
   function filterTools() {
-    let visible = 0;
-    toolItems.forEach(item => {
-      const name = item.dataset.name ?? '';
-      const tagline = item.dataset.tagline ?? '';
-      const tags = item.dataset.tags ?? '';
+    const terms = searchQuery ? expandQuery(searchQuery) : [];
+    const items = Array.from(document.querySelectorAll('.tool-item')) as HTMLElement[];
+
+    // Score & filter
+    const scored = items.map(item => {
       const category = item.dataset.category ?? '';
-
-      const matchesSearch = !searchQuery ||
-        name.includes(searchQuery) ||
-        tagline.includes(searchQuery) ||
-        tags.includes(searchQuery);
-
+      const isFree = item.dataset.free === 'true';
       const matchesCategory = activeCategory === 'all' || category === activeCategory;
+      const matchesFree = !onlyFree || isFree;
 
-      if (matchesSearch && matchesCategory) {
-        item.classList.remove('hidden');
-        visible++;
-      } else {
-        item.classList.add('hidden');
+      let score = 0;
+      let matchesSearch = true;
+
+      if (terms.length > 0) {
+        score = scoreItem(item, terms);
+        matchesSearch = score > 0;
       }
+
+      return { item, score, visible: matchesSearch && matchesCategory && matchesFree };
+    });
+
+    // Sort by score descending when searching, else keep original order
+    if (terms.length > 0) {
+      scored.sort((a, b) => b.score - a.score);
+      scored.forEach(({ item }) => toolGrid.appendChild(item));
+    }
+
+    let visible = 0;
+    scored.forEach(({ item, visible: v }) => {
+      if (v) { item.classList.remove('hidden'); visible++; }
+      else item.classList.add('hidden');
     });
 
     resultsCount.textContent = `${visible} Tool${visible !== 1 ? 's' : ''} gefunden`;
@@ -130,6 +245,11 @@ const totalTools = allTools.length;
 
   searchInput.addEventListener('input', (e) => {
     searchQuery = (e.target as HTMLInputElement).value.toLowerCase().trim();
+    filterTools();
+  });
+
+  freeFilter.addEventListener('change', () => {
+    onlyFree = freeFilter.checked;
     filterTools();
   });
 
