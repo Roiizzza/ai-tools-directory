@@ -6,6 +6,7 @@ import skills from '../data/claude-skills.json';
 const categories = ['Alle', ...Array.from(new Set(skills.map(s => s.category)))];
 const builtinCount = skills.filter(s => s.type === 'builtin').length;
 const marketplaceCount = skills.filter(s => s.type === 'marketplace').length;
+const communityCount = skills.filter(s => s.type === 'community').length;
 const customCount = skills.filter(s => s.type === 'custom').length;
 ---
 
@@ -34,6 +35,10 @@ const customCount = skills.filter(s => s.type === 'custom').length;
         <span class="flex items-center gap-1.5 text-purple-400">
           <span class="w-2 h-2 rounded-full bg-purple-400"></span>
           {marketplaceCount} Marketplace
+        </span>
+        <span class="flex items-center gap-1.5 text-orange-400">
+          <span class="w-2 h-2 rounded-full bg-orange-400"></span>
+          {communityCount} Community (GitHub)
         </span>
         <span class="flex items-center gap-1.5 text-emerald-400">
           <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -71,6 +76,7 @@ const customCount = skills.filter(s => s.type === 'custom').length;
           { key: 'alle', label: 'Alle Typen' },
           { key: 'builtin', label: '🔵 Built-in' },
           { key: 'marketplace', label: '🟣 Marketplace' },
+          { key: 'community', label: '🟠 Community' },
           { key: 'custom', label: '🟢 Custom' },
         ].map(t => (
           <button
@@ -115,6 +121,9 @@ const customCount = skills.filter(s => s.type === 'custom').length;
             {skill.type === 'marketplace' && (
               <span class="text-xs px-2 py-0.5 rounded-full bg-purple-900/40 border border-purple-800/60 text-purple-400">Marketplace</span>
             )}
+            {skill.type === 'community' && (
+              <span class="text-xs px-2 py-0.5 rounded-full bg-orange-900/40 border border-orange-800/60 text-orange-400">Community</span>
+            )}
             {skill.type === 'custom' && (
               <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-900/40 border border-emerald-800/60 text-emerald-400">Custom</span>
             )}
@@ -148,6 +157,9 @@ const customCount = skills.filter(s => s.type === 'custom').length;
             )}
             {skill.type === 'marketplace' && (
               <span class="text-xs text-purple-400/70">Claude Code Marketplace</span>
+            )}
+            {skill.type === 'community' && (
+              <span class="text-xs text-orange-400/70">GitHub Community</span>
             )}
             {skill.type === 'custom' && (
               <button
