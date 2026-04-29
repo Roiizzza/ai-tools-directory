@@ -1,0 +1,179 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout
+  title="KI-Tool-Berater — Erzähl von deiner Idee"
+  description="Beschreibe deine Idee und erhalte eine KI-gestützte Empfehlung der besten Tools."
+>
+  <Header />
+
+  <main class="max-w-3xl mx-auto px-4 py-12">
+    <!-- Hero -->
+    <div class="text-center mb-10">
+      <div class="text-5xl mb-4">💡</div>
+      <h1 class="text-3xl sm:text-4xl font-bold text-white mb-3 leading-tight">
+        Erzähl von deiner Idee
+      </h1>
+      <p class="text-zinc-400 text-base max-w-xl mx-auto">
+        Beschreibe was du bauen, erstellen oder automatisieren möchtest —
+        die KI zeigt dir die besten Tools aus unserem Verzeichnis, in Reihenfolge von gut zu schlecht.
+      </p>
+    </div>
+
+    <!-- Form -->
+    <div class="rounded-2xl border border-zinc-800 bg-[#1a1a1a] p-6 mb-6">
+      <textarea
+        id="idea-input"
+        rows="5"
+        placeholder="Beispiel: Ich möchte eine Präsentation über KI-Trends erstellen und sie dann als Video aufnehmen mit meiner Stimme …"
+        class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-4 text-white placeholder-zinc-500 text-sm leading-relaxed resize-none focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+      ></textarea>
+
+      <div class="flex items-center justify-between mt-4 flex-wrap gap-3">
+        <!-- Free checkbox -->
+        <label class="flex items-center gap-2.5 cursor-pointer group">
+          <input
+            type="checkbox"
+            id="prefer-free"
+            class="w-4 h-4 rounded border-zinc-600 bg-zinc-800 accent-indigo-500 cursor-pointer"
+          />
+          <span class="text-sm text-zinc-400 group-hover:text-white transition-colors select-none">
+            Kostenlose KI bevorzugen
+          </span>
+        </label>
+
+        <!-- Submit -->
+        <button
+          id="submit-btn"
+          class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm transition-colors"
+        >
+          <span id="btn-text">Analysieren →</span>
+          <span id="btn-spinner" class="hidden animate-spin">⟳</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div id="result-wrap" class="hidden">
+      <div class="rounded-2xl border border-indigo-500/30 bg-[#1a1a1a] p-6">
+        <div class="flex items-center gap-2 mb-4 text-xs text-indigo-400 font-medium uppercase tracking-wide">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+          KI-Empfehlung
+        </div>
+        <div
+          id="result-text"
+          class="text-zinc-300 text-sm leading-relaxed prose-like"
+        ></div>
+        <div id="result-cursor" class="inline-block w-0.5 h-4 bg-indigo-400 ml-0.5 animate-pulse align-middle"></div>
+      </div>
+      <div class="mt-4 text-center">
+        <a href="/" class="text-sm text-zinc-500 hover:text-white transition-colors">← Alle Tools durchsuchen</a>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div id="error-wrap" class="hidden rounded-xl border border-red-800 bg-red-950/30 p-4 text-red-400 text-sm"></div>
+  </main>
+
+  <footer class="border-t border-zinc-800 mt-16 py-8 text-center text-zinc-600 text-sm">
+    <p>AI Tools Directory · Stand April 2026 · Kein Affiliate-Tracking</p>
+  </footer>
+</Layout>
+
+<script>
+  const ideaInput = document.getElementById('idea-input') as HTMLTextAreaElement;
+  const preferFree = document.getElementById('prefer-free') as HTMLInputElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const btnText = document.getElementById('btn-text')!;
+  const btnSpinner = document.getElementById('btn-spinner')!;
+  const resultWrap = document.getElementById('result-wrap')!;
+  const resultText = document.getElementById('result-text')!;
+  const resultCursor = document.getElementById('result-cursor')!;
+  const errorWrap = document.getElementById('error-wrap')!;
+
+  function renderMd(text: string): string {
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>')
+      .replace(/\n\n/g, '</p><p class="mt-3">')
+      .replace(/\n(\d+\. )/g, '<br><span class="text-indigo-400 font-medium">$1</span>')
+      .replace(/\n- /g, '<br><span class="text-zinc-500 mr-1">–</span>')
+      .replace(/\n/g, '<br>');
+  }
+
+  submitBtn.addEventListener('click', async () => {
+    const idea = ideaInput.value.trim();
+    if (!idea) {
+      ideaInput.focus();
+      return;
+    }
+
+    // Reset UI
+    errorWrap.classList.add('hidden');
+    resultWrap.classList.add('hidden');
+    resultText.innerHTML = '';
+    submitBtn.disabled = true;
+    btnText.textContent = 'Analysiere …';
+    btnSpinner.classList.remove('hidden');
+
+    try {
+      const res = await fetch('/api/recommend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idea, preferFree: preferFree.checked }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Fehler ${res.status}: ${await res.text()}`);
+      }
+
+      resultWrap.classList.remove('hidden');
+      btnText.textContent = 'Analysieren →';
+      btnSpinner.classList.add('hidden');
+      submitBtn.disabled = false;
+
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let fullText = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() ?? '';
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          const data = line.slice(6).trim();
+          if (data === '[DONE]') {
+            resultCursor.classList.add('hidden');
+            break;
+          }
+          try {
+            const parsed = JSON.parse(data);
+            const chunk = parsed.choices?.[0]?.delta?.content ?? '';
+            if (chunk) {
+              fullText += chunk;
+              resultText.innerHTML = '<p>' + renderMd(fullText) + '</p>';
+            }
+          } catch {}
+        }
+      }
+    } catch (e: any) {
+      errorWrap.textContent = e.message ?? 'Unbekannter Fehler';
+      errorWrap.classList.remove('hidden');
+      btnText.textContent = 'Analysieren →';
+      btnSpinner.classList.add('hidden');
+      submitBtn.disabled = false;
+    }
+  });
+
+  // Submit on Ctrl+Enter
+  ideaInput.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'Enter') submitBtn.click();
+  });
+</script>
