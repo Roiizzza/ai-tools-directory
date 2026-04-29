@@ -44,9 +44,9 @@ ANWEISUNGEN:
 - Nutze **Tool-Name** für Fettschrift
 - Sei konkret und praktisch, kein Marketing-Sprech`;
 
-  const apiKey = import.meta.env.NVIDIA_API_KEY;
+  const apiKey = import.meta.env.NVIDIA_API_KEY ?? process.env.NVIDIA_API_KEY;
   if (!apiKey) {
-    return new Response('API-Key fehlt', { status: 500 });
+    return new Response('API-Key fehlt — bitte NVIDIA_API_KEY in .env setzen', { status: 500 });
   }
 
   let nvidiaRes: Response;
