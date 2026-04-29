@@ -1,24 +1,60 @@
 ---
+const { pathname } = Astro.url;
+
+const nav = [
+  { href: '/tools',        label: 'KI-Tools',     icon: '🛠' },
+  { href: '/api-keys',     label: 'API Keys',      icon: '🔑' },
+  { href: '/claude-skills',label: 'Claude Skills', icon: '⚡' },
+  { href: '/idea',         label: 'KI-Berater',    icon: '💡' },
+];
+
+function isActive(href: string) {
+  if (href === '/tools') return pathname === '/tools' || pathname.startsWith('/category') || pathname.startsWith('/tool');
+  return pathname === href || pathname.startsWith(href + '/');
+}
 ---
+
 <header class="border-b border-zinc-800 sticky top-0 z-50 backdrop-blur-md bg-[#0f0f0f]/90">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2 text-white font-bold text-xl hover:text-indigo-400 transition-colors">
-      <span class="text-2xl">🤖</span>
-      <span>AI Tools Directory</span>
+  <div class="max-w-7xl mx-auto px-4 py-0 flex items-center justify-between h-14">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 text-white font-bold text-lg hover:text-indigo-400 transition-colors flex-none">
+      <span class="text-xl">🤖</span>
+      <span class="hidden sm:block">AI Tools Directory</span>
+      <span class="sm:hidden">AITD</span>
     </a>
-    <nav class="flex items-center gap-3">
-      <a href="/claude-skills" class="text-sm text-zinc-400 hover:text-white transition-colors hidden sm:block">
-        ⚡ Skills
-      </a>
-      <a href="/api-keys" class="text-sm text-zinc-400 hover:text-white transition-colors hidden sm:block">
-        🔑 API Keys
-      </a>
-      <a
-        href="/idea"
-        class="text-sm font-medium px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition-colors flex items-center gap-1.5"
-      >
-        <span>💡</span> KI-Berater
-      </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-1">
+      {nav.map(item => (
+        <a
+          href={item.href}
+          class={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+            isActive(item.href)
+              ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-600/30'
+              : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
+          }`}
+        >
+          <span>{item.icon}</span>
+          <span>{item.label}</span>
+        </a>
+      ))}
+    </nav>
+
+    <!-- Mobile Nav -->
+    <nav class="flex md:hidden items-center gap-1">
+      {nav.map(item => (
+        <a
+          href={item.href}
+          class={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+            isActive(item.href)
+              ? 'bg-indigo-600/20 text-indigo-300'
+              : 'text-zinc-500 hover:text-white'
+          }`}
+          title={item.label}
+        >
+          <span>{item.icon}</span>
+        </a>
+      ))}
     </nav>
   </div>
 </header>

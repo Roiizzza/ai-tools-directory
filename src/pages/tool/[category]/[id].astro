@@ -30,7 +30,9 @@ const initials = tool.name.slice(0, 2).toUpperCase();
   <main class="max-w-3xl mx-auto px-4 py-10">
     <!-- Breadcrumb -->
     <nav class="text-sm text-zinc-500 mb-8 flex flex-wrap gap-1 items-center">
-      <a href="/" class="hover:text-white transition-colors">Alle Kategorien</a>
+      <a href="/" class="hover:text-white transition-colors">Übersicht</a>
+      <span class="mx-1">›</span>
+      <a href="/tools" class="hover:text-white transition-colors">KI-Tools</a>
       <span class="mx-1">›</span>
       <a href={`/category/${category.slug}`} class="hover:text-white transition-colors">{category.emoji} {category.name}</a>
       <span class="mx-1">›</span>
