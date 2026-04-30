@@ -1,0 +1,218 @@
+[
+  {
+    "id": "was-ist-api-key",
+    "title": "Was ist ein API Key und wie benutze ich ihn?",
+    "icon": "🔑",
+    "level": "Einsteiger",
+    "duration": "5 Min",
+    "description": "Ein API Key ist wie ein Passwort für eine Software — er erlaubt deiner App, mit einem KI-Dienst zu kommunizieren. Ohne ihn kein Zugriff.",
+    "tags": ["API", "Grundlagen", "Sicherheit"],
+    "steps": [
+      {
+        "title": "Was ist ein API Key?",
+        "content": "Ein API Key (Application Programming Interface Key) ist eine eindeutige Zeichenkette, die dich gegenüber einem Dienst identifiziert. Wenn deine App eine Anfrage an z.B. OpenAI schickt, wird der Key mitgeschickt — so weiß der Dienst, wer du bist und zählt deine Nutzung.\n\nBeispiel: `sk-proj-abc123xyz...` (OpenAI) oder `nvapi-7FHZHTM...` (NVIDIA)"
+      },
+      {
+        "title": "Wo bekomme ich einen API Key?",
+        "content": "1. Registriere dich auf der Plattform (z.B. platform.openai.com)\n2. Navigiere zu \"API Keys\" oder \"Settings\"\n3. Klicke auf \"Create new key\"\n4. Kopiere den Key sofort — er wird meist nur einmal angezeigt!\n\nKostenlose Optionen ohne Credit Card: NVIDIA NIM, Google AI Studio, Groq, OpenRouter → alle im Bereich \"API Keys\" aufgelistet."
+      },
+      {
+        "title": "Wie benutze ich den Key?",
+        "content": "In einer .env Datei (nie direkt im Code):\n\n```\nOPENAI_API_KEY=sk-proj-dein-key-hier\n```\n\nIn JavaScript abrufen:\n```javascript\nconst apiKey = process.env.OPENAI_API_KEY;\n```\n\nIn einem API-Aufruf:\n```javascript\nfetch('https://api.openai.com/v1/chat/completions', {\n  headers: { 'Authorization': `Bearer ${apiKey}` }\n});\n```"
+      },
+      {
+        "title": "Sicherheit — was du NICHT tun sollst",
+        "content": "❌ Nie den Key direkt im Code eintragen (`const key = 'sk-proj-...'`)\n❌ Nie in ein öffentliches Git-Repository committen\n❌ Nie in Frontend-Code (Browser kann ihn sehen)\n❌ Nie per E-Mail oder Chat teilen\n\n✅ Immer in .env Datei\n✅ .env in .gitignore eintragen\n✅ Für Produktion: Umgebungsvariablen im Hosting (Vercel, Netlify) setzen\n✅ Bei Verdacht: Key sofort widerrufen und neu generieren"
+      }
+    ]
+  },
+  {
+    "id": "claude-skills-installieren",
+    "title": "Claude Code Skills installieren — Schritt für Schritt",
+    "icon": "⚡",
+    "level": "Einsteiger",
+    "duration": "3 Min",
+    "description": "Skills sind Slash-Commands die Claude Code erweitern. So installierst du Built-in Skills, Marketplace Skills und eigene Custom Skills.",
+    "tags": ["Claude Code", "Skills", "Setup"],
+    "steps": [
+      {
+        "title": "Built-in Skills (kein Setup nötig)",
+        "content": "Diese Skills sind automatisch verfügbar:\n\n- `/init` — CLAUDE.md Datei erstellen\n- `/review` — Pull Request reviewen\n- `/security-review` — Sicherheitsaudit\n\nEinfach in Claude Code eintippen."
+      },
+      {
+        "title": "Marketplace Skills installieren",
+        "content": "Im Claude Code Terminal:\n\n```\n/plugin marketplace add anthropics/skills\n```\n\nOder über das Menü:\n```\n/plugin menu\n```\n\nBeispiele:\n- `anthropics/claude-code` → frontend-design Skill\n- `vercel-labs/agent-skills` → Web Design Guidelines\n\nNach Installation: `/skill-name` aufrufen."
+      },
+      {
+        "title": "Custom Skill selbst erstellen",
+        "content": "Für persönliche Skills (alle Projekte):\n```bash\nmkdir -p ~/.claude/commands\nnano ~/.claude/commands/mein-skill.md\n```\n\nFür projektspezifische Skills:\n```bash\nmkdir -p .claude/commands\nnano .claude/commands/mein-skill.md\n```\n\nDateiinhalt = der Prompt der ausgeführt wird.\nDanach: `/mein-skill` in Claude Code eingeben."
+      },
+      {
+        "title": "Skill-Inhalt Beispiel",
+        "content": "Erstelle `.claude/commands/test-gen.md`:\n\n```markdown\nAnalysiere die aktuelle Datei und erstelle vollständige Unit-Tests.\nNutze das bestehende Test-Framework (Jest/Vitest/pytest).\nDecke ab: Happy Path, Edge Cases, Error Cases.\n```\n\nAufruf: `/test-gen` → Claude liest die Datei und schreibt Tests."
+      }
+    ]
+  },
+  {
+    "id": "erste-schritte-ki-tools",
+    "title": "Erste Schritte mit KI-Tools — Wo anfangen?",
+    "icon": "🚀",
+    "level": "Einsteiger",
+    "duration": "7 Min",
+    "description": "Du willst KI nutzen, weißt aber nicht wo du anfangen sollst? Diese Anleitung zeigt dir den richtigen Einstieg je nach deinem Ziel.",
+    "tags": ["Einsteiger", "Überblick", "Getting Started"],
+    "steps": [
+      {
+        "title": "Schritt 1: Was willst du damit machen?",
+        "content": "Je nach Ziel gibt es unterschiedliche Einstiegspunkte:\n\n📝 **Text schreiben/verbessern** → ChatGPT oder Claude (kostenlos starten)\n💻 **Code schreiben** → Cursor oder GitHub Copilot\n🎨 **Bilder erstellen** → Midjourney oder Flux (via fal.ai)\n🎬 **Videos erstellen** → Kling 2 oder Runway\n🎙️ **Audio/Stimme** → ElevenLabs (kostenlos bis 10k Zeichen)\n🔍 **Recherche** → Perplexity (kostenlos)\n🤖 **Automatisierungen** → n8n (Open Source) oder Make"
+      },
+      {
+        "title": "Schritt 2: Kostenlos ausprobieren",
+        "content": "Diese Tools haben echte Free Tiers ohne Credit Card:\n\n1. **ChatGPT** (openai.com) — GPT-4o Mini kostenlos\n2. **Claude** (claude.ai) — Claude 3.5 Sonnet täglich kostenlos\n3. **Perplexity** (perplexity.ai) — Suche kostenlos\n4. **ElevenLabs** — 10.000 Zeichen TTS/Monat\n5. **Canva AI** — Basis-Bildgenerierung kostenlos\n\nKeine Kreditkarte, einfach registrieren und loslegen."
+      },
+      {
+        "title": "Schritt 3: Den richtigen Prompt schreiben",
+        "content": "Ein guter Prompt hat 4 Teile:\n\n1. **Rolle** — Wer soll die KI sein? (\"Du bist ein erfahrener Texter...\")\n2. **Aufgabe** — Was soll sie tun? (\"Schreibe eine E-Mail...\")\n3. **Kontext** — Was ist der Hintergrund? (\"...für mein SaaS-Produkt, das...\")\n4. **Format** — Wie soll die Ausgabe aussehen? (\"...in 3 kurzen Absätzen\")\n\nBeispiel: \"Du bist ein erfahrener E-Mail-Marketer. Schreibe einen Newsletter für mein Online-Kurs-Angebot über Python-Programmierung. Zielgruppe: Berufstätige ab 30. Format: Betreff + 3 Absätze + CTA.\""
+      },
+      {
+        "title": "Schritt 4: KI in den Alltag integrieren",
+        "content": "Starte klein — integriere KI in eine Aufgabe die du täglich machst:\n\n- E-Mails schreiben → erst Entwurf von KI, dann überarbeiten\n- Recherche → Perplexity statt Google für erste Einschätzung\n- Bilder für Social Media → Midjourney oder Flux\n- Meeting-Notizen → NotebookLM zum Zusammenfassen\n\nNach 2 Wochen wirst du merken, welche Tools dir wirklich Zeit sparen."
+      }
+    ]
+  },
+  {
+    "id": "prompts-schreiben",
+    "title": "Prompts schreiben die wirklich funktionieren",
+    "icon": "✍️",
+    "level": "Einsteiger",
+    "duration": "8 Min",
+    "description": "Prompt Engineering ist die Fähigkeit, KI-Modellen präzise Anweisungen zu geben. Hier lernst du die wichtigsten Techniken.",
+    "tags": ["Prompt Engineering", "Best Practices", "LLM"],
+    "steps": [
+      {
+        "title": "Die wichtigsten Grundregeln",
+        "content": "**Spezifisch sein:** Statt \"Schreibe einen Text\" → \"Schreibe einen 200-Wort-Blogpost über Zeitmanagement für Freelancer, Ton: praktisch und direkt\"\n\n**Kontext geben:** Die KI weiß nichts über dich. Erkläre: Branche, Zielgruppe, Stil, Plattform.\n\n**Beispiele zeigen:** \"Schreibe es im Stil von: [Beispiel einfügen]\"\n\n**Format vorgeben:** \"Antworte als nummerierte Liste\", \"Maximal 3 Sätze\", \"Nur JSON ausgeben\""
+      },
+      {
+        "title": "Chain-of-Thought — Komplexe Aufgaben lösen",
+        "content": "Für schwierige Aufgaben: Bitte die KI, Schritt für Schritt zu denken.\n\nMit: \"Denke Schritt für Schritt...\"\nOder: \"Erkläre zuerst dein Vorgehen, dann löse das Problem.\"\n\nBeispiel:\n```\nAnalysiere dieses Geschäftsmodell Schritt für Schritt:\n1. Was sind die Stärken?\n2. Was sind die Risiken?\n3. Welche Verbesserungen würdest du empfehlen?\n[Geschäftsmodell beschreiben]\n```"
+      },
+      {
+        "title": "System Prompts — Dauerhafte Verhaltensregeln",
+        "content": "Ein System Prompt wird einmal gesetzt und gilt für das gesamte Gespräch.\n\nBeispiel für einen Kundensupport-Bot:\n```\nDu bist ein freundlicher Kundenservice-Mitarbeiter von [Firma].\nAntworte immer auf Deutsch.\nBei Beschwerden: zuerst Empathie zeigen, dann Lösung anbieten.\nBei Fragen zu Preisen: verweise immer auf support@firma.de.\nHalte Antworten unter 100 Wörtern.\n```"
+      },
+      {
+        "title": "Häufige Fehler vermeiden",
+        "content": "❌ **Zu vage:** \"Mach das besser\" → ✅ \"Kürze den Text auf 50% und mache den Ton formeller\"\n\n❌ **Zu viele Aufgaben auf einmal:** Eine Anfrage = eine Aufgabe\n\n❌ **Ergebnis nicht iterieren:** Wenn die erste Antwort nicht passt — nacharbeiten statt neu starten: \"Gut, aber mache Punkt 2 konkreter mit einem Beispiel\"\n\n❌ **KI blind vertrauen:** Fakten immer prüfen — LLMs halluzinieren manchmal Quellen und Zahlen"
+      }
+    ]
+  },
+  {
+    "id": "ki-in-website-einbinden",
+    "title": "KI in eigene Website oder App einbinden",
+    "icon": "🌐",
+    "level": "Fortgeschritte",
+    "duration": "10 Min",
+    "description": "So bindest du ein KI-Modell (z.B. über NVIDIA oder OpenAI) in deine eigene Web-App ein — mit konkretem Code-Beispiel.",
+    "tags": ["API", "JavaScript", "Integration", "Entwicklung"],
+    "steps": [
+      {
+        "title": "Welche API wählen?",
+        "content": "Für den Start empfehlen wir:\n\n**Kostenlos ohne Credit Card:**\n- **NVIDIA NIM** (nvapi-...) — 1000 Credits/Monat, Llama 3.3 70B\n- **Google AI Studio** (Gemini) — 1500 Anfragen/Tag kostenlos\n- **Groq** — 14.400 Anfragen/Tag kostenlos, sehr schnell\n\n**Einheitliches Interface (OpenAI-kompatibel):**\nNVIDIA NIM, Groq, OpenRouter nutzen alle das gleiche Format wie OpenAI — Code einmal schreiben, bei Bedarf Anbieter wechseln."
+      },
+      {
+        "title": "Server-Side API Call (empfohlen)",
+        "content": "Immer serverseitig aufrufen — nie den API Key im Browser exponieren!\n\nBeispiel mit Next.js API Route (`pages/api/chat.ts`):\n```typescript\nexport default async function handler(req, res) {\n  const { message } = req.body;\n  \n  const response = await fetch(\n    'https://integrate.api.nvidia.com/v1/chat/completions',\n    {\n      method: 'POST',\n      headers: {\n        'Authorization': `Bearer ${process.env.NVIDIA_API_KEY}`,\n        'Content-Type': 'application/json',\n      },\n      body: JSON.stringify({\n        model: 'meta/llama-3.3-70b-instruct',\n        messages: [{ role: 'user', content: message }],\n        max_tokens: 500,\n      }),\n    }\n  );\n  \n  const data = await response.json();\n  res.json({ reply: data.choices[0].message.content });\n}\n```"
+      },
+      {
+        "title": "Streaming für bessere UX",
+        "content": "Mit Streaming erscheint der Text Wort für Wort — fühlt sich natürlicher an.\n\nServer:\n```typescript\nbody: JSON.stringify({ ...params, stream: true })\n\n// Stream weiterleiten:\nreturn new Response(response.body, {\n  headers: { 'Content-Type': 'text/event-stream' }\n});\n```\n\nClient:\n```javascript\nconst reader = response.body.getReader();\nconst decoder = new TextDecoder();\n\nwhile (true) {\n  const { done, value } = await reader.read();\n  if (done) break;\n  const chunk = decoder.decode(value);\n  // SSE Zeilen parsen: 'data: {...}'\n  const lines = chunk.split('\\n').filter(l => l.startsWith('data: '));\n  for (const line of lines) {\n    const json = JSON.parse(line.slice(6));\n    const text = json.choices?.[0]?.delta?.content ?? '';\n    outputElement.textContent += text;\n  }\n}\n```"
+      },
+      {
+        "title": "System Prompt für deinen Use Case",
+        "content": "Passe den System Prompt für deine App an:\n\n**Kundensupport:**\n```\nDu bist der Support-Assistent von [Firma]. Beantworte nur Fragen zu unseren Produkten. Bei unbekannten Fragen: Verweise auf support@firma.de.\n```\n\n**Produktberater:**\n```\nDu hilfst Kunden, das richtige Produkt zu finden. Stelle maximal 3 Fragen, dann empfehle. Bleibe immer bei unserem Sortiment.\n```\n\n**Content Generator:**\n```\nDu erstellst Social-Media-Posts für [Branche]. Ton: [Stil]. Sprache: Deutsch. Format: Immer mit Hashtags abschließen.\n```"
+      }
+    ]
+  },
+  {
+    "id": "kostenlos-ki-nutzen",
+    "title": "KI kostenlos nutzen — Der komplette Free-Tier Guide",
+    "icon": "🆓",
+    "level": "Einsteiger",
+    "duration": "5 Min",
+    "description": "Diese KI-Tools und APIs kannst du dauerhaft kostenlos nutzen — ohne Credit Card und ohne versteckte Kosten.",
+    "tags": ["Kostenlos", "Free Tier", "Budget"],
+    "steps": [
+      {
+        "title": "Kostenlose KI-Chatbots",
+        "content": "**ChatGPT Free** — GPT-4o Mini unbegrenzt, GPT-4o mit täglichem Limit\n**Claude.ai Free** — Claude 3.5 Sonnet täglich, sehr gut für langen Text\n**Gemini Free** — Google, gut integriert in Google Workspace\n**Mistral Le Chat Free** — Europäischer Anbieter, DSGVO-konform\n**Grok Free** — Mit X/Twitter-Account, Internetzugang\n\nTipp: Für intensive Nutzung mehrere Accounts bei verschiedenen Diensten — so umgehst du Tageslimits legal."
+      },
+      {
+        "title": "Kostenlose APIs (für Entwickler)",
+        "content": "**NVIDIA NIM** — 1000 Credits/Monat, kein Ablauf, 100+ Modelle\n**Google AI Studio** — 1500 Anfragen/Tag (Gemini Flash), kein Credit Card\n**Groq** — 14.400 Anfragen/Tag, extrem schnell\n**OpenRouter** — Viele Modelle dauerhaft kostenlos (Llama, Gemma, Mistral)\n**Cloudflare AI** — 10.000 Anfragen/Tag im Workers Free Plan\n\nAlle ohne Credit Card — Links im Bereich \"API Keys\"."
+      },
+      {
+        "title": "Kostenlose Bildgenerierung",
+        "content": "**Bing Image Creator** (DALL-E 3) — kostenlos mit Microsoft-Account\n**Adobe Firefly** — kostenlose Credits monatlich\n**Canva AI** — Basis-Bildgenerierung im Free Plan\n**Stable Diffusion lokal** — komplett kostenlos wenn du eine GPU hast (ComfyUI, Automatic1111)\n**Flux via Hugging Face** — kostenlose Inference API mit Rate Limits"
+      },
+      {
+        "title": "Kostenlose Audio & Video",
+        "content": "**ElevenLabs Free** — 10.000 Zeichen TTS/Monat, 3 Stimmen\n**Murf Free** — 10 Minuten Audio/Monat\n**CapCut** — KI-Videoschnitt kostenlos\n**Clipchamp** — Microsoft, im Windows integriert, kostenlos\n\n**Audio Transkription:**\n- **AssemblyAI** — 100 Stunden kostenlos\n- **Whisper via Hugging Face** — Open Source, lokal nutzbar"
+      }
+    ]
+  },
+  {
+    "id": "ki-modelle-unterschiede",
+    "title": "GPT vs Claude vs Gemini — Welches Modell wofür?",
+    "icon": "🤖",
+    "level": "Einsteiger",
+    "duration": "6 Min",
+    "description": "Die drei dominanten KI-Familien im Vergleich — Stärken, Schwächen und wann du welches nutzen solltest.",
+    "tags": ["Modelle", "Vergleich", "GPT", "Claude", "Gemini"],
+    "steps": [
+      {
+        "title": "GPT (OpenAI) — Der Allrounder",
+        "content": "**Stärken:**\n- Beste Tool-Integration (DALL-E, Browsing, Code Interpreter in einem)\n- Sehr breites Wissen\n- Gut für strukturierte Aufgaben\n\n**Schwächen:**\n- Teuerste Option ohne Free Tier\n- Manchmal zu \"höflich\" und ausweichend\n\n**Nutze GPT wenn:**\n- Du alle Funktionen in einem brauchst (Chat + Bilder + Code)\n- Du bereits im OpenAI-Ökosystem bist\n- Du mit GPT-4o Mini Kosten sparen willst"
+      },
+      {
+        "title": "Claude (Anthropic) — Der Denker",
+        "content": "**Stärken:**\n- Bestes Reasoning und Analyse-Aufgaben\n- Sehr langer Kontext (200K Token = ~150.000 Wörter)\n- Ehrlichere Antworten, geringere Halluzinationsrate\n- Ausgezeichnet für Code und Dokumente\n\n**Schwächen:**\n- Kein integriertes Bildgenerierungsmodell\n- Kein Internetzugang in der API\n\n**Nutze Claude wenn:**\n- Du lange Dokumente analysieren willst\n- Du komplexen Code schreibst\n- Du präzise, direkte Antworten willst"
+      },
+      {
+        "title": "Gemini (Google) — Der Integrator",
+        "content": "**Stärken:**\n- Native Google-Integration (Docs, Drive, Gmail)\n- Multimodal aus dem Stand\n- Sehr großzügiges Free Tier\n- Gut für Recherche durch Google-Verbindung\n\n**Schwächen:**\n- Qualitätsunterschiede zwischen Modellen\n- Datenschutz-Bedenken bei Google-Integration\n\n**Nutze Gemini wenn:**\n- Du im Google-Ökosystem arbeitest\n- Du kostenlos starten willst (bestes Free Tier)\n- Du multimodale Aufgaben hast"
+      },
+      {
+        "title": "Open Source — Die Alternative",
+        "content": "**Llama (Meta), Mistral, Gemma, Qwen** — kostenlos, selbst hostbar, keine Datenweitergabe\n\n**Vorteile:**\n- Vollständige Kontrolle über Daten\n- DSGVO-konform wenn selbst gehostet\n- Keine Kosten bei eigener Infrastruktur\n- Anpassbar (Fine-tuning)\n\n**Starte mit:** Llama 3.3 70B via NVIDIA NIM oder Groq — kostenlos, ohne eigene Hardware\n\n**Für Experten:** Lokale Nutzung mit Ollama (Mac/Linux) oder LM Studio (Windows)"
+      }
+    ]
+  },
+  {
+    "id": "automatisierung-ki",
+    "title": "KI-Automatisierungen ohne Code einrichten",
+    "icon": "⚙️",
+    "level": "Mittel",
+    "duration": "8 Min",
+    "description": "Mit n8n, Make oder Zapier kannst du KI-Workflows automatisieren — ohne Programmierkenntnisse.",
+    "tags": ["Automatisierung", "n8n", "Make", "No-Code", "Workflow"],
+    "steps": [
+      {
+        "title": "Welches Tool wählen?",
+        "content": "**n8n (empfohlen für Kontrolle):**\n- Open Source, selbst hostbar\n- Kostenlos bis 5 Workflows\n- Sehr mächtig, unterstützt alle KI-APIs direkt\n- Ideal wenn Datenschutz wichtig ist\n\n**Make (empfohlen für Einsteiger):**\n- Visual Drag-and-Drop Interface\n- 1000 Operationen/Monat kostenlos\n- Viele vorgefertigte Templates\n\n**Zapier:**\n- Einfachste Einrichtung\n- 100 Tasks/Monat kostenlos\n- Teuer bei Skalierung"
+      },
+      {
+        "title": "Typische KI-Automatisierungen",
+        "content": "**E-Mail → Zusammenfassung:**\nGmail erhält E-Mail → OpenAI fasst zusammen → Slack-Benachrichtigung\n\n**Social Media automatisch:**\nNeuer Blogpost → KI schreibt 3 Social-Media-Posts → Buffer plant sie ein\n\n**Kundensupport triage:**\nFormular-Eingang → KI kategorisiert Anfrage → Weiterleitung an richtigen Mitarbeiter\n\n**Content-Pipeline:**\nRSS-Feed neuer Artikel → KI erstellt Zusammenfassung auf Deutsch → Notion-Eintrag"
+      },
+      {
+        "title": "n8n einrichten — Schritt für Schritt",
+        "content": "**Option 1: Cloud (einfach)**\n1. n8n.io → \"Start for free\"\n2. Workflow erstellen\n3. OpenAI/NVIDIA Node hinzufügen\n4. API Key eintragen\n\n**Option 2: Selbst hosten (kostenlos)**\n```bash\n# Mit Docker:\ndocker run -it --rm \\\n  -p 5678:5678 \\\n  -v ~/.n8n:/home/node/.n8n \\\n  n8nio/n8n\n```\nDann: http://localhost:5678"
+      },
+      {
+        "title": "Wichtige KI-Nodes in n8n",
+        "content": "**OpenAI Node:** Texte generieren, Zusammenfassen, Kategorisieren\n**HTTP Request Node:** Eigene API calls (NVIDIA, Groq etc.)\n**Code Node:** JavaScript für komplexe Logik\n\nBeispiel Prompt im OpenAI Node:\n```\nKategorisiere diese Kundenanfrage als: \n[Beschwerde / Frage / Lob / Sonstiges]\n\nAnfrage: {{ $json.message }}\n\nAntworte nur mit der Kategorie, nichts weiter.\n```"
+      }
+    ]
+  }
+]

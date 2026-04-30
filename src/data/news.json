@@ -1,0 +1,94 @@
+{
+  "entries": [
+    {
+      "id": "2026-04-30",
+      "date": "2026-04-30",
+      "title": "KI-News · 30. April 2026",
+      "intro": "Anthropic veröffentlicht Claude 4 Opus mit Rekord-Benchmarks, OpenAI bringt Real-Time Voice API für Entwickler und Meta macht Llama 4 Scout offiziell open-weights.",
+      "highlights": [
+        {
+          "title": "Anthropic: Claude 4 Opus — neues Spitzenmodell",
+          "body": "Anthropic hat Claude 4 Opus vorgestellt, das auf allen Standard-Benchmarks neue Höchstwerte setzt. Besonders stark bei Coding und mathematischem Reasoning. Über die API ab sofort verfügbar.",
+          "tag": "Anthropic",
+          "type": "Release"
+        },
+        {
+          "title": "OpenAI Real-Time Voice API jetzt für alle",
+          "body": "OpenAI gibt Entwicklern vollen Zugriff auf die Real-Time Voice API. Latenz unter 300ms, 7 Sprachen, direkt in eigene Apps einbaubar. Preise: 0,06$/min Input, 0,24$/min Output.",
+          "tag": "OpenAI",
+          "type": "Release"
+        },
+        {
+          "title": "Meta Llama 4 Scout: 17B Parameter, MIT-Lizenz",
+          "body": "Meta veröffentlicht Llama 4 Scout mit 17 Milliarden Parametern unter MIT-Lizenz. Läuft auf Consumer-Hardware mit 24 GB VRAM und schlägt GPT-4o-mini auf mehreren Benchmarks.",
+          "tag": "Meta",
+          "type": "Release"
+        },
+        {
+          "title": "Google Gemini 2.5 Pro bekommt 2M Token Context",
+          "body": "Google weitet das Kontextfenster von Gemini 2.5 Pro auf 2 Millionen Token aus — genug für ~1,5 Millionen Wörter oder ganze Codebasen. Ab sofort in Google AI Studio verfügbar.",
+          "tag": "Google",
+          "type": "Update"
+        }
+      ],
+      "tags": ["Anthropic", "OpenAI", "Meta", "Google"],
+      "generated_by": "perplexity/sonar"
+    },
+    {
+      "id": "2026-04-29",
+      "date": "2026-04-29",
+      "title": "KI-News · 29. April 2026",
+      "intro": "Perplexity AI schließt 500-Millionen-Dollar-Runde ab, Mistral bringt Devstral für Code und Runway Gen-5 zeigt erste 4K-Video-Demos.",
+      "highlights": [
+        {
+          "title": "Perplexity AI: 500M$ Series D",
+          "body": "Die KI-Suchmaschine Perplexity AI schließt eine Serie-D-Runde über 500 Millionen Dollar ab, angeführt von SoftBank. Bewertung: 14 Milliarden Dollar. Geld soll in Infrastruktur und internationale Expansion fließen.",
+          "tag": "Perplexity",
+          "type": "Funding"
+        },
+        {
+          "title": "Mistral Devstral: Spezialisiertes Code-Modell",
+          "body": "Mistral AI veröffentlicht Devstral, ein 24B-Parameter-Modell speziell für Code-Generierung und Debugging. Auf HumanEval übertrifft es GPT-4o-mini deutlich und ist vollständig open-weights.",
+          "tag": "Mistral",
+          "type": "Release"
+        },
+        {
+          "title": "Runway Gen-5: Erstmals 4K-Videogenerierung",
+          "body": "Runway zeigt erste Demos von Gen-5, das 4K-Videos mit bis zu 30 Sekunden Länge generiert. Konsistentere Charaktere, bessere Physik-Simulation. Beta-Zugang für Pro-Nutzer ab Mai.",
+          "tag": "Runway",
+          "type": "Vorschau"
+        }
+      ],
+      "tags": ["Perplexity", "Mistral", "Runway"],
+      "generated_by": "perplexity/sonar"
+    },
+    {
+      "id": "2026-04-28",
+      "date": "2026-04-28",
+      "title": "KI-News · 28. April 2026",
+      "intro": "DeepSeek R3 erreicht GPT-o3-Niveau beim Reasoning, Stability AI launcht SD 4 Turbo und ElevenLabs bringt Voice Cloning 3.0 mit 3-Sekunden-Sample.",
+      "highlights": [
+        {
+          "title": "DeepSeek R3: Reasoning auf Top-Niveau",
+          "body": "Das chinesische KI-Labor DeepSeek veröffentlicht R3, das auf Math- und Coding-Benchmarks mit OpenAIs o3 mithalten kann — bei deutlich geringeren Trainingskosten. Vollständig open-weights.",
+          "tag": "DeepSeek",
+          "type": "Release"
+        },
+        {
+          "title": "Stable Diffusion 4 Turbo: Bilder in 2 Sekunden",
+          "body": "Stability AI bringt SD 4 Turbo heraus: Bildgenerierung in unter 2 Sekunden bei 2048×2048 Pixel. Neue ControlNet-Integration für präzise Kompositions-Steuerung.",
+          "tag": "Stability AI",
+          "type": "Release"
+        },
+        {
+          "title": "ElevenLabs Voice Cloning 3.0",
+          "body": "ElevenLabs launcht die dritte Generation ihres Voice-Cloning-Systems. Nur 3 Sekunden Sample-Audio reichen für eine überzeugende Stimmkopie in 29 Sprachen.",
+          "tag": "ElevenLabs",
+          "type": "Release"
+        }
+      ],
+      "tags": ["DeepSeek", "Stability AI", "ElevenLabs"],
+      "generated_by": "perplexity/sonar"
+    }
+  ]
+}

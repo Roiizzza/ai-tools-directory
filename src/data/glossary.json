@@ -1,0 +1,192 @@
+[
+  {
+    "term": "Agent",
+    "category": "KI-Konzepte",
+    "definition": "Ein KI-System, das selbstständig Aufgaben plant und ausführt — kann Tools nutzen, Entscheidungen treffen und mehrere Schritte hintereinander ausführen, ohne dass der Mensch jeden Schritt genehmigt."
+  },
+  {
+    "term": "API",
+    "category": "Technik",
+    "definition": "Application Programming Interface — eine Schnittstelle, über die Programme miteinander kommunizieren. Mit einem API-Key kannst du KI-Modelle direkt in eigene Anwendungen einbinden, ohne eine fertige App zu nutzen."
+  },
+  {
+    "term": "API Key",
+    "category": "Technik",
+    "definition": "Ein geheimer Code (meist eine lange Zeichenkette wie 'sk-abc123...'), der dich gegenüber einem Dienst authentifiziert. Niemals öffentlich teilen — er ist wie ein Passwort, das auch Kosten verursacht."
+  },
+  {
+    "term": "Augmented Generation",
+    "category": "KI-Konzepte",
+    "definition": "Technik, bei der das KI-Modell externe Daten (z.B. deine Dokumente oder Websuche) abruft, bevor es antwortet. Basis von RAG-Systemen."
+  },
+  {
+    "term": "Benchmark",
+    "category": "Bewertung",
+    "definition": "Standardisierter Test, um KI-Modelle zu vergleichen — z.B. MMLU (Allgemeinwissen), HumanEval (Coding), MATH. Achtung: Gute Benchmarks ≠ gut im Alltag."
+  },
+  {
+    "term": "Chain-of-Thought",
+    "category": "Prompting",
+    "definition": "Prompting-Technik: 'Denke Schritt für Schritt' im Prompt schreiben. Das Modell zeigt seinen Denkweg, was bei Mathe, Logik und komplexen Aufgaben deutlich bessere Ergebnisse liefert."
+  },
+  {
+    "term": "Claude",
+    "category": "Modelle",
+    "definition": "KI-Assistent von Anthropic. Bekannt für langen Kontext (bis 200k Token), gutes Schreiben und Coding. Versionen: Haiku (schnell/günstig), Sonnet (ausgewogen), Opus (leistungsstark)."
+  },
+  {
+    "term": "Claude Code",
+    "category": "Tools",
+    "definition": "CLI-Tool von Anthropic, das Claude direkt ins Terminal bringt. Kann Dateien lesen/schreiben, Code ausführen und komplexe Entwicklungsaufgaben übernehmen. Erweiterbar mit Skills und MCP-Servern."
+  },
+  {
+    "term": "Context Window",
+    "category": "Technik",
+    "definition": "Die maximale Menge an Text, die ein Modell gleichzeitig 'sehen' kann — eigener Input + Antwort. Gemessen in Token. GPT-4o: 128k, Claude 3.5: 200k, Gemini 1.5 Pro: 1 Million Token."
+  },
+  {
+    "term": "Cursor",
+    "category": "Tools",
+    "definition": "KI-gestützter Code-Editor, basiert auf VS Code. Kann ganze Codebases verstehen und umschreiben. Eignet sich für Entwickler, die KI direkt in den Coding-Workflow einbinden wollen."
+  },
+  {
+    "term": "Diffusion Model",
+    "category": "KI-Konzepte",
+    "definition": "Bildgenerierungs-Architektur (Stable Diffusion, DALL-E, Midjourney). Startet mit zufälligem Rauschen und 'bereinigt' es schrittweise zu einem kohärenten Bild, geleitet durch den Text-Prompt."
+  },
+  {
+    "term": "Embedding",
+    "category": "Technik",
+    "definition": "Umwandlung von Text in einen Zahlen-Vektor, der die Bedeutung codiert. Ähnliche Texte haben ähnliche Vektoren. Basis für semantische Suche und RAG-Systeme."
+  },
+  {
+    "term": "Fine-Tuning",
+    "category": "KI-Konzepte",
+    "definition": "Weiteres Training eines bestehenden Modells auf eigenen Daten. Das Modell 'lernt' deinen Stil oder deine Domäne. Teuer und aufwändig — für die meisten Use Cases ist gutes Prompting günstiger."
+  },
+  {
+    "term": "Foundation Model",
+    "category": "KI-Konzepte",
+    "definition": "Ein auf riesigen Datenmengen vortrainiertes Basismodell (GPT-4, Claude, Gemini). Kann für viele Aufgaben angepasst werden, ohne von Grund auf neu trainiert zu werden."
+  },
+  {
+    "term": "Free Tier",
+    "category": "Preismodelle",
+    "definition": "Kostenlose Nutzungsebene eines Dienstes — oft mit Limits (z.B. 100 API-Anfragen/Tag, 5 Bilder/Monat). Gut zum Testen, bevor man zahlt."
+  },
+  {
+    "term": "Gemini",
+    "category": "Modelle",
+    "definition": "KI-Modell-Familie von Google DeepMind. Gemini 1.5 Pro hat 1 Million Token Kontext. Integriert in Google Workspace (Docs, Gmail, Slides). Gemini 2.0 Flash ist kostenlos via API."
+  },
+  {
+    "term": "GPT",
+    "category": "Modelle",
+    "definition": "Generative Pre-trained Transformer — OpenAIs Modell-Familie. GPT-4o ist multimodal (Text+Bild), schnell und weit verbreitet. Basis für ChatGPT und unzählige Drittanbieter-Apps."
+  },
+  {
+    "term": "Halluzination",
+    "category": "Risiken",
+    "definition": "KI erfindet Fakten, die nicht stimmen — aber mit Überzeugung. URLs, Studien, Namen, Daten können falsch sein. Immer bei faktischen Aussagen cross-checken, besonders bei wichtigen Entscheidungen."
+  },
+  {
+    "term": "Inference",
+    "category": "Technik",
+    "definition": "Der Prozess, bei dem ein fertig trainiertes Modell eine Anfrage verarbeitet und antwortet. Das ist, was passiert, wenn du einen Prompt schickst — Training ist etwas anderes (und teurer)."
+  },
+  {
+    "term": "LLM",
+    "category": "KI-Konzepte",
+    "definition": "Large Language Model — ein auf Sprache trainiertes KI-Modell mit Milliarden von Parametern. Kann Text verstehen, generieren, übersetzen und analysieren. Basis von ChatGPT, Claude, Gemini etc."
+  },
+  {
+    "term": "MCP",
+    "category": "Technik",
+    "definition": "Model Context Protocol — offener Standard von Anthropic, damit KI-Assistenten externe Tools und Datenquellen nutzen können. Claude Code kann per MCP auf Datenbanken, APIs und lokale Tools zugreifen."
+  },
+  {
+    "term": "Multimodal",
+    "category": "KI-Konzepte",
+    "definition": "Ein Modell, das mehrere Eingabetypen versteht — z.B. Text + Bilder (GPT-4o, Claude 3.5, Gemini). Manche Modelle können auch Audio oder Video verarbeiten."
+  },
+  {
+    "term": "No-Code",
+    "category": "Tools",
+    "definition": "Ansatz, bei dem Automatisierungen und Apps ohne Programmiercode erstellt werden — über visuelle Interfaces (Make, Zapier, n8n). KI-Funktionen können per API eingebunden werden."
+  },
+  {
+    "term": "Open Source",
+    "category": "Modelle",
+    "definition": "Modelle mit öffentlich zugänglichem Code und Gewichten — können lokal betrieben werden. Bekannte Beispiele: Llama 3 (Meta), Mistral, Qwen. Datenschutzfreundlicher, aber erfordert eigene Infrastruktur."
+  },
+  {
+    "term": "Prompt",
+    "category": "Prompting",
+    "definition": "Die Eingabe, die du an ein KI-Modell schickst. Qualität und Struktur des Prompts bestimmen maßgeblich die Qualität der Antwort. Klare Anweisungen + Kontext + Beispiele = bessere Ergebnisse."
+  },
+  {
+    "term": "Prompt Engineering",
+    "category": "Prompting",
+    "definition": "Die Kunst, Prompts so zu formulieren, dass KI-Modelle optimale Ergebnisse liefern. Beinhaltet Techniken wie Chain-of-Thought, Few-Shot-Beispiele, Rollenanweisungen und strukturierte Ausgabeformate."
+  },
+  {
+    "term": "RAG",
+    "category": "KI-Konzepte",
+    "definition": "Retrieval-Augmented Generation — Technik, bei der das Modell vor der Antwort relevante Dokumente abruft (z.B. aus deiner Wissensdatenbank). Reduziert Halluzinationen bei faktenbasierten Anfragen."
+  },
+  {
+    "term": "Rate Limit",
+    "category": "Technik",
+    "definition": "Maximale Anzahl an API-Anfragen pro Zeitraum (z.B. 60 Anfragen/Minute). Wird bei Überschreitung mit Fehlercode 429 quittiert. Free Tiers haben niedrigere Limits als bezahlte Pläne."
+  },
+  {
+    "term": "Skill",
+    "category": "Tools",
+    "definition": "In Claude Code: eine wiederverwendbare Anweisung (Slash-Command), die mit /command aufgerufen wird. Kann eingebaut (builtin), aus dem Marketplace oder selbst geschrieben (custom) sein."
+  },
+  {
+    "term": "SSE",
+    "category": "Technik",
+    "definition": "Server-Sent Events — Protokoll für Echtzeit-Datenübertragung vom Server zum Browser. KI-APIs streamen Antworten so — daher erscheint der Text Wort für Wort statt nach langer Wartezeit auf einmal."
+  },
+  {
+    "term": "Streaming",
+    "category": "Technik",
+    "definition": "Die Antwort wird Wort für Wort ausgegeben, statt zu warten bis sie fertig ist. Verbessert die User Experience (sofortiges Feedback) und ist Standard bei ChatGPT, Claude und ähnlichen Diensten."
+  },
+  {
+    "term": "System Prompt",
+    "category": "Prompting",
+    "definition": "Eine versteckte Anweisung, die vor dem eigentlichen Gespräch an das Modell übergeben wird. Definiert Persönlichkeit, Regeln und Kontext. In API-Anfragen als 'system'-Rolle übergeben."
+  },
+  {
+    "term": "Token",
+    "category": "Technik",
+    "definition": "Die kleinste Einheit, mit der LLMs Text verarbeiten. Grob: 1 Token ≈ 0,75 Wörter auf Englisch (mehr auf Deutsch wegen längerer Wörter). API-Kosten werden pro Token berechnet."
+  },
+  {
+    "term": "Transformer",
+    "category": "KI-Konzepte",
+    "definition": "Die dominante KI-Architektur seit 2017 ('Attention is All You Need'). Alle modernen LLMs (GPT, Claude, Gemini, Llama) basieren darauf. Nutzt 'Attention'-Mechanismus, um Kontext zu verstehen."
+  },
+  {
+    "term": "Vector Database",
+    "category": "Technik",
+    "definition": "Datenbank, die Embeddings speichert und Ähnlichkeitssuche ermöglicht. Für RAG-Systeme essenziell. Beispiele: Pinecone, Weaviate, Chroma, pgvector (PostgreSQL-Erweiterung)."
+  },
+  {
+    "term": "Vibe Coding",
+    "category": "Tools",
+    "definition": "Umgangssprachlich: Code durch KI generieren lassen, ohne jeden Schritt zu verstehen — einfach ausprobieren bis es funktioniert. Funktioniert für kleine Projekte, wird bei komplexen Systemen riskant."
+  },
+  {
+    "term": "Webhook",
+    "category": "Technik",
+    "definition": "Automatischer HTTP-Aufruf, wenn ein Ereignis eintritt (z.B. neuer Kunde → Nachricht in Slack). Basis für No-Code-Automatisierungen mit Make oder Zapier und KI-Workflows."
+  },
+  {
+    "term": "Zero-Shot",
+    "category": "Prompting",
+    "definition": "Das Modell bekommt keine Beispiele, sondern nur die Aufgabenbeschreibung. Im Gegensatz zu Few-Shot (mit Beispielen). Für einfache Aufgaben ausreichend, für komplexe oft schlechter."
+  }
+]

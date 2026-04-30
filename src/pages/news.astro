@@ -1,0 +1,306 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import newsData from '../data/news.json';
+
+const entries = newsData.entries;
+const latest  = entries[0];
+const archive = entries.slice(1);
+
+const typeBadge: Record<string, string> = {
+  Release:     'badge-emerald',
+  Ankündigung: 'badge-indigo',
+  Forschung:   'badge-purple',
+  Funding:     'badge-amber',
+  Vorschau:    'badge-cyan',
+  Update:      'badge-blue',
+};
+
+function formatDateDE(d: string) {
+  return new Date(d + 'T12:00:00').toLocaleDateString('de-DE', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+  });
+}
+
+function relativeLabel(d: string) {
+  const todayStr = new Date().toISOString().split('T')[0];
+  const yestStr  = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+  if (d === todayStr) return 'HEUTE';
+  if (d === yestStr)  return 'GESTERN';
+  return null;
+}
+
+const lastUpdated = formatDateDE(latest.date);
+---
+
+<Layout
+  title="KI-News — Täglich neue KI-Updates"
+  description={`Täglich aktualisierte KI-News: neue Modelle, Tool-Releases, Funding-Runden. Zuletzt: ${latest.title}`}
+>
+  <Header />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    .news-page { font-family: 'DM Sans', system-ui, sans-serif; background: #09090c; }
+    .f-syne    { font-family: 'Syne', sans-serif; }
+    .f-mono    { font-family: 'JetBrains Mono', monospace; }
+
+    /* ── Cards ── */
+    .an-card {
+      background: #0d0d10;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      transition: border-color 200ms, box-shadow 200ms;
+    }
+    .an-card:hover { border-color: rgba(255,255,255,0.14); }
+
+    /* ── Featured ── */
+    .featured-card {
+      background: linear-gradient(135deg, #0f0f13 0%, #0d0d10 100%);
+      border: 1px solid rgba(251,113,133,0.18);
+      border-radius: 16px;
+      transition: border-color 200ms, box-shadow 200ms;
+    }
+    .featured-card:hover { border-color: rgba(251,113,133,0.3); box-shadow: 0 0 40px rgba(251,113,133,0.06); }
+
+    /* ── Highlight cards ── */
+    .hl-card {
+      background: #0a0a0d;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 1rem;
+      transition: border-color 150ms;
+    }
+    .hl-card:hover { border-color: rgba(255,255,255,0.12); }
+
+    /* ── Badges ── */
+    .badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 3px;
+    }
+    .badge-rose    { background: rgba(251,113,133,0.1); color: rgba(251,113,133,0.9); border: 1px solid rgba(251,113,133,0.2); }
+    .badge-emerald { background: rgba(52,211,153,0.1);  color: rgba(52,211,153,0.9);  border: 1px solid rgba(52,211,153,0.2); }
+    .badge-indigo  { background: rgba(129,140,248,0.1); color: rgba(129,140,248,0.9); border: 1px solid rgba(129,140,248,0.2); }
+    .badge-purple  { background: rgba(167,139,250,0.1); color: rgba(167,139,250,0.9); border: 1px solid rgba(167,139,250,0.2); }
+    .badge-amber   { background: rgba(251,191,36,0.1);  color: rgba(251,191,36,0.9);  border: 1px solid rgba(251,191,36,0.2); }
+    .badge-cyan    { background: rgba(34,211,238,0.1);  color: rgba(34,211,238,0.9);  border: 1px solid rgba(34,211,238,0.2); }
+    .badge-blue    { background: rgba(96,165,250,0.1);  color: rgba(96,165,250,0.9);  border: 1px solid rgba(96,165,250,0.2); }
+    .badge-zinc    { background: rgba(161,161,170,0.1); color: rgba(161,161,170,0.9); border: 1px solid rgba(161,161,170,0.2); }
+
+    /* ── Tag pills ── */
+    .tag-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.04em;
+      padding: 3px 9px; border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── Archive entry ── */
+    .archive-entry {
+      border-left: 1px solid rgba(255,255,255,0.06);
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .archive-entry::before {
+      content: '';
+      position: absolute;
+      left: -4px; top: 8px;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    /* ── Dot grid ── */
+    .dot-grid {
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* ── Scroll reveal ── */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Expand toggle ── */
+    .archive-highlights { display: none; }
+    .archive-entry.expanded .archive-highlights { display: grid; }
+    .expand-btn {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.06em; padding: 3px 10px; border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.08); background: transparent;
+      color: rgba(255,255,255,0.25); cursor: pointer; transition: all 150ms;
+    }
+    .expand-btn:hover { border-color: rgba(251,113,133,0.3); color: rgba(251,113,133,0.7); }
+    .archive-entry.expanded .expand-btn { border-color: rgba(251,113,133,0.2); color: rgba(251,113,133,0.5); }
+  </style>
+
+  <main class="news-page">
+
+    <!-- ══ HERO ══ -->
+    <section class="dot-grid border-b" style="border-color:rgba(255,255,255,0.05);position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%, rgba(251,113,133,0.06) 0%, transparent 70%);pointer-events:none;"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:6rem;background:linear-gradient(to top, #09090c, transparent);"></div>
+
+      <div class="max-w-5xl mx-auto px-6 py-16 relative">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-6" style="background:rgba(251,113,133,0.08);border:1px solid rgba(251,113,133,0.18);">
+              <span style="width:5px;height:5px;border-radius:50%;background:#fb7185;animation:pulse 2s infinite;display:inline-block;"></span>
+              <span class="f-mono" style="font-size:0.6rem;color:#fb7185;letter-spacing:0.1em;text-transform:uppercase;">Täglich aktualisiert · Perplexity Sonar</span>
+            </div>
+            <h1 class="f-syne" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;color:#efefef;letter-spacing:-0.03em;line-height:1.06;">
+              KI-News
+            </h1>
+            <p style="font-size:0.95rem;color:#4a4a4a;margin-top:8px;font-weight:300;max-width:400px;line-height:1.65;">
+              Die wichtigsten KI-Neuigkeiten täglich zusammengefasst — Releases, Funding, Forschung.
+            </p>
+          </div>
+          <div class="flex gap-4 text-right sm:text-left">
+            <div>
+              <div class="f-syne" style="font-size:1.8rem;font-weight:800;color:#efefef;">{entries.length}</div>
+              <div class="f-mono" style="font-size:0.58rem;color:#2a2a2a;letter-spacing:0.08em;margin-top:2px;">EINTRÄGE</div>
+            </div>
+            <div style="border-left:1px solid rgba(255,255,255,0.06);padding-left:1rem;">
+              <div class="f-syne" style="font-size:1.8rem;font-weight:800;color:#efefef;">{entries.reduce((n, e) => n + e.highlights.length, 0)}</div>
+              <div class="f-mono" style="font-size:0.58rem;color:#2a2a2a;letter-spacing:0.08em;margin-top:2px;">HIGHLIGHTS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="max-w-5xl mx-auto px-6 py-12">
+
+      <!-- ══ LATEST (FEATURED) ══ -->
+      <div class="mb-12 reveal">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="badge badge-rose">
+            {relativeLabel(latest.date) ?? latest.date}
+          </span>
+          <span style="font-size:0.75rem;color:#2a2a2a;">{formatDateDE(latest.date)}</span>
+          <span style="flex:1;height:1px;background:rgba(255,255,255,0.04);"></span>
+          <span class="f-mono" style="font-size:0.58rem;color:#2a2a2a;letter-spacing:0.06em;">{latest.generated_by}</span>
+        </div>
+
+        <div class="featured-card" style="padding:1.75rem;">
+          <h2 class="f-syne mb-3" style="font-size:1.5rem;font-weight:800;color:#efefef;letter-spacing:-0.02em;">{latest.title}</h2>
+          <p style="font-size:0.88rem;color:#4a4a4a;line-height:1.7;max-width:680px;margin-bottom:1.5rem;">{latest.intro}</p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
+            {latest.highlights.map(h => (
+              <div class="hl-card">
+                <div class="flex items-start justify-between gap-2 mb-2">
+                  <h3 class="f-syne" style="font-size:0.88rem;font-weight:700;color:#d8d8d8;line-height:1.3;">{h.title}</h3>
+                  <span class={`badge ${typeBadge[h.type] ?? 'badge-zinc'} flex-shrink-0`}>{h.type}</span>
+                </div>
+                <p style="font-size:0.78rem;color:#3a3a3a;line-height:1.65;margin-bottom:10px;">{h.body}</p>
+                <span class="tag-pill">{h.tag}</span>
+              </div>
+            ))}
+          </div>
+
+          <div class="flex flex-wrap gap-1.5">
+            {latest.tags.map(t => <span class="tag-pill">{t}</span>)}
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ ARCHIV ══ -->
+      {archive.length > 0 && (
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <h2 class="f-syne" style="font-size:1rem;font-weight:700;color:#ccc;">Archiv</h2>
+            <div style="flex:1;height:1px;background:rgba(255,255,255,0.04);"></div>
+            <span class="f-mono" style="font-size:0.58rem;color:#2a2a2a;letter-spacing:0.06em;">{archive.length} EINTRÄGE</span>
+          </div>
+
+          <div class="space-y-8 ml-2">
+            {archive.map((entry, i) => {
+              const rel = relativeLabel(entry.date);
+              return (
+                <div class={`archive-entry reveal`} data-idx={i} style={`transition-delay:${Math.min(i * 0.05, 0.3)}s`}>
+                  <!-- Header -->
+                  <div class="flex items-center gap-3 mb-3">
+                    {rel && <span class="badge badge-rose">{rel}</span>}
+                    <span class="f-mono" style="font-size:0.65rem;color:#333;letter-spacing:0.06em;">{entry.date}</span>
+                    <span style="font-size:0.75rem;color:#2a2a2a;">{formatDateDE(entry.date)}</span>
+                  </div>
+
+                  <!-- Title + intro -->
+                  <h3 class="f-syne mb-1" style="font-size:1.05rem;font-weight:700;color:#d0d0d0;">{entry.title}</h3>
+                  <p style="font-size:0.8rem;color:#3a3a3a;line-height:1.6;margin-bottom:12px;max-width:640px;">{entry.intro}</p>
+
+                  <!-- Tags + expand -->
+                  <div class="flex items-center gap-2 flex-wrap mb-3">
+                    {entry.tags.map(t => <span class="tag-pill">{t}</span>)}
+                    <button class="expand-btn ml-auto" data-entry={i}>DETAILS ↓</button>
+                  </div>
+
+                  <!-- Highlights (collapsed) -->
+                  <div class="archive-highlights grid-cols-1 sm:grid-cols-2 gap-2 mt-3">
+                    {entry.highlights.map(h => (
+                      <div class="hl-card">
+                        <div class="flex items-start justify-between gap-2 mb-1.5">
+                          <h4 class="f-syne" style="font-size:0.82rem;font-weight:700;color:#c0c0c0;line-height:1.3;">{h.title}</h4>
+                          <span class={`badge ${typeBadge[h.type] ?? 'badge-zinc'} flex-shrink-0`}>{h.type}</span>
+                        </div>
+                        <p style="font-size:0.75rem;color:#333;line-height:1.6;margin-bottom:8px;">{h.body}</p>
+                        <span class="tag-pill">{h.tag}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+    </div><!-- /max-w -->
+
+    <!-- ══ INFO BOX ══ -->
+    <div class="max-w-5xl mx-auto px-6 pb-16">
+      <div class="reveal" style="background:rgba(251,113,133,0.04);border:1px solid rgba(251,113,133,0.1);border-radius:12px;padding:1.25rem 1.5rem;">
+        <div class="flex items-start gap-3">
+          <span style="font-size:1rem;flex-shrink:0;margin-top:2px;">⚙</span>
+          <div>
+            <p class="f-syne mb-1" style="font-size:0.85rem;font-weight:700;color:#c0c0c0;">Wie funktioniert das?</p>
+            <p style="font-size:0.78rem;color:#3a3a3a;line-height:1.65;">
+              Täglich um 08:00 Uhr läuft ein GitHub Actions Workflow, der die
+              <strong style="color:#555;">Perplexity Sonar API</strong> (mit Live-Websuche) fragt, was heute in der KI-Welt passiert ist.
+              Das Ergebnis wird als JSON gespeichert, das Repo wird committed und Vercel deployed automatisch neu.
+              Kein manuelles Eingreifen nötig.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="border-t text-center py-8" style="border-color:rgba(255,255,255,0.04);">
+      <p class="f-mono" style="font-size:0.6rem;color:#222;letter-spacing:0.08em;">AI Tools Directory · Stand April 2026 · Kein Affiliate-Tracking</p>
+    </footer>
+
+  </main>
+</Layout>
+
+<script>
+  // Scroll reveal
+  const revealObs = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.06 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // Expand/collapse archive entries
+  document.querySelectorAll('.expand-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const entry = btn.closest('.archive-entry')!;
+      const expanded = entry.classList.toggle('expanded');
+      btn.textContent = expanded ? 'WENIGER ↑' : 'DETAILS ↓';
+    });
+  });
+</script>
