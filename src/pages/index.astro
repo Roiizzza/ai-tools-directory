@@ -47,25 +47,36 @@ const sections = [
     stat: 'NVIDIA powered · Streaming',
     color: 'amber',
   },
+  {
+    href: '/anleitungen',
+    icon: '📚',
+    title: 'Anleitungen',
+    description: 'Für Einsteiger: KI-Glossar, Skills einbinden, API Keys verbinden, .env Dateien — alles Schritt für Schritt erklärt.',
+    stat: '22 Begriffe · 4 Anleitungen',
+    color: 'cyan',
+  },
 ];
 
 const colorMap: Record<string, string> = {
-  indigo: 'border-indigo-800/50 hover:border-indigo-500/60 hover:shadow-[0_0_30px_rgba(99,102,241,0.12)]',
+  indigo:  'border-indigo-800/50 hover:border-indigo-500/60 hover:shadow-[0_0_30px_rgba(99,102,241,0.12)]',
   emerald: 'border-emerald-800/50 hover:border-emerald-500/60 hover:shadow-[0_0_30px_rgba(16,185,129,0.12)]',
   purple:  'border-purple-800/50 hover:border-purple-500/60 hover:shadow-[0_0_30px_rgba(168,85,247,0.12)]',
   amber:   'border-amber-800/50 hover:border-amber-500/60 hover:shadow-[0_0_30px_rgba(245,158,11,0.12)]',
+  cyan:    'border-cyan-800/50 hover:border-cyan-500/60 hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]',
 };
 const iconBgMap: Record<string, string> = {
-  indigo: 'bg-indigo-950/60 text-indigo-300',
+  indigo:  'bg-indigo-950/60 text-indigo-300',
   emerald: 'bg-emerald-950/60 text-emerald-300',
-  purple: 'bg-purple-950/60 text-purple-300',
-  amber: 'bg-amber-950/60 text-amber-300',
+  purple:  'bg-purple-950/60 text-purple-300',
+  amber:   'bg-amber-950/60 text-amber-300',
+  cyan:    'bg-cyan-950/60 text-cyan-300',
 };
 const statColorMap: Record<string, string> = {
-  indigo: 'text-indigo-400',
+  indigo:  'text-indigo-400',
   emerald: 'text-emerald-400',
-  purple: 'text-purple-400',
-  amber: 'text-amber-400',
+  purple:  'text-purple-400',
+  amber:   'text-amber-400',
+  cyan:    'text-cyan-400',
 };
 ---
 

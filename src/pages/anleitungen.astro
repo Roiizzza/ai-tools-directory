@@ -1,0 +1,780 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+const glossary = [
+  { term: 'LLM', full: 'Large Language Model', cat: 'Modelle', def: 'Ein KI-Modell, das auf riesigen Textmengen trainiert wurde und menschliche Sprache verstehen und erzeugen kann.', ex: 'GPT-4, Claude, Gemini, Llama sind bekannte LLMs.' },
+  { term: 'Token', full: 'Textbaustein', cat: 'Konzepte', def: 'Kleinste Einheit, die ein LLM verarbeitet — ca. ¾ eines Wortes oder 4 Zeichen. Kosten und Limits werden in Tokens gemessen.', ex: '"Hallo Welt" ≈ 3 Tokens. 1.000 Tokens ≈ 750 Wörter.' },
+  { term: 'Prompt', full: 'Eingabeaufforderung', cat: 'Konzepte', def: 'Der Text, den du an ein KI-Modell sendest. Die Qualität des Prompts bestimmt maßgeblich die Qualität der Antwort.', ex: '"Erkläre mir Python, als wäre ich 10 Jahre alt."' },
+  { term: 'Context Window', full: 'Kontextfenster', cat: 'Konzepte', def: 'Die max. Anzahl Tokens, die ein Modell in einem Gespräch gleichzeitig "sehen" kann. Alles außerhalb wird vergessen.', ex: 'Claude: 200.000 Tokens ≈ 150.000 Wörter — ein ganzes Buch.' },
+  { term: 'API', full: 'Application Programming Interface', cat: 'Werkzeuge', def: 'Schnittstelle zwischen Programmen. KI-APIs erlauben es, KI-Funktionen in eigene Apps einzubauen, ohne eigene Modelle zu betreiben.', ex: 'Du rufst die Anthropic API auf → Claude antwortet in deiner App.' },
+  { term: 'API Key', full: 'API-Schlüssel', cat: 'Sicherheit', def: 'Ein einzigartiger Code, der dich als berechtigten API-Nutzer identifiziert. Wie ein Passwort — niemals teilen oder in Git committen!', ex: 'sk-ant-api03-xxxxxxxxxxxxxxxxxxxxxxxx' },
+  { term: 'Halluzination', full: 'KI-Halluzination', cat: 'Konzepte', def: 'Wenn ein KI-Modell selbstbewusst falsche oder frei erfundene Informationen präsentiert. Das Modell "weiß" nicht, dass es falsch liegt.', ex: 'KI nennt eine nicht-existierende Studie mit korrektem Autor und Jahreszahl.' },
+  { term: 'Temperature', full: 'Kreativitäts-Parameter', cat: 'Modelle', def: 'Steuert Kreativität und Zufälligkeit der Antworten. 0 = deterministisch und präzise. 1 = kreativ und variabel.', ex: 'Für Code: 0.2 empfohlen | Für Kreativtexte: 0.8–1.0' },
+  { term: 'System Prompt', full: 'Systemanweisung', cat: 'Konzepte', def: 'Unsichtbare Vorabanweisung, die Modell-Verhalten, Persona und Regeln festlegt. Wird vor dem eigentlichen Chat gesetzt.', ex: '"Du bist ein präziser Assistent. Antworte immer auf Deutsch."' },
+  { term: 'RAG', full: 'Retrieval Augmented Generation', cat: 'Konzepte', def: 'Technik: Erst relevante Dokumente aus einer Datenbank laden, dann dem Modell als Kontext geben. Reduziert Halluzinationen.', ex: 'Eigene PDFs durchsuchen lassen — ohne teures Fine-Tuning.' },
+  { term: 'Fine-Tuning', full: 'Feinabstimmung', cat: 'Modelle', def: 'Ein vortrainiertes Modell mit eigenen Daten weitertrainieren, damit es für spezifische Aufgaben besser funktioniert.', ex: 'Modell auf Kundensupport-Dialoge trainieren → präzisere Antworten.' },
+  { term: 'Embedding', full: 'Vektordarstellung', cat: 'Konzepte', def: 'Text wird in Zahlen-Vektoren umgewandelt, die semantische Ähnlichkeit abbilden. Basis für Suche, Empfehlungen und RAG.', ex: '"König" − "Mann" + "Frau" ≈ "Königin" — als Vektoren berechnet.' },
+  { term: 'Agent', full: 'KI-Agent', cat: 'Werkzeuge', def: 'KI, die nicht nur antwortet, sondern selbstständig Aufgaben ausführt: Tools nutzen, Code ausführen, Browser steuern.', ex: 'Claude Code ist ein Agent — er liest, schreibt und verändert Dateien.' },
+  { term: 'Open Source', full: 'Offener Quellcode', cat: 'Modelle', def: 'Modelle, deren Gewichte und Code öffentlich sind. Können lokal betrieben werden — keine API-Kosten, volle Kontrolle.', ex: 'Llama 3.1, Mistral, Qwen 2.5, Phi-4 sind Open-Source-Modelle.' },
+  { term: 'Multimodal', full: 'Mehrmodale KI', cat: 'Modelle', def: 'KI-Modelle, die verschiedene Datentypen verarbeiten: Text, Bilder, Audio, Video — nicht nur Text.', ex: 'GPT-4o, Gemini 1.5 Pro, Claude 3 Opus sind multimodal.' },
+  { term: 'Parameter', full: 'Modell-Parameter', cat: 'Modelle', def: 'Die "Gewichte" eines Modells — gelernte Verbindungen aus dem Training. Mehr Parameter = größere Kapazität.', ex: 'Llama 3.1: 405 Mrd. Parameter. GPT-4: ~1,7 Bio. (geschätzt).' },
+  { term: 'Inference', full: 'Modell-Inferenz', cat: 'Modelle', def: 'Der Vorgang, wenn ein Modell eine Anfrage verarbeitet und antwortet. Jeder API-Call = eine Inference.', ex: 'Jede Antwort von Claude = ein Inference-Durchlauf auf Anthropic-Servern.' },
+  { term: 'Prompt Engineering', full: 'Prompt-Gestaltung', cat: 'Konzepte', def: 'Die Kunst, Prompts so zu formulieren, dass KI-Modelle optimal antworten. Eigene Disziplin mit messbaren Qualitätsunterschieden.', ex: 'Chain-of-Thought: "Denke Schritt für Schritt..." verbessert Logik um ~30%.' },
+  { term: 'MCP', full: 'Model Context Protocol', cat: 'Werkzeuge', def: 'Anthropic-Standard, um Claude mit externen Tools und Datenquellen zu verbinden. Wie eine universelle Steckdose für KI-Integrationen.', ex: 'MCP-Server für GitHub, Datenbanken, Browser-Steuerung, Dateisystem.' },
+  { term: 'Benchmark', full: 'Leistungsvergleichstest', cat: 'Modelle', def: 'Standardisierte Tests zum Vergleich von KI-Modellen. Benchmark-Werte spiegeln nicht immer echte Alltagsqualität wider.', ex: 'MMLU (Wissen), HumanEval (Code), GPQA (Wissenschaft), LMSYS Arena.' },
+  { term: 'Latenz', full: 'Antwortzeit', cat: 'Werkzeuge', def: 'Zeit zwischen Anfrage und erster Antwort. Kritisch für interaktive Apps. Gemessen als "Time to First Token" (TTFT).', ex: 'Schnelle Modelle: <500ms TTFT. Reasoning-Modelle: 10–60s.' },
+  { term: 'CLAUDE.md', full: 'Konfigurations-Datei', cat: 'Werkzeuge', def: 'Spezielle Markdown-Datei, die Claude Code Projekt-Kontext gibt: Regeln, Codebase-Infos, Präferenzen. Wird automatisch geladen.', ex: 'CLAUDE.md im Projekt-Root ablegen → Claude kennt deine Regeln.' },
+];
+
+const cats = ['Alle', ...Array.from(new Set(glossary.map(g => g.cat))).sort()];
+
+const builtinSkills = [
+  { cmd: '/help',    desc: 'Alle verfügbaren Befehle anzeigen' },
+  { cmd: '/clear',   desc: 'Kontext leeren — frische Unterhaltung starten' },
+  { cmd: '/review',  desc: 'Code-Review für aktuelle Änderungen' },
+  { cmd: '/init',    desc: 'CLAUDE.md Konfigurationsdatei erstellen' },
+  { cmd: '/compact', desc: 'Kontext komprimieren (Platz sparen)' },
+  { cmd: '/config',  desc: 'Claude Code Einstellungen öffnen' },
+  { cmd: '/cost',    desc: 'API-Kosten der aktuellen Sitzung anzeigen' },
+  { cmd: '/status',  desc: 'Git-Status und aktuelle Aufgaben anzeigen' },
+];
+
+const customSkillContent = `---
+name: mein-skill
+description: Analysiert Code und gibt Verbesserungsvorschläge
+---
+
+Analysiere den aktuellen Code und gib genau 3 konkrete,
+priorisierte Verbesserungsvorschläge:
+
+1. Sicherheit & Bugs — was könnte kaputt gehen?
+2. Performance — wo ist es langsam oder ineffizient?
+3. Lesbarkeit — was ist schwer zu verstehen?
+
+Halte jeden Vorschlag unter 3 Sätzen. Sei direkt.`;
+
+const envExampleRaw = `# KI-APIs
+ANTHROPIC_API_KEY=sk-ant-api03-xxxxxxxxxxxxxxxxxxxx
+OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxxxxxxxxx
+GOOGLE_AI_API_KEY=AIzaxxxxxxxxxxxxxxxxxxxxxxx
+
+# Datenbank
+DATABASE_URL=postgresql://user:password@localhost:5432/mydb
+
+# App-Konfiguration
+APP_PORT=3000
+NODE_ENV=development
+DEBUG=false`;
+
+const envExampleForCopy = envExampleRaw;
+const gitignoreContent = `.env\n.env.local\n.env.*.local\n.env.production`;
+
+const catColors: Record<string, string> = {
+  Modelle: 'bg-purple-950/50 border-purple-800/50 text-purple-400',
+  Werkzeuge: 'bg-indigo-950/50 border-indigo-800/50 text-indigo-400',
+  Sicherheit: 'bg-red-950/50 border-red-800/50 text-red-400',
+  Konzepte: 'bg-zinc-800 border-zinc-700 text-zinc-400',
+};
+---
+
+<Layout
+  title="Anleitungen für KI-Einsteiger — Skills, API, .env erklärt"
+  description="KI-Glossar mit 22 Begriffen, Claude Skills einbinden, API Keys verbinden, .env Dateien richtig nutzen — alles für Einsteiger erklärt."
+>
+  <Header />
+
+  <main class="max-w-5xl mx-auto px-4 py-10">
+
+    <!-- Hero -->
+    <section class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-xs text-cyan-400 mb-5">
+        <span class="text-base">📚</span>
+        Für Einsteiger — kein Vorwissen nötig
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold text-white mb-3 leading-tight">
+        KI verstehen &amp; nutzen
+      </h1>
+      <p class="text-zinc-400 text-base max-w-xl mx-auto">
+        Begriffe erklärt. Skills eingebunden. API verbunden. .env gemeistert.
+      </p>
+    </section>
+
+    <!-- Sticky Nav -->
+    <div class="sticky top-0 z-40 -mx-4 px-4 mb-12 backdrop-blur-md bg-zinc-950/90 border-b border-zinc-800/80 py-3">
+      <nav class="flex gap-1 overflow-x-auto max-w-5xl mx-auto">
+        {[
+          { href: '#glossar', label: 'Begriffe',        icon: '📖' },
+          { href: '#skills',  label: 'Skills einbinden', icon: '⚡' },
+          { href: '#api',     label: 'API verbinden',    icon: '🔑' },
+          { href: '#env',     label: '.env Dateien',     icon: '🔒' },
+        ].map(n => (
+          <a
+            href={n.href}
+            class="nav-anchor flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all whitespace-nowrap"
+          >
+            <span>{n.icon}</span>
+            {n.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- 1. GLOSSAR                                             -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <section id="glossar" class="mb-24 scroll-mt-16">
+
+      <div class="flex items-center gap-3 mb-1">
+        <div class="w-8 h-8 rounded-lg bg-cyan-950/60 border border-cyan-800/50 flex items-center justify-center text-sm">📖</div>
+        <h2 class="text-2xl font-bold text-white">KI-Begriffe erklärt</h2>
+      </div>
+      <p class="text-zinc-500 text-sm mb-6 ml-11">Die wichtigsten Fachbegriffe — einfach, ehrlich, mit Beispielen.</p>
+
+      <!-- Search + Filter -->
+      <div class="flex flex-col sm:flex-row gap-3 mb-5">
+        <div class="relative flex-1">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-sm pointer-events-none">🔍</span>
+          <input
+            id="glossar-search"
+            type="text"
+            placeholder="Begriff suchen..."
+            class="w-full bg-zinc-900 border border-zinc-700 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-600 transition-colors"
+          />
+        </div>
+        <div class="flex gap-2 flex-wrap" id="cat-filter">
+          {cats.map(c => (
+            <button
+              data-cat={c}
+              class={`text-xs px-3 py-1.5 rounded-full border transition-colors ${c === 'Alle' ? 'bg-cyan-900/60 border-cyan-700 text-cyan-300' : 'bg-zinc-900 border-zinc-700 text-zinc-400 hover:border-cyan-700 hover:text-white'}`}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <p class="text-zinc-600 text-xs mb-4" id="glossar-count">{glossary.length} Begriffe</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="glossar-grid">
+        {glossary.map(g => (
+          <div
+            class="glossar-card rounded-xl border border-zinc-800 bg-[#1a1a1a] p-4 hover:border-cyan-800/50 transition-all"
+            data-cat={g.cat}
+            data-term={g.term.toLowerCase()}
+            data-def={g.def.toLowerCase()}
+          >
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <div class="min-w-0">
+                <span class="text-sm font-bold text-white">{g.term}</span>
+                <span class="text-xs text-zinc-500 ml-1.5 hidden sm:inline">— {g.full}</span>
+              </div>
+              <span class={`text-xs px-2 py-0.5 rounded-full border flex-none ${catColors[g.cat] ?? catColors.Konzepte}`}>{g.cat}</span>
+            </div>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-2">{g.def}</p>
+            <div class="flex items-start gap-1.5">
+              <span class="text-xs text-zinc-600 flex-none mt-px">Bsp:</span>
+              <code class="text-xs text-cyan-400/80 font-mono leading-relaxed break-all">{g.ex}</code>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p id="glossar-empty" class="hidden text-center text-zinc-600 py-8 text-sm">Kein Begriff gefunden.</p>
+
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- 2. SKILLS EINBINDEN                                    -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <section id="skills" class="mb-24 scroll-mt-16">
+
+      <div class="flex items-center gap-3 mb-1">
+        <div class="w-8 h-8 rounded-lg bg-purple-950/60 border border-purple-800/50 flex items-center justify-center text-sm">⚡</div>
+        <h2 class="text-2xl font-bold text-white">Skills einbinden</h2>
+      </div>
+      <p class="text-zinc-500 text-sm mb-8 ml-11">Claude Code Skills sind Slash-Commands — von eingebaut bis selbst erstellt.</p>
+
+      <!-- Was sind Skills -->
+      <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-5 mb-8">
+        <h3 class="text-sm font-bold text-white mb-2">Was ist ein Skill?</h3>
+        <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+          Skills sind Slash-Commands in Claude Code —
+          <code class="bg-zinc-800 px-1.5 py-0.5 rounded text-purple-300 text-xs">/review</code>,
+          <code class="bg-zinc-800 px-1.5 py-0.5 rounded text-purple-300 text-xs">/init</code> oder
+          <code class="bg-zinc-800 px-1.5 py-0.5 rounded text-purple-300 text-xs">/mein-skill</code>.
+          Du tippst den Befehl, Claude führt eine vorbereitete Aufgabe aus. Es gibt 4 Typen:
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {[
+            { type: 'Built-in',    desc: 'Standard-Befehle von Anthropic. Immer verfügbar.',  color: 'emerald' },
+            { type: 'Marketplace', desc: 'Von der Community erstellt. Einfach installierbar.', color: 'indigo'  },
+            { type: 'Community',   desc: 'GitHub-Skills, direkt einbindbar.',                  color: 'amber'   },
+            { type: 'Custom',      desc: 'Deine eigenen, selbst erstellten Skills.',            color: 'purple'  },
+          ].map(t => (
+            <div class={`rounded-lg border p-3 text-center ${
+              t.color === 'emerald' ? 'border-emerald-800/50 bg-emerald-950/20' :
+              t.color === 'indigo'  ? 'border-indigo-800/50 bg-indigo-950/20'  :
+              t.color === 'amber'   ? 'border-amber-800/50 bg-amber-950/20'    :
+                                      'border-purple-800/50 bg-purple-950/20'
+            }`}>
+              <div class={`text-sm font-bold mb-1 ${
+                t.color === 'emerald' ? 'text-emerald-400' :
+                t.color === 'indigo'  ? 'text-indigo-400'  :
+                t.color === 'amber'   ? 'text-amber-400'   :
+                                        'text-purple-400'
+              }`}>{t.type}</div>
+              <div class="text-xs text-zinc-500 leading-snug">{t.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Built-in Skills -->
+      <div class="mb-8">
+        <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2">
+          <span class="w-5 h-5 rounded bg-emerald-900/60 border border-emerald-700/50 flex items-center justify-center text-xs text-emerald-400 flex-none">1</span>
+          Built-in Skills — kein Setup nötig
+        </h3>
+        <p class="text-sm text-zinc-500 mb-3 ml-7">Einfach in Claude Code eintippen:</p>
+        <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] overflow-hidden ml-7">
+          {builtinSkills.map((s, i) => (
+            <div class={`flex items-center gap-4 px-4 py-3 ${i < builtinSkills.length - 1 ? 'border-b border-zinc-800/60' : ''}`}>
+              <code class="text-sm font-mono text-emerald-300 w-24 flex-none">{s.cmd}</code>
+              <span class="text-sm text-zinc-400">{s.desc}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Marketplace Skills -->
+      <div class="mb-8">
+        <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2">
+          <span class="w-5 h-5 rounded bg-indigo-900/60 border border-indigo-700/50 flex items-center justify-center text-xs text-indigo-400 flex-none">2</span>
+          Marketplace Skills installieren
+        </h3>
+        <p class="text-sm text-zinc-500 mb-4 ml-7">Skills aus dem offiziellen Marketplace hinzufügen:</p>
+        <div class="space-y-3 ml-7">
+
+          <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-4">
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-indigo-900/60 border border-indigo-700/50 flex items-center justify-center text-xs text-indigo-400 flex-none">1</span>
+              <div>
+                <div class="text-sm font-bold text-white mb-1">Marketplace öffnen</div>
+                <p class="text-xs text-zinc-400">Gehe zu <code class="bg-zinc-800 px-1 rounded">claude.ai/marketplace</code> oder direkt in Claude Code mit:</p>
+                <div class="flex items-center gap-2 bg-zinc-900 rounded-lg px-3 py-2 border border-zinc-700 mt-2">
+                  <code class="text-xs font-mono text-indigo-300 flex-1">/marketplace</code>
+                  <button class="copy-btn text-xs text-zinc-500 hover:text-white px-2 py-1 bg-zinc-800 rounded border border-zinc-700" data-copy="/marketplace">Kopieren</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-4">
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-indigo-900/60 border border-indigo-700/50 flex items-center justify-center text-xs text-indigo-400 flex-none">2</span>
+              <div>
+                <div class="text-sm font-bold text-white mb-1">Skill direkt installieren</div>
+                <p class="text-xs text-zinc-400 mb-2">Den Skill-Namen kennst du? Installiere ihn mit einem Befehl:</p>
+                <div class="flex items-center gap-2 bg-zinc-900 rounded-lg px-3 py-2 border border-zinc-700">
+                  <code class="text-xs font-mono text-indigo-300 flex-1">/marketplace install &lt;skill-name&gt;</code>
+                  <button class="copy-btn text-xs text-zinc-500 hover:text-white px-2 py-1 bg-zinc-800 rounded border border-zinc-700" data-copy="/marketplace install skill-name">Kopieren</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-4">
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-indigo-900/60 border border-indigo-700/50 flex items-center justify-center text-xs text-indigo-400 flex-none">3</span>
+              <div>
+                <div class="text-sm font-bold text-white mb-1">Nutzen</div>
+                <p class="text-xs text-zinc-400 mb-2">Sofort verfügbar — tippe in Claude Code:</p>
+                <div class="flex items-center gap-2 bg-zinc-900 rounded-lg px-3 py-2 border border-zinc-700">
+                  <code class="text-xs font-mono text-indigo-300 flex-1">/&lt;skill-name&gt;</code>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Custom Skills -->
+      <div>
+        <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2">
+          <span class="w-5 h-5 rounded bg-purple-900/60 border border-purple-700/50 flex items-center justify-center text-xs text-purple-400 flex-none">3</span>
+          Eigene Custom Skills erstellen
+        </h3>
+        <p class="text-sm text-zinc-500 mb-4 ml-7">Eine einfache .md Datei anlegen — das ist alles.</p>
+
+        <div class="ml-7 space-y-4">
+          <!-- Pfad global -->
+          <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-4">
+            <p class="text-xs text-zinc-500 mb-2 font-medium uppercase tracking-wide">Speicherort — global (alle Projekte)</p>
+            <div class="flex items-center gap-2 bg-zinc-900 rounded-lg px-3 py-2.5 border border-zinc-700">
+              <code class="text-sm font-mono text-purple-300 flex-1">~/.claude/commands/mein-skill.md</code>
+              <button class="copy-btn text-xs text-zinc-500 hover:text-white px-2 py-1 bg-zinc-800 rounded border border-zinc-700" data-copy="~/.claude/commands/mein-skill.md">Kopieren</button>
+            </div>
+            <p class="text-xs text-zinc-600 mt-2">Alternativ nur für dieses Projekt: <code class="bg-zinc-800 px-1 rounded">.claude/commands/mein-skill.md</code></p>
+          </div>
+
+          <!-- Datei-Inhalt -->
+          <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] overflow-hidden">
+            <div class="flex items-center justify-between px-4 py-2.5 border-b border-zinc-800 bg-zinc-900/60">
+              <span class="text-xs text-zinc-500 font-mono">mein-skill.md</span>
+              <button class="copy-btn text-xs text-zinc-500 hover:text-white px-2 py-1 bg-zinc-800 rounded border border-zinc-700" data-copy={customSkillContent}>Kopieren</button>
+            </div>
+            <pre class="text-xs font-mono text-zinc-300 p-4 leading-relaxed overflow-x-auto">{customSkillContent}</pre>
+          </div>
+
+          <!-- Erklärung -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div class="rounded-lg border border-zinc-800 bg-zinc-900/30 p-3">
+              <div class="font-bold text-zinc-300 mb-1">--- Frontmatter ---</div>
+              <div class="text-zinc-500 leading-relaxed"><code class="text-purple-300">name</code>: wird zum Befehlsnamen<br/><code class="text-purple-300">description</code>: erscheint in /help</div>
+            </div>
+            <div class="rounded-lg border border-zinc-800 bg-zinc-900/30 p-3">
+              <div class="font-bold text-zinc-300 mb-1">Inhalt = Aufgabe</div>
+              <div class="text-zinc-500 leading-relaxed">Alles nach dem --- ist der Prompt, den Claude beim Aufruf ausführt. Sei präzise.</div>
+            </div>
+            <div class="rounded-lg border border-zinc-800 bg-zinc-900/30 p-3">
+              <div class="font-bold text-zinc-300 mb-1">Nutzen</div>
+              <div class="text-zinc-500 leading-relaxed">In Claude Code tippen:<br/><code class="text-purple-300">/mein-skill</code><br/>— fertig.</div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-purple-950/20 border border-purple-800/30">
+            <p class="text-sm text-purple-300">
+              <span class="font-bold">Tipp:</span> Schau dir die <a href="/claude-skills" class="underline underline-offset-2 hover:text-purple-200">Claude Skills Seite</a> an — dort sind fertige Skills zum Kopieren.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- 3. API VERBINDEN                                       -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <section id="api" class="mb-24 scroll-mt-16">
+
+      <div class="flex items-center gap-3 mb-1">
+        <div class="w-8 h-8 rounded-lg bg-emerald-950/60 border border-emerald-800/50 flex items-center justify-center text-sm">🔑</div>
+        <h2 class="text-2xl font-bold text-white">API verbinden</h2>
+      </div>
+      <p class="text-zinc-500 text-sm mb-8 ml-11">Was APIs sind, wo du Keys bekommst und wie du sie sicher verwendest.</p>
+
+      <!-- Analogie -->
+      <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-5 mb-6">
+        <h3 class="text-sm font-bold text-white mb-2">🍽 Analogie: API ist wie ein Kellner</h3>
+        <p class="text-sm text-zinc-400 leading-relaxed">
+          Du bist im Restaurant (deine App). Du sprichst nicht direkt mit der Küche (KI-Modell).
+          Der <strong class="text-white">Kellner (API)</strong> nimmt deine Bestellung, bringt sie in die Küche und liefert das Ergebnis zurück.
+          Der <strong class="text-white">API Key</strong> ist deine Reservierungs-ID — ohne sie bekommst du keinen Service.
+        </p>
+      </div>
+
+      <!-- Schritte -->
+      <div class="space-y-4 mb-8">
+
+        <!-- Schritt 1 -->
+        <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-5">
+          <div class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-full bg-emerald-900/60 border border-emerald-700/50 flex items-center justify-center text-xs text-emerald-400 flex-none mt-0.5">1</span>
+            <div class="flex-1">
+              <div class="text-sm font-bold text-white mb-2">Anbieter wählen &amp; Key holen</div>
+              <p class="text-xs text-zinc-400 mb-3">Erstelle einen Account beim Anbieter deiner Wahl. Viele bieten kostenlose Kontingente — kein Kreditkarte nötig.</p>
+              <a href="/api-keys" class="inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-lg bg-emerald-950/40 border border-emerald-800/50 text-emerald-400 hover:bg-emerald-950/60 transition-colors">
+                Alle API-Anbieter mit Free-Tier →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schritt 2 -->
+        <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-5">
+          <div class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-full bg-amber-900/60 border border-amber-700/50 flex items-center justify-center text-xs text-amber-400 flex-none mt-0.5">2</span>
+            <div class="flex-1">
+              <div class="text-sm font-bold text-white mb-2">Key sicher speichern</div>
+              <p class="text-xs text-zinc-400 mb-3">Niemals den Key direkt in den Code schreiben! Nutze eine .env Datei (nächste Sektion).</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="rounded-lg border border-red-900/50 bg-red-950/20 p-3">
+                  <p class="text-xs text-red-400 font-bold mb-1.5">❌ Niemals so:</p>
+                  <code class="text-xs font-mono text-red-300">api_key = "sk-ant-xxx123"</code>
+                </div>
+                <div class="rounded-lg border border-emerald-900/50 bg-emerald-950/20 p-3">
+                  <p class="text-xs text-emerald-400 font-bold mb-1.5">✓ Immer so:</p>
+                  <code class="text-xs font-mono text-emerald-300">api_key = os.getenv("ANTHROPIC_API_KEY")</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schritt 3 -->
+        <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-5">
+          <div class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-full bg-indigo-900/60 border border-indigo-700/50 flex items-center justify-center text-xs text-indigo-400 flex-none mt-0.5">3</span>
+            <div class="flex-1">
+              <div class="text-sm font-bold text-white mb-2">In Claude Code verwenden</div>
+              <p class="text-xs text-zinc-400 mb-2">Claude Code liest Keys automatisch aus der .env Datei im Projektordner:</p>
+              <div class="bg-zinc-900 rounded-lg border border-zinc-700 overflow-hidden">
+                <div class="flex items-center justify-between px-3 py-2 border-b border-zinc-800">
+                  <span class="text-xs text-zinc-500 font-mono">.env</span>
+                  <button class="copy-btn text-xs text-zinc-500 hover:text-white px-2 py-1 bg-zinc-800 rounded border border-zinc-700" data-copy={"ANTHROPIC_API_KEY=sk-ant-api03-xxxxx\nOPENAI_API_KEY=sk-xxxxx\nGEMINI_API_KEY=AIzaxxxxx"}>Kopieren</button>
+                </div>
+                <pre class="text-xs font-mono text-zinc-300 p-3 leading-relaxed">{`ANTHROPIC_API_KEY=sk-ant-api03-xxxxx
+OPENAI_API_KEY=sk-xxxxx
+GEMINI_API_KEY=AIzaxxxxx`}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schritt 4 -->
+        <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-5">
+          <div class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-full bg-purple-900/60 border border-purple-700/50 flex items-center justify-center text-xs text-purple-400 flex-none mt-0.5">4</span>
+            <div class="flex-1">
+              <div class="text-sm font-bold text-white mb-3">In eigenem Code nutzen</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <p class="text-xs text-zinc-500 mb-1.5 font-medium">Python</p>
+                  <div class="bg-zinc-900 rounded-lg p-3 border border-zinc-700">
+                    <pre class="text-xs font-mono text-zinc-300 leading-relaxed">{`import anthropic
+import os
+
+client = anthropic.Anthropic(
+  api_key=os.getenv("ANTHROPIC_API_KEY")
+)
+
+msg = client.messages.create(
+  model="claude-opus-4-7",
+  max_tokens=1024,
+  messages=[{
+    "role": "user",
+    "content": "Hallo!"
+  }]
+)
+print(msg.content)`}</pre>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-xs text-zinc-500 mb-1.5 font-medium">JavaScript / Node.js</p>
+                  <div class="bg-zinc-900 rounded-lg p-3 border border-zinc-700">
+                    <pre class="text-xs font-mono text-zinc-300 leading-relaxed">{`import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
+
+const msg = await client.messages.create({
+  model: "claude-opus-4-7",
+  max_tokens: 1024,
+  messages: [{
+    role: "user",
+    content: "Hallo!"
+  }]
+});
+console.log(msg.content);`}</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Security Callout -->
+      <div class="p-4 rounded-xl bg-red-950/20 border border-red-800/40">
+        <h4 class="text-sm font-bold text-red-400 mb-3">🚨 Sicherheits-Checkliste</h4>
+        <ul class="space-y-1.5">
+          {[
+            '.env in .gitignore eingetragen? → Keys kommen niemals auf GitHub',
+            'Key sofort rotieren, falls er versehentlich geteilt wurde',
+            'Pro Projekt eigene Keys verwenden — nicht global teilen',
+            'Spending Limit beim Anbieter setzen (Kostenkontrolle)',
+            'Keys niemals per Chat, E-Mail oder Screenshot weitergeben',
+          ].map(item => (
+            <li class="flex items-center gap-2 text-xs text-zinc-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-500 flex-none"></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- 4. .ENV DATEIEN                                        -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <section id="env" class="mb-20 scroll-mt-16">
+
+      <div class="flex items-center gap-3 mb-1">
+        <div class="w-8 h-8 rounded-lg bg-amber-950/60 border border-amber-800/50 flex items-center justify-center text-sm">🔒</div>
+        <h2 class="text-2xl font-bold text-white">.env Dateien</h2>
+      </div>
+      <p class="text-zinc-500 text-sm mb-8 ml-11">Was sie sind, warum sie existieren und wie du sie richtig nutzt.</p>
+
+      <!-- Was ist .env -->
+      <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-5 mb-6">
+        <h3 class="text-sm font-bold text-white mb-3">Was ist eine .env Datei?</h3>
+        <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+          Eine einfache Textdatei mit Schlüssel-Wert-Paaren. Sie trennt <strong class="text-white">Konfiguration vom Code</strong>.
+          Passwörter, API Keys und URLs gehören in die .env — nicht direkt in den Code, nicht auf GitHub.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {[
+            { icon: '🔑', title: 'Secrets',       desc: 'API Keys, Passwörter, Tokens — niemals hardcoded' },
+            { icon: '🌍', title: 'Konfiguration', desc: 'URLs, Ports, Feature-Flags — je nach Umgebung unterschiedlich' },
+            { icon: '🛡', title: 'Sicherheit',    desc: 'Bleibt lokal auf deinem Rechner — wird nie in Git committet' },
+          ].map(c => (
+            <div class="flex items-start gap-3 p-3 rounded-lg bg-zinc-900/60 border border-zinc-800">
+              <span class="text-base">{c.icon}</span>
+              <div>
+                <div class="text-xs font-bold text-white mb-0.5">{c.title}</div>
+                <div class="text-xs text-zinc-500 leading-relaxed">{c.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Schritt 1: Erstellen -->
+      <div class="mb-6">
+        <h3 class="text-base font-bold text-white mb-3">Schritt 1 — .env Datei erstellen</h3>
+        <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-4">
+          <p class="text-xs text-zinc-500 mb-2">Im Terminal im Projektordner:</p>
+          <div class="flex items-center gap-2 bg-zinc-900 rounded-lg px-3 py-2.5 border border-zinc-700 mb-3">
+            <code class="text-sm font-mono text-amber-300 flex-1">touch .env</code>
+            <button class="copy-btn text-xs text-zinc-500 hover:text-white px-2 py-1 bg-zinc-800 rounded border border-zinc-700" data-copy="touch .env">Kopieren</button>
+          </div>
+          <p class="text-xs text-zinc-600">Oder einfach eine neue Datei mit dem Namen <code class="bg-zinc-800 px-1 rounded">.env</code> im Projektordner anlegen (kein Dateiname, nur die Endung).</p>
+        </div>
+      </div>
+
+      <!-- Schritt 2: Syntax -->
+      <div class="mb-6">
+        <h3 class="text-base font-bold text-white mb-3">Schritt 2 — Inhalt &amp; Syntax</h3>
+        <div class="rounded-xl border border-zinc-700 bg-[#1a1a1a] overflow-hidden">
+          <div class="flex items-center justify-between px-4 py-2.5 border-b border-zinc-800 bg-zinc-900/60">
+            <span class="text-xs text-zinc-500 font-mono">.env</span>
+            <button class="copy-btn text-xs text-zinc-500 hover:text-white px-2 py-1 bg-zinc-800 rounded border border-zinc-700" data-copy={envExampleForCopy}>Kopieren</button>
+          </div>
+          <pre class="text-xs font-mono p-4 leading-relaxed overflow-x-auto"><span class="text-zinc-600"># KI-APIs</span>
+<span class="text-amber-300">ANTHROPIC_API_KEY</span><span class="text-zinc-500">=</span><span class="text-emerald-300">sk-ant-api03-xxxxxxxxxxxxxxxxxxxx</span>
+<span class="text-amber-300">OPENAI_API_KEY</span><span class="text-zinc-500">=</span><span class="text-emerald-300">sk-proj-xxxxxxxxxxxxxxxxxxxx</span>
+<span class="text-amber-300">GOOGLE_AI_API_KEY</span><span class="text-zinc-500">=</span><span class="text-emerald-300">AIzaxxxxxxxxxxxxxxxxxxxxxxx</span>
+
+<span class="text-zinc-600"># Datenbank</span>
+<span class="text-amber-300">DATABASE_URL</span><span class="text-zinc-500">=</span><span class="text-emerald-300">postgresql://user:password@localhost:5432/mydb</span>
+
+<span class="text-zinc-600"># App-Konfiguration</span>
+<span class="text-amber-300">APP_PORT</span><span class="text-zinc-500">=</span><span class="text-emerald-300">3000</span>
+<span class="text-amber-300">NODE_ENV</span><span class="text-zinc-500">=</span><span class="text-emerald-300">development</span>
+<span class="text-amber-300">DEBUG</span><span class="text-zinc-500">=</span><span class="text-emerald-300">false</span></pre>
+        </div>
+        <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-zinc-500">
+          <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-zinc-600 flex-none"></span>Zeilen mit # sind Kommentare — werden ignoriert</div>
+          <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500 flex-none"></span>Schlüssel immer in GROSSBUCHSTABEN</div>
+          <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500 flex-none"></span>Wert direkt nach dem = (kein Leerzeichen!)</div>
+        </div>
+      </div>
+
+      <!-- Schritt 3: .gitignore -->
+      <div class="mb-6">
+        <h3 class="text-base font-bold text-white mb-3">Schritt 3 — .gitignore einrichten</h3>
+        <p class="text-sm text-zinc-400 mb-3">Füge .env zur .gitignore Datei hinzu — damit sie niemals auf GitHub landet:</p>
+        <div class="rounded-xl border border-zinc-700 bg-[#1a1a1a] overflow-hidden">
+          <div class="flex items-center justify-between px-4 py-2.5 border-b border-zinc-800 bg-zinc-900/60">
+            <span class="text-xs text-zinc-500 font-mono">.gitignore</span>
+            <button class="copy-btn text-xs text-zinc-500 hover:text-white px-2 py-1 bg-zinc-800 rounded border border-zinc-700" data-copy={gitignoreContent}>Kopieren</button>
+          </div>
+          <pre class="text-xs font-mono text-red-300 p-4 leading-relaxed">{`.env
+.env.local
+.env.*.local
+.env.production`}</pre>
+        </div>
+        <div class="mt-3 p-3 rounded-lg bg-amber-950/20 border border-amber-800/30">
+          <p class="text-xs text-amber-300">
+            <span class="font-bold">Wichtig:</span> Wenn du noch kein .gitignore hast, erstelle es im Projektordner mit dem Befehl
+            <code class="bg-zinc-900 px-1 rounded ml-1">touch .gitignore</code>
+          </p>
+        </div>
+      </div>
+
+      <!-- Schritt 4: In Code laden -->
+      <div class="mb-6">
+        <h3 class="text-base font-bold text-white mb-3">Schritt 4 — In deinem Code laden</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+          <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-4">
+            <div class="text-xs font-bold text-blue-400 mb-1">Python</div>
+            <div class="text-xs text-zinc-500 mb-3">pip install python-dotenv</div>
+            <div class="bg-zinc-900 rounded-lg p-3 border border-zinc-800">
+              <pre class="text-xs font-mono text-zinc-300 leading-relaxed">{`from dotenv import load_dotenv
+import os
+
+load_dotenv()  # .env laden
+
+key = os.getenv("ANTHROPIC_API_KEY")`}</pre>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-4">
+            <div class="text-xs font-bold text-yellow-400 mb-1">Node.js</div>
+            <div class="text-xs text-zinc-500 mb-3">npm install dotenv</div>
+            <div class="bg-zinc-900 rounded-lg p-3 border border-zinc-800">
+              <pre class="text-xs font-mono text-zinc-300 leading-relaxed">{`import 'dotenv/config';
+// oder:
+require('dotenv').config();
+
+const key =
+  process.env.ANTHROPIC_API_KEY;`}</pre>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-4">
+            <div class="text-xs font-bold text-purple-400 mb-1">Claude Code</div>
+            <div class="text-xs text-zinc-500 mb-3">Kein Setup nötig</div>
+            <div class="bg-zinc-900 rounded-lg p-3 border border-zinc-800 h-[calc(100%-52px)]">
+              <p class="text-xs text-zinc-400 leading-relaxed">Claude Code liest .env automatisch beim Start. Einfach .env im Projektordner ablegen und loslegen.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- .env.example -->
+      <div class="mb-6">
+        <h3 class="text-base font-bold text-white mb-3">Bonus: .env.example für andere</h3>
+        <p class="text-sm text-zinc-400 mb-3">Eine .env.example ohne echte Keys kannst du sicher committen — so wissen Mitarbeiter, welche Variablen gebraucht werden:</p>
+        <div class="rounded-xl border border-zinc-700 bg-[#1a1a1a] overflow-hidden">
+          <div class="flex items-center justify-between px-4 py-2.5 border-b border-zinc-800 bg-zinc-900/60">
+            <span class="text-xs text-zinc-500 font-mono">.env.example</span>
+            <button class="copy-btn text-xs text-zinc-500 hover:text-white px-2 py-1 bg-zinc-800 rounded border border-zinc-700" data-copy={"ANTHROPIC_API_KEY=your-key-here\nOPENAI_API_KEY=your-key-here\nDATABASE_URL=your-database-url-here"}>Kopieren</button>
+          </div>
+          <pre class="text-xs font-mono text-zinc-400 p-4 leading-relaxed">{`ANTHROPIC_API_KEY=your-key-here
+OPENAI_API_KEY=your-key-here
+DATABASE_URL=your-database-url-here`}</pre>
+        </div>
+      </div>
+
+      <!-- Häufige Fehler -->
+      <div>
+        <h3 class="text-base font-bold text-white mb-4">Häufige Fehler</h3>
+        <div class="space-y-3">
+          {[
+            { fehler: 'Variable ist undefined / None', grund: '.env nicht geladen oder Tippfehler im Schlüsselnamen.', fix: 'Namen exakt prüfen (Groß-/Kleinschreibung). load_dotenv() aufgerufen?' },
+            { fehler: 'Key auf GitHub geleakt', grund: '.env versehentlich committet — nicht in .gitignore eingetragen.', fix: 'Key sofort beim Anbieter widerrufen & neu erstellen. .gitignore reparieren.' },
+            { fehler: 'Leerzeichen um das = Zeichen', grund: 'KEY = value funktioniert in manchen Tools nicht.', fix: 'Immer ohne Leerzeichen schreiben: KEY=value' },
+            { fehler: 'Anführungszeichen werden mitgeladen', grund: 'KEY="mein-wert" — die " werden mit übergeben.', fix: 'Ohne Anführungszeichen schreiben: KEY=mein-wert (außer Wert enthält Leerzeichen)' },
+          ].map(e => (
+            <div class="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-4">
+              <div class="flex items-start gap-2 mb-2">
+                <span class="text-amber-400 text-sm flex-none">⚠</span>
+                <span class="text-sm font-bold text-white">{e.fehler}</span>
+              </div>
+              <p class="text-xs text-zinc-500 mb-1 ml-6"><span class="text-zinc-600">Grund: </span>{e.grund}</p>
+              <p class="text-xs text-emerald-400 ml-6"><span class="text-zinc-600">Fix: </span>{e.fix}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Back to top -->
+    <div class="text-center pb-4">
+      <a href="#" class="text-xs text-zinc-700 hover:text-zinc-500 transition-colors">↑ Nach oben</a>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-zinc-800 mt-8 py-8 text-center text-zinc-600 text-sm">
+    <p>AI Tools Directory · Stand April 2026 · Kein Affiliate-Tracking</p>
+  </footer>
+</Layout>
+
+<script>
+  // Copy buttons
+  document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = btn.dataset.copy ?? '';
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = '✓ Kopiert';
+        setTimeout(() => { btn.textContent = orig; }, 1500);
+      });
+    });
+  });
+
+  // Glossary search + category filter
+  const searchInput = document.getElementById('glossar-search') as HTMLInputElement;
+  const catBtns = document.querySelectorAll<HTMLElement>('#cat-filter button');
+  const cards = document.querySelectorAll<HTMLElement>('.glossar-card');
+  const countEl = document.getElementById('glossar-count')!;
+  const emptyEl = document.getElementById('glossar-empty')!;
+  const gridEl = document.getElementById('glossar-grid')!;
+
+  let activeCat = 'Alle';
+
+  function filterGlossar() {
+    const q = searchInput.value.toLowerCase().trim();
+    let visible = 0;
+    cards.forEach(card => {
+      const matchCat = activeCat === 'Alle' || card.dataset.cat === activeCat;
+      const matchQ = !q || (card.dataset.term ?? '').includes(q) || (card.dataset.def ?? '').includes(q);
+      if (matchCat && matchQ) { card.classList.remove('hidden'); visible++; }
+      else card.classList.add('hidden');
+    });
+    countEl.textContent = `${visible} Begriff${visible !== 1 ? 'e' : ''}`;
+    emptyEl.classList.toggle('hidden', visible > 0);
+    gridEl.classList.toggle('hidden', visible === 0);
+  }
+
+  searchInput.addEventListener('input', filterGlossar);
+
+  catBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCat = btn.dataset.cat ?? 'Alle';
+      catBtns.forEach(b => {
+        const isActive = b.dataset.cat === activeCat;
+        b.className = `text-xs px-3 py-1.5 rounded-full border transition-colors ${isActive
+          ? 'bg-cyan-900/60 border-cyan-700 text-cyan-300'
+          : 'bg-zinc-900 border-zinc-700 text-zinc-400 hover:border-cyan-700 hover:text-white'}`;
+      });
+      filterGlossar();
+    });
+  });
+
+  // Nav scroll highlight
+  const sections = document.querySelectorAll<HTMLElement>('section[id]');
+  const navLinks = document.querySelectorAll<HTMLElement>('.nav-anchor');
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            const active = link.getAttribute('href') === '#' + entry.target.id;
+            link.classList.toggle('bg-zinc-800', active);
+            link.classList.toggle('text-white', active);
+            link.classList.toggle('text-zinc-400', !active);
+          });
+        }
+      });
+    },
+    { rootMargin: '-20% 0px -70% 0px' }
+  );
+
+  sections.forEach(s => observer.observe(s));
+</script>
